@@ -35,6 +35,8 @@ BOOST_FIXTURE_TEST_CASE(CPUMatrixConstructorNoFlags, RandomSeedFixture)
 
     DMatrix m1(m);
     BOOST_CHECK(m1.IsEqualTo(m));
+
+    BOOST_CHECK(0); // TODO don't integrate
 }
 
 BOOST_FIXTURE_TEST_CASE(CPUMatrixConstructorFlagNormal, RandomSeedFixture)
