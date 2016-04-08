@@ -125,7 +125,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             endChunkIdxToRandomize++;  // new J
         }
 
-       // Determine the range of chunks that need to be in m_sequenceWindows for us
+        // Determine the range of chunks that need to be in m_sequenceWindows for us
         // to perform the necessary randomization
         //size_t startChunkIdx = std::min(GetChunkIndexOf(m_currentSamplePosition), m_randomizedChunks[GetChunkIndexOf(firstSamplePositionToRandomize)].m_randomizationWindow.m_begin);
         size_t endChunkIdx = m_randomizedChunks[endChunkIdxToRandomize - 1].m_randomizationWindow.m_end; // new K
@@ -187,7 +187,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             }
         }
 
-        size_t sampleCount;
+        size_t sampleCount = 0;
         size_t randomizedChunk = m_i - m_h;
         for (size_t index = 0; index < m_sequenceWindow[randomizedChunk].size(); index++)
         {
