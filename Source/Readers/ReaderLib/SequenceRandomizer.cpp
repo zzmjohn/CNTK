@@ -29,13 +29,11 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         IDataDeserializerPtr deserializer,
         ChunkRandomizerPtr chunkRandomizer)
         : m_randomizedChunks(chunkRandomizer->GetRandomizedChunks()),
-        m_currentRangeBeginChunkIndex(0),
-        m_currentRangeEndChunkIndex(0),
-        m_nextSamplePositionNotYetRandomized(0),
-        m_nextSequencePositionNotYetRandomized(0),
+        m_h(0),
+        m_k(0),
+        m_nextChunkNotYetRandomized(0),
         m_currentSequencePosition(0),
         m_currentChunkPosition(0),
-        m_currentSamplePosition(0),
         m_deserializer(deserializer)
     {
         size_t max = 0;
@@ -53,44 +51,38 @@ namespace Microsoft { namespace MSR { namespace CNTK {
     // Gets next randomized sequence descriptions not exceeding the count.
     std::vector<RandomizedSequenceDescription> SequenceRandomizer::GetNextSequenceDescriptions(size_t sampleCount)
     {
-        RandomizeNextSequenceDescriptions(sampleCount);
-
         int samples = (int)sampleCount;
 
         std::vector<RandomizedSequenceDescription> result;
         result.reserve(sampleCount);
 
-        assert(IsChunkInWindow(m_currentChunkPosition));
-
         size_t sequenceOffsetInsideChunk = m_currentSequencePosition - m_randomizedChunks[m_currentChunkPosition].m_sequencePositionStart;
-        RandomizedSequenceDescription* sequence = &m_sequenceWindow[m_currentChunkPosition - m_currentRangeBeginChunkIndex][sequenceOffsetInsideChunk];
+        RandomizedSequenceDescription* sequence = &m_sequenceWindow[m_currentChunkPosition - m_h][sequenceOffsetInsideChunk];
 
         result.push_back(*sequence);
         samples -= (int)sequence->m_numberOfSamples;
         m_currentSequencePosition++;
-        m_currentSamplePosition += sequence->m_numberOfSamples;
 
         if (sequenceOffsetInsideChunk + 1 >= m_randomizedChunks[m_currentChunkPosition].m_original->m_numberOfSequences)
         {
             // Moving to the next chunk.
-            m_currentChunkPosition++;
+            MoveChunkCursor();
         }
 
         while (samples > 0 && m_currentChunkPosition < m_randomizedChunks.size())
         {
             sequenceOffsetInsideChunk = m_currentSequencePosition - m_randomizedChunks[m_currentChunkPosition].m_sequencePositionStart;
-            sequence = &m_sequenceWindow[m_currentChunkPosition - m_currentRangeBeginChunkIndex][sequenceOffsetInsideChunk];
+            sequence = &m_sequenceWindow[m_currentChunkPosition - m_h][sequenceOffsetInsideChunk];
             if (samples - sequence->m_numberOfSamples >= 0)
             {
                 result.push_back(*sequence);
                 m_currentSequencePosition++;
                 samples -= (int)sequence->m_numberOfSamples;
-                m_currentSamplePosition += sequence->m_numberOfSamples;
 
                 if (sequenceOffsetInsideChunk + 1 >= m_randomizedChunks[m_currentChunkPosition].m_original->m_numberOfSequences)
                 {
                     // Moving to the next chunk.
-                    m_currentChunkPosition++;
+                    MoveChunkCursor();
                 }
             }
             else
@@ -102,66 +94,58 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         return result;
     }
 
-    void SequenceRandomizer::RandomizeNextSequenceDescriptions(size_t sampleCount)
+    void SequenceRandomizer::MoveChunkCursor()
     {
-        assert(m_currentSamplePosition <= m_nextSamplePositionNotYetRandomized);
-        if (m_currentSamplePosition + sampleCount <= m_nextSamplePositionNotYetRandomized)
+        m_currentChunkPosition++;
+        RandomizeNextChunkIfNeeded();
+    }
+
+    void SequenceRandomizer::RandomizeNextChunkIfNeeded()
+    {
+        if (m_currentChunkPosition < m_i)
         {
             return;
         }
+        assert(m_i == m_currentChunkPosition);
 
-        if (m_nextSamplePositionNotYetRandomized == m_randomizedChunks.back().SampleEndPosition())
+        if (m_i == m_randomizedChunks.size())
         {
             return;
         }
-
-        if (m_nextSequencePositionNotYetRandomized == m_randomizedChunks.back().SequenceEndPosition())
-        {
-            assert(false);
-            return;
-        }
-
-        assert(m_nextSamplePositionNotYetRandomized >= m_randomizedChunks[0].m_samplePositionStart);
-
-        size_t firstSamplePositionToRandomize = m_nextSamplePositionNotYetRandomized;
-        size_t firstSequencePositionToRandomize = m_nextSequencePositionNotYetRandomized;
 
         // Find the smallest chunk index whose windows begin exceeds the chunk index
-        // of the sample position we have to randomize (current + sampleCount).
+        // of the sample position we have to randomized (current + sampleCount).
         // We will randomize up to this chunk as the final position of windows end is guaranteed to have been determined
         // when all sequences up to that chunk have been randomized
-        size_t lastSamplePositionChunkIdx = GetChunkIndexOf(m_currentSamplePosition + sampleCount - 1);
+        size_t lastSamplePositionChunkIdx = m_i + 1;
         size_t endChunkIdxToRandomize = lastSamplePositionChunkIdx;
         while (endChunkIdxToRandomize < m_randomizedChunks.size() &&
-            m_randomizedChunks[endChunkIdxToRandomize].m_randomizationWindow.m_begin <= lastSamplePositionChunkIdx)
+               m_randomizedChunks[endChunkIdxToRandomize].m_randomizationWindow.m_begin <= lastSamplePositionChunkIdx)
         {
-            endChunkIdxToRandomize++;
+            endChunkIdxToRandomize++;  // new J
         }
 
-        size_t endFramePosToRandomize = m_randomizedChunks[endChunkIdxToRandomize - 1].SampleEndPosition();
-        size_t endSequencePosToRandomize = m_randomizedChunks[endChunkIdxToRandomize - 1].SequenceEndPosition();
-        assert(GetChunkIndexOf(endFramePosToRandomize - 1) == endChunkIdxToRandomize - 1);
-
-        // Determine the range of chunks that need to be in m_sequenceWindows for us
+       // Determine the range of chunks that need to be in m_sequenceWindows for us
         // to perform the necessary randomization
-        size_t startChunkIdx = std::min(GetChunkIndexOf(m_currentSamplePosition), m_randomizedChunks[GetChunkIndexOf(firstSamplePositionToRandomize)].m_randomizationWindow.m_begin);
-        size_t endChunkIdx = m_randomizedChunks[GetChunkIndexOf(endFramePosToRandomize - 1)].m_randomizationWindow.m_end;
-        assert(endChunkIdxToRandomize <= endChunkIdx);
+        //size_t startChunkIdx = std::min(GetChunkIndexOf(m_currentSamplePosition), m_randomizedChunks[GetChunkIndexOf(firstSamplePositionToRandomize)].m_randomizationWindow.m_begin);
+        size_t endChunkIdx = m_randomizedChunks[endChunkIdxToRandomize - 1].m_randomizationWindow.m_end; // new K
 
-        // Let's drop everything that is outside the new range [startChunkIdx, endChunkIdx)
-        for (size_t i = m_currentRangeBeginChunkIndex; i < startChunkIdx; ++i)
-        {
-            m_sequenceWindow.pop_front();
-            m_chunkWindow.pop_front();
-            m_currentRangeBeginChunkIndex++;
-        }
+        // Lets drop everything that is outside the new range [startChunkIdx, endChunkIdx)
+        //for (size_t i = m_currentRangeBeginChunkIndex; i < startChunkIdx; ++i)
+        //{
+        //    m_sequenceWindow.pop_front();
+        //    m_chunkWindow.pop_front();
+        //    m_currentRangeBeginChunkIndex++;
+        //}
 
-        // Let's page in everything from m_currentRangeEndChunkIndex to endChunkIdx
-        for (size_t i = m_currentRangeEndChunkIndex; i < endChunkIdx; ++i)
+        // Lets page in everything from m_currentRangeEndChunkIndex to endChunkIdx
+        for (size_t i = m_k; i < endChunkIdx; ++i)
         {
             AddRandomizedSequencesForChunk(i);
         }
 
+        size_t firstSequencePositionToRandomize = m_randomizedChunks[m_j].m_sequencePositionStart;
+        size_t endSequencePosToRandomize = m_randomizedChunks[endChunkIdxToRandomize - 1].SequenceEndPosition();
         for (size_t t = firstSequencePositionToRandomize; t < endSequencePosToRandomize; ++t)
         {
             // Get valid randomization range, expressed in chunks
@@ -203,63 +187,70 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             }
         }
 
-        m_nextSamplePositionNotYetRandomized = endFramePosToRandomize;
-        m_nextSequencePositionNotYetRandomized = endSequencePosToRandomize;
+        size_t sampleCount;
+        size_t randomizedChunk = m_i - m_h;
+        for (size_t index = 0; index < m_sequenceWindow[randomizedChunk].size(); index++)
+        {
+            sampleCount += m_sequenceWindow[randomizedChunk][index].m_numberOfSamples;
+        }
+
+        ChunkInfo info;
+        info.numberOfSamples = sampleCount;
+        info.start = m_randomizedChunkInfo.empty() ? 0 : m_randomizedChunkInfo.back().start + m_randomizedChunkInfo.back().numberOfSamples;
+        m_randomizedChunkInfo.push_back(info);
+
+        m_j = endChunkIdxToRandomize;
+        m_i++;
+        m_k = endChunkIdx;
     }
 
     // Resets the current sweep according to the randomization seed provided.
     void SequenceRandomizer::Reset(size_t randSeed)
     {
         srand((unsigned int)randSeed);
-        size_t sweepts = m_randomizedChunks[0].m_samplePositionStart;
 
         m_sequenceWindow.clear();
         m_chunkWindow.clear();
-        m_currentRangeBeginChunkIndex = m_randomizedChunks[0].m_randomizationWindow.m_begin;
-        m_currentRangeEndChunkIndex = m_currentRangeBeginChunkIndex;
-        m_nextSamplePositionNotYetRandomized = sweepts;
-        m_nextSequencePositionNotYetRandomized = 0;
-
+        m_h = m_i = m_j = m_k = 0;
+        m_nextChunkNotYetRandomized = 0;
         m_currentSequencePosition = 0;
         m_currentChunkPosition = 0;
-        m_currentSamplePosition = 0;
+
+        // Prepare the chunk for reading
+        RandomizeNextChunkIfNeeded();
     }
 
     // Sets current sequence position to the sample offset.
     // If offset is in the middle of the sequence, the next sequence is picked up.
     size_t SequenceRandomizer::Seek(size_t offset, size_t sweep)
     {
-        size_t chunkIdx = GetChunkIndexOf(offset);
-        if (!IsChunkInWindow(chunkIdx))
+        size_t hs = m_randomizedChunkInfo.empty() ? 0 : m_randomizedChunkInfo.front().start;
+        size_t is = m_randomizedChunkInfo.empty() ? 0 : m_randomizedChunkInfo.back().start + m_randomizedChunkInfo.back().numberOfSamples;
+        if(offset < hs)
         {
             Reset(sweep + 1);
-            size_t count = offset;
-            // We need to randomize at least a single sequence (expectation of RandomizeNextSequenceDescriptions),
-            // so we increase count by one if it is zero.
-            if (count == 0)
-            {
-                count++;
-            }
-
-            RandomizeNextSequenceDescriptions(count);
         }
-
-        assert(chunkIdx >= m_currentRangeBeginChunkIndex);
-        assert(chunkIdx < m_currentRangeEndChunkIndex);
-
-        size_t sampleOffsetInsideChunk = offset - m_randomizedChunks[chunkIdx].m_samplePositionStart;
-        auto& sequences = m_sequenceWindow[chunkIdx - m_currentRangeBeginChunkIndex];
-
-        size_t numberOfSamples = 0;
-        size_t sequenceId = 0;
-        for (size_t i = 0; i < sequences.size() && numberOfSamples < sampleOffsetInsideChunk; ++i)
+        else if (offset < is)
         {
-            numberOfSamples += sequences[i].m_numberOfSamples;
-            sequenceId++;
+            size_t index;
+            for (index = 0; index <= m_randomizedChunkInfo.size() - 1; index++)
+            {
+                if (m_randomizedChunkInfo[index].start >= offset && offset < (m_randomizedChunkInfo[index].start + m_randomizedChunkInfo[index].numberOfSamples))
+                {
+                    break;
+                }
+            }
+            m_currentCursor = m_randomizedChunkInfo[index].start;
         }
 
-        m_currentSequencePosition = sequenceId + m_randomizedChunks[chunkIdx].m_sequencePositionStart;
-        return m_randomizedChunks[chunkIdx].m_samplePositionStart + numberOfSamples;
+        // advance
+        // offset - is
+        while (m_currentCursor < offset)
+        {
+            GetNextSequenceDescriptions(1);
+        }
+
+        return m_currentCursor;
     }
 
     // Checks if the randomized sequence is valid for a target position using its chunk randomization window.
@@ -289,44 +280,10 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         return result - 1 - m_randomizedChunks.begin();
     }
 
-    // Gets chunk index using a sample position in the sweep.
-    // TODO: upper bound should be used instead.
-    size_t SequenceRandomizer::GetChunkIndexOf(size_t sampleOffsetInSweep)
-    {
-        size_t low = 0; // TODO: m_currentRangeBeginChunkIdx; can be done more efficient?
-        size_t high = m_randomizedChunks.size() - 1;
-        while (high > low)
-        {
-            size_t mid = (high + low) / 2;
-            if (sampleOffsetInSweep >= m_randomizedChunks[mid].SampleEndPosition())
-            {
-                low = mid + 1;
-            }
-            else if (sampleOffsetInSweep < m_randomizedChunks[mid].m_samplePositionStart)
-            {
-                assert(mid > 0);
-                high = mid - 1;
-            }
-            else
-            {
-                return mid;
-            }
-        }
-
-        assert((high == low) && ((sampleOffsetInSweep >= m_randomizedChunks[low].m_samplePositionStart) && (sampleOffsetInSweep < m_randomizedChunks[low].SampleEndPosition())));
-        return low;
-    }
-
-    // Checks if chunk index is in the current window.
-    bool SequenceRandomizer::IsChunkInWindow(size_t chunkIdx) const
-    {
-        return chunkIdx >= m_currentRangeBeginChunkIndex && chunkIdx < m_currentRangeEndChunkIndex;
-    }
-
     // Add randomizes sequences for the chunk with a given index.
     void SequenceRandomizer::AddRandomizedSequencesForChunk(size_t chunkIdx)
     {
-        assert(chunkIdx == m_currentRangeEndChunkIndex);
+        assert(chunkIdx == m_k);
 
         const RandomizedChunk& chunk = m_randomizedChunks[chunkIdx];
         std::vector<RandomizedSequenceDescription> chunkSequences;
@@ -345,7 +302,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
 
         m_sequenceWindow.push_back(std::move(chunkSequences));
         m_chunkWindow.push_back(chunk);
-        m_currentRangeEndChunkIndex++;
+        m_k++;
     }
 
     // Gets randomized sequence by the sequence id.
@@ -353,6 +310,6 @@ namespace Microsoft { namespace MSR { namespace CNTK {
     {
         size_t globalChunkIdx = GetChunkIndexForSequencePosition(sequenceId);
         size_t sequenceOffsetInsideChunk = sequenceId - m_randomizedChunks[globalChunkIdx].m_sequencePositionStart;
-        return m_sequenceWindow[globalChunkIdx - m_currentRangeBeginChunkIndex][sequenceOffsetInsideChunk];
+        return m_sequenceWindow[globalChunkIdx - m_h][sequenceOffsetInsideChunk];
     }
 }}}

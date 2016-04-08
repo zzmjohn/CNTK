@@ -55,8 +55,7 @@ public:
 private:
     DISABLE_COPY_AND_MOVE(SequenceRandomizer);
 
-    // Randomizes next sequence descriptions not exceeding sample count.
-    void RandomizeNextSequenceDescriptions(size_t sampleCount);
+    void RandomizeNextChunkIfNeeded();
 
     // Validates if sequence description is valid for the current position.
     bool IsValidForPosition(size_t targetPosition, const RandomizedSequenceDescription& seqDesc) const;
@@ -67,9 +66,6 @@ private:
     // Gets randomized sequence description by the sample offset in the sweep.
     RandomizedSequenceDescription& GetRandomizedSequenceDescriptionBySequenceId(size_t sequenceId);
 
-    // Gets chunk index given a sample offset in the sweep.
-    size_t GetChunkIndexOf(size_t sampleOffsetInSweep);
-
     // Checks if chunk index is in the randomized window.
     bool IsChunkInWindow(size_t chunkIndex) const;
 
@@ -77,6 +73,8 @@ private:
     void AddRandomizedSequencesForChunk(size_t chunkIndex);
 
 private:
+    void MoveChunkCursor();
+
     // Randomized chunks.
     const std::vector<RandomizedChunk>& m_randomizedChunks;
 
@@ -87,29 +85,37 @@ private:
     // A rolling window of randomized sequences for the chunks.
     std::deque<std::vector<RandomizedSequenceDescription>> m_sequenceWindow;
 
-    // Index (< m_randomizedChunks.size) of the first chunk in the window(m_chunkWindow).
-    size_t m_currentRangeBeginChunkIndex;
-
-    // Index (< m_randomizedChunks.size) of the last chunk in the window(m_chunkWindow).
-    size_t m_currentRangeEndChunkIndex;
-
     // Next sample position not yet randomized.
-    size_t m_nextSamplePositionNotYetRandomized;
-
-    // Next sequence position not yet randomized.
-    size_t m_nextSequencePositionNotYetRandomized;
+    size_t m_nextChunkNotYetRandomized;
 
     IDataDeserializerPtr m_deserializer;
 
     // Current sequence position.
     size_t m_currentSequencePosition;
+
     // Current chunk position.
     size_t m_currentChunkPosition;
-    // Current sample position.
-    size_t m_currentSamplePosition;
 
     // Used only as a buffer to get sequence descriptions without memory reallocation.
     std::vector<SequenceDescription> m_bufferOriginalSequences;
+
+    struct ChunkInfo
+    {
+        size_t start;
+        size_t numberOfSamples;
+    };
+
+    std::deque<ChunkInfo> m_randomizedChunkInfo;
+
+    size_t m_currentCursor;
+
+    size_t m_i; // Fully randomized.
+    size_t m_j; // Continue randomization.
+    // Index (< m_randomizedChunks.size) of the first chunk in the window(m_chunkWindow).
+    size_t m_h;
+
+    // Index (< m_randomizedChunks.size) of the last chunk in the window(m_chunkWindow).
+    size_t m_k;
 };
 
 typedef std::shared_ptr<SequenceRandomizer> SequenceRandomizerPtr;
