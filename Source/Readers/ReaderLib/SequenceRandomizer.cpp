@@ -152,7 +152,16 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             AddRandomizedSequencesForChunk(i);
         }
 
-        size_t firstSequencePositionToRandomize = m_randomizedChunks[m_j == 0 ? 0 : m_j - 1].SequenceEndPosition();
+        size_t firstSequencePositionToRandomize = 0;
+        if (!m_j)
+        {
+            firstSequencePositionToRandomize = 0;
+        }
+        else
+        {
+            firstSequencePositionToRandomize = m_randomizedChunks[m_j - 1].SequenceEndPosition();
+        }
+
         size_t endSequencePosToRandomize = m_randomizedChunks[endChunkIdxToRandomize - 1].SequenceEndPosition();
         for (size_t t = firstSequencePositionToRandomize; t < endSequencePosToRandomize; ++t)
         {
