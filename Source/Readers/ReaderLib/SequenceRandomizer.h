@@ -52,6 +52,8 @@ public:
         return m_chunkWindow;
     }
 
+    void ReleaseChunks();
+
 private:
     DISABLE_COPY_AND_MOVE(SequenceRandomizer);
 

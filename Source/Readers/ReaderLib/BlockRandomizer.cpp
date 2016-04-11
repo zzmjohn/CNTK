@@ -134,6 +134,7 @@ Sequences BlockRandomizer::GetNextSequences(size_t sampleCount)
         }
     }
 
+    m_sequenceRandomizer->ReleaseChunks();
     return result;
 }
 

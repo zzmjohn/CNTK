@@ -62,6 +62,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         result.push_back(*sequence);
         samples -= (int)sequence->m_numberOfSamples;
         m_currentSequencePosition++;
+        m_currentCursor += (int)sequence->m_numberOfSamples;
 
         if (sequenceOffsetInsideChunk + 1 >= m_randomizedChunks[m_currentChunkPosition].m_original->m_numberOfSequences)
         {
@@ -78,6 +79,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
                 result.push_back(*sequence);
                 m_currentSequencePosition++;
                 samples -= (int)sequence->m_numberOfSamples;
+                m_currentCursor += (int)sequence->m_numberOfSamples;
 
                 if (sequenceOffsetInsideChunk + 1 >= m_randomizedChunks[m_currentChunkPosition].m_original->m_numberOfSequences)
                 {
@@ -94,6 +96,25 @@ namespace Microsoft { namespace MSR { namespace CNTK {
     {
         m_currentChunkPosition++;
         RandomizeNextChunkIfNeeded();
+    }
+
+    void SequenceRandomizer::ReleaseChunks()
+    {
+        // TODO: we should drop chunks, but firstly make sure that they are not used any more.
+        // That means the sequence description that we have got from the previous call can still be in the BlockRandomizer,
+        // so we need to make sure that the clean up code below is used only when the chunk is not required anymore.
+        size_t candiateToUnload = m_h;
+        while (candiateToUnload < m_randomizedChunks[m_i - 1].m_randomizationWindow.m_begin)
+        {
+            // Check that the chunk is not in use by the last randomized chunk.
+            if (m_randomizedChunks[candiateToUnload].m_randomizationWindow.m_end <= m_i - 1)
+            {
+                m_sequenceWindow.pop_front();
+                m_chunkWindow.pop_front();
+                m_randomizedChunkInfo.pop_front();
+                m_h++;
+            }
+        }
     }
 
     void SequenceRandomizer::RandomizeNextChunkIfNeeded()
@@ -120,22 +141,6 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         {
             endChunkIdxToRandomize++;  // new J
         }
-
-        // TODO: we should drop chunks, but firstly make sure that they are not used any more.
-        // TODO: That means the sequence description that we have got from the previous call can still be in the BlockRandomizer,
-        // TODO: so we need to make sure that the clean up code below is used only when the chunk is not required anymore.
-        // size_t candiateToUnload = m_h;
-        // while (candiateToUnload < m_randomizedChunks[m_i].m_randomizationWindow.m_begin)
-        // {
-            // Can unload
-            // if (m_randomizedChunks[candiateToUnload].m_randomizationWindow.m_end <= m_i)
-            //{
-            //    m_sequenceWindow.pop_front();
-            //    m_chunkWindow.pop_front();
-            //    m_randomizedChunkInfo.pop_front();
-            //    m_h++;
-            //}
-        // }
 
         // Determine the end chunk that we need to load into memory.
         size_t endChunkIdx = m_randomizedChunks[endChunkIdxToRandomize - 1].m_randomizationWindow.m_end; // new K
@@ -247,7 +252,10 @@ namespace Microsoft { namespace MSR { namespace CNTK {
                     break;
                 }
             }
+
             m_currentCursor = m_randomizedChunkInfo[index].start;
+            m_currentChunkPosition = index + m_h;
+            m_currentSequencePosition = m_randomizedChunks[index + m_h].m_sequencePositionStart;
         }
 
         // advance
