@@ -103,17 +103,17 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         // TODO: we should drop chunks, but firstly make sure that they are not used any more.
         // That means the sequence description that we have got from the previous call can still be in the BlockRandomizer,
         // so we need to make sure that the clean up code below is used only when the chunk is not required anymore.
+        size_t currentChunk = std::min(m_currentChunkPosition, m_randomizedChunks.size() - 1);
         size_t candiateToUnload = m_h;
-        while (candiateToUnload < m_randomizedChunks[m_currentChunkPosition].m_randomizationWindow.m_begin)
+        while (candiateToUnload < m_randomizedChunks.size() &&
+               candiateToUnload < m_randomizedChunks[currentChunk].m_randomizationWindow.m_begin &&
+               m_randomizedChunks[candiateToUnload].m_randomizationWindow.m_end <= m_currentChunkPosition)
         {
-            // Check that the chunk is not in use by the last randomized chunk.
-            if (m_randomizedChunks[candiateToUnload].m_randomizationWindow.m_end <= m_i - 1)
-            {
-                m_sequenceWindow.pop_front();
-                m_chunkWindow.pop_front();
-                m_randomizedChunkInfo.pop_front();
-                m_h++;
-            }
+            m_sequenceWindow.pop_front();
+            m_chunkWindow.pop_front();
+            m_randomizedChunkInfo.pop_front();
+            m_h++;
+            candiateToUnload++;
         }
     }
 
@@ -151,7 +151,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             AddRandomizedSequencesForChunk(i);
         }
 
-        size_t firstSequencePositionToRandomize = m_randomizedChunks[m_j].m_sequencePositionStart;
+        size_t firstSequencePositionToRandomize = m_randomizedChunks[m_j == 0 ? 0 : m_j - 1].SequenceEndPosition();
         size_t endSequencePosToRandomize = m_randomizedChunks[endChunkIdxToRandomize - 1].SequenceEndPosition();
         for (size_t t = firstSequencePositionToRandomize; t < endSequencePosToRandomize; ++t)
         {
