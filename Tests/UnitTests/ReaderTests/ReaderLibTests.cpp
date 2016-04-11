@@ -9,6 +9,7 @@
 #include "DataDeserializer.h"
 #include "BlockRandomizer.h"
 #include <numeric>
+#include <random>
 
 using namespace Microsoft::MSR::CNTK;
 
@@ -261,6 +262,43 @@ BOOST_AUTO_TEST_CASE(BlockRandomizerOneEpochWithChunks2)
     }
     BOOST_CHECK_EQUAL_COLLECTIONS(expected.begin(), expected.end(),
         actual.begin(), actual.end());
+}
+
+BOOST_AUTO_TEST_CASE(BlockRandomizerNoCrash)
+{
+    const int seed = 42;
+    const int numChunks = 100;
+    const int numSequencesPerChunk = 10;
+    const int windowSize = 18;
+    std::vector<float> data(numChunks * numSequencesPerChunk);
+    std::iota(data.begin(), data.end(), 0.0f);
+    std::mt19937 rng(seed);
+    std::uniform_int_distribution<int> distr(1, 10);
+
+    auto mockDeserializer = std::make_shared<MockDeserializer>(numChunks, numSequencesPerChunk, data);
+
+    auto randomizer = std::make_shared<BlockRandomizer>(0, windowSize, mockDeserializer, BlockRandomizer::DecimationMode::chunk, false);
+    for (int t = 0; t < 100; t++)
+    {
+        EpochConfiguration epochConfiguration;
+        epochConfiguration.m_numberOfWorkers = distr(rng);
+        do
+        {
+            epochConfiguration.m_workerRank = distr(rng) - 1;
+
+        } while (epochConfiguration.m_numberOfWorkers <= epochConfiguration.m_workerRank);
+        epochConfiguration.m_minibatchSizeInSamples = 0; // don't care
+        epochConfiguration.m_totalEpochSizeInSamples = data.size() / distr(rng);
+        epochConfiguration.m_epochIndex = distr(rng);
+        randomizer->StartEpoch(epochConfiguration);
+
+        int samplesToGet = 0;
+        for (int i = 0; i < epochConfiguration.m_totalEpochSizeInSamples + 1; i += samplesToGet)
+        {
+            samplesToGet = distr(rng);
+            Sequences sequences = randomizer->GetNextSequences(samplesToGet);
+        }
+    }
 }
 
 BOOST_AUTO_TEST_CASE(BlockRandomizerOneEpochLegacyRandomization)
