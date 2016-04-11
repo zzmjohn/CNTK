@@ -104,7 +104,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         // That means the sequence description that we have got from the previous call can still be in the BlockRandomizer,
         // so we need to make sure that the clean up code below is used only when the chunk is not required anymore.
         size_t candiateToUnload = m_h;
-        while (candiateToUnload < m_randomizedChunks[m_i - 1].m_randomizationWindow.m_begin)
+        while (candiateToUnload < m_randomizedChunks[m_currentChunkPosition].m_randomizationWindow.m_begin)
         {
             // Check that the chunk is not in use by the last randomized chunk.
             if (m_randomizedChunks[candiateToUnload].m_randomizationWindow.m_end <= m_i - 1)
