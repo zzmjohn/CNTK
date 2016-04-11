@@ -30,8 +30,9 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         ChunkRandomizerPtr chunkRandomizer)
         : m_randomizedChunks(chunkRandomizer->GetRandomizedChunks()),
         m_h(0),
+        m_i(0),
+        m_j(0),
         m_k(0),
-        m_nextChunkNotYetRandomized(0),
         m_currentSequencePosition(0),
         m_currentChunkPosition(0),
         m_deserializer(deserializer)
@@ -224,7 +225,6 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         m_chunkWindow.clear();
         m_randomizedChunkInfo.clear();
         m_h = m_i = m_j = m_k = 0;
-        m_nextChunkNotYetRandomized = 0;
         m_currentSequencePosition = 0;
         m_currentChunkPosition = 0;
 

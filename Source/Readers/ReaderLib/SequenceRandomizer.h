@@ -84,9 +84,6 @@ private:
     // A rolling window of randomized sequences for the chunks.
     std::deque<std::vector<RandomizedSequenceDescription>> m_sequenceWindow;
 
-    // Next sample position not yet randomized.
-    size_t m_nextChunkNotYetRandomized;
-
     IDataDeserializerPtr m_deserializer;
 
     // Current sequence position.
