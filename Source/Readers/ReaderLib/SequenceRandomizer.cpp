@@ -85,10 +85,6 @@ namespace Microsoft { namespace MSR { namespace CNTK {
                     MoveChunkCursor();
                 }
             }
-            else
-            {
-                break;
-            }
         }
 
         return result;
@@ -104,6 +100,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
     {
         if (m_currentChunkPosition < m_i)
         {
+            assert(m_currentChunkPosition >= m_h);
             return;
         }
         assert(m_i == m_currentChunkPosition);
@@ -113,30 +110,35 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             return;
         }
 
-        // Find the smallest chunk index whose windows begin exceeds the chunk index
+        // Chunk not yet randomized.
         // of the sample position we have to randomized (current + sampleCount).
         // We will randomize up to this chunk as the final position of windows end is guaranteed to have been determined
         // when all sequences up to that chunk have been randomized
-        size_t lastSamplePositionChunkIdx = m_i + 1;
-        size_t endChunkIdxToRandomize = lastSamplePositionChunkIdx;
+        size_t endChunkIdxToRandomize = m_randomizedChunks[m_i].m_randomizationWindow.m_end;
         while (endChunkIdxToRandomize < m_randomizedChunks.size() &&
-               m_randomizedChunks[endChunkIdxToRandomize].m_randomizationWindow.m_begin <= lastSamplePositionChunkIdx)
+               m_randomizedChunks[endChunkIdxToRandomize].m_randomizationWindow.m_begin <= m_i)
         {
             endChunkIdxToRandomize++;  // new J
         }
 
-        // Determine the range of chunks that need to be in m_sequenceWindows for us
-        // to perform the necessary randomization
-        //size_t startChunkIdx = std::min(GetChunkIndexOf(m_currentSamplePosition), m_randomizedChunks[GetChunkIndexOf(firstSamplePositionToRandomize)].m_randomizationWindow.m_begin);
-        size_t endChunkIdx = m_randomizedChunks[endChunkIdxToRandomize - 1].m_randomizationWindow.m_end; // new K
+        // TODO: we should drop chunks, but firstly make sure that they are not used any more.
+        // TODO: That means the sequence description that we have got from the previous call can still be in the BlockRandomizer,
+        // TODO: so we need to make sure that the clean up code below is used only when the chunk is not required anymore.
+        // size_t candiateToUnload = m_h;
+        // while (candiateToUnload < m_randomizedChunks[m_i].m_randomizationWindow.m_begin)
+        // {
+            // Can unload
+            // if (m_randomizedChunks[candiateToUnload].m_randomizationWindow.m_end <= m_i)
+            //{
+            //    m_sequenceWindow.pop_front();
+            //    m_chunkWindow.pop_front();
+            //    m_randomizedChunkInfo.pop_front();
+            //    m_h++;
+            //}
+        // }
 
-        // Lets drop everything that is outside the new range [startChunkIdx, endChunkIdx)
-        //for (size_t i = m_currentRangeBeginChunkIndex; i < startChunkIdx; ++i)
-        //{
-        //    m_sequenceWindow.pop_front();
-        //    m_chunkWindow.pop_front();
-        //    m_currentRangeBeginChunkIndex++;
-        //}
+        // Determine the end chunk that we need to load into memory.
+        size_t endChunkIdx = m_randomizedChunks[endChunkIdxToRandomize - 1].m_randomizationWindow.m_end; // new K
 
         // Lets page in everything from m_currentRangeEndChunkIndex to endChunkIdx
         for (size_t i = m_k; i < endChunkIdx; ++i)
@@ -149,6 +151,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
         for (size_t t = firstSequencePositionToRandomize; t < endSequencePosToRandomize; ++t)
         {
             // Get valid randomization range, expressed in chunks
+            // TODO: This can be done more efficiently, we know the range of chunks already.
             const size_t currentChunkIdx = GetChunkIndexForSequencePosition(t);
 
             size_t chunkWindowBegin = m_randomizedChunks[currentChunkIdx].m_randomizationWindow.m_begin;
@@ -187,6 +190,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             }
         }
 
+        // Let's recalculate number of samples in the randomized chunks for efficient indexing in seek.
         size_t sampleCount = 0;
         size_t randomizedChunk = m_i - m_h;
         for (size_t index = 0; index < m_sequenceWindow[randomizedChunk].size(); index++)
@@ -194,13 +198,15 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             sampleCount += m_sequenceWindow[randomizedChunk][index].m_numberOfSamples;
         }
 
+        // Safe the sample information.
         ChunkInfo info;
         info.numberOfSamples = sampleCount;
         info.start = m_randomizedChunkInfo.empty() ? 0 : m_randomizedChunkInfo.back().start + m_randomizedChunkInfo.back().numberOfSamples;
         m_randomizedChunkInfo.push_back(info);
 
-        m_j = endChunkIdxToRandomize;
+        // Update the cursors.
         m_i++;
+        m_j = endChunkIdxToRandomize;
         m_k = endChunkIdx;
     }
 
@@ -211,6 +217,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
 
         m_sequenceWindow.clear();
         m_chunkWindow.clear();
+        m_randomizedChunkInfo.clear();
         m_h = m_i = m_j = m_k = 0;
         m_nextChunkNotYetRandomized = 0;
         m_currentSequencePosition = 0;

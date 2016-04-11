@@ -66,9 +66,6 @@ private:
     // Gets randomized sequence description by the sample offset in the sweep.
     RandomizedSequenceDescription& GetRandomizedSequenceDescriptionBySequenceId(size_t sequenceId);
 
-    // Checks if chunk index is in the randomized window.
-    bool IsChunkInWindow(size_t chunkIndex) const;
-
     // Adds randomized sequences to the window.
     void AddRandomizedSequencesForChunk(size_t chunkIndex);
 
