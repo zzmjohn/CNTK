@@ -247,7 +247,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             size_t index;
             for (index = 0; index <= m_randomizedChunkInfo.size() - 1; index++)
             {
-                if (m_randomizedChunkInfo[index].start >= offset && offset < (m_randomizedChunkInfo[index].start + m_randomizedChunkInfo[index].numberOfSamples))
+                if (m_randomizedChunkInfo[index].start <= offset && offset < (m_randomizedChunkInfo[index].start + m_randomizedChunkInfo[index].numberOfSamples))
                 {
                     break;
                 }
