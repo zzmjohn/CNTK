@@ -503,6 +503,7 @@ do
     shift
 done
 
+buildtype=debug
 if test x$buildtype = x
 then
     buildtype=$default_buildtype
