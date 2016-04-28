@@ -8,8 +8,11 @@
 #include "NoRandomizer.h"
 #include "DataDeserializer.h"
 #include "BlockRandomizer.h"
+#include "TruncatedBpttPacker.h"
+#include "Config.h"
 #include <numeric>
 #include <random>
+#include <HeapMemoryProvider.h>
 
 using namespace Microsoft::MSR::CNTK;
 
@@ -401,6 +404,70 @@ BOOST_AUTO_TEST_CASE(NoRandomizerOneEpoch)
 
     BOOST_CHECK_EQUAL_COLLECTIONS(data.begin(), data.end(),
                                   actual.begin(), actual.end());
+}
+
+class MockTransformer : public Transformer
+{
+    const std::vector<StreamDescriptionPtr> & m_streams;
+
+public:
+    MockTransformer(const std::vector<StreamDescriptionPtr> & streams)
+        : m_streams(streams) { }
+
+    void Initialize(TransformerPtr next, const ConfigParameters& readerConfig)
+    {
+        UNUSED(next);
+        UNUSED(readerConfig);
+    }
+
+    std::vector<StreamDescriptionPtr> GetStreamDescriptions() const
+    {
+        return m_streams;
+    };
+
+    void StartEpoch(const EpochConfiguration& config)
+    {
+        UNUSED(config);
+    };
+
+    Sequences GetNextSequences(size_t sampleCount)
+    {
+        UNUSED(sampleCount);
+        Sequences result;
+        result.m_endOfEpoch = true;
+        return result;
+    };
+
+    MockTransformer(const MockTransformer&) = delete;
+    MockTransformer& operator=(const MockTransformer&) = delete;
+
+    ~MockTransformer() { };
+};
+
+BOOST_AUTO_TEST_CASE(TruncatedBpttPackerInstantiate)
+{
+    std::vector<StreamDescriptionPtr> streams;
+    streams.push_back(std::make_shared<StreamDescription>(StreamDescription{
+        L"input",
+        0, // m_id
+        StorageType::dense,
+        ElementType::tfloat,
+        std::make_shared<TensorShape>(1) // m_sampleLayout
+    }));
+
+    auto memoryProvider = std::make_shared<HeapMemoryProvider>();
+    auto transformer = std::make_shared<MockTransformer>(streams);
+    auto packer = std::make_shared<TruncatedBPTTPacker>(memoryProvider, transformer, streams);
+
+    EpochConfiguration epochConfiguration;
+    epochConfiguration.m_numberOfWorkers = 1;
+    epochConfiguration.m_workerRank = 0;
+    epochConfiguration.m_minibatchSizeInSamples = 10;
+    epochConfiguration.m_totalEpochSizeInSamples = 100;
+    epochConfiguration.m_epochIndex = 0;
+    epochConfiguration.m_truncationSize = 10;
+    packer->StartEpoch(epochConfiguration);
+
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -40,6 +40,7 @@ PackerBase::PackerBase(MemoryProviderPtr memoryProvider,
     m_minibatchSize(0),
     m_outputStreamDescriptions(streams)
 {
+    assert(transformer != nullptr);
     m_inputStreamDescriptions = m_transformer->GetStreamDescriptions();
     assert(m_inputStreamDescriptions.size() != 0);
     assert(m_inputStreamDescriptions.size() == m_outputStreamDescriptions.size());
@@ -74,6 +75,7 @@ size_t PackerBase::GetSampleSize(StreamDescriptionPtr stream)
 {
     assert(stream != nullptr);
     size_t elementSize = GetSizeByType(stream->m_elementType);
+    assert(stream->m_sampleLayout != nullptr);
     return stream->m_sampleLayout->GetNumElements() * elementSize;
 }
 
