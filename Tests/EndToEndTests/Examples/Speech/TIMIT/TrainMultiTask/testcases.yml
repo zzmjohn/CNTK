@@ -16,11 +16,12 @@ testCases:
       - learning rate per sample = {{float}}
       - momentum = {{float}}
 
-  # TODO
   Epochs must be finished with expected results:
     patterns:
       - Finished Epoch[{{integer}} of {{integer}}]
-      - Per Sample = {{float,tolerance=.1%}}
+      - " * {{integer}}; "
+      - ObjFcn.O = {{float,tolerance=.1%}}
+      - CE1 = {{float,tolerance=.1%}}
 
   Per-minibatch training results must match:
     patterns:
