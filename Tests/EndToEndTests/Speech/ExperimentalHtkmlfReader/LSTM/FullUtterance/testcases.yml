@@ -1,9 +1,9 @@
 dataDir: ../../../Data
 tags:
-     # TODO consider BVT
+     # running unconditionally on every BVT job in 'L' leg
+     - bvt-l (build_sku == 'gpu')
      # running unconditionally on every Nightly job in 'L' leg
-     # TODO test broken. Fix according to Speech/LSTM/FullUtterance
-     # - nightly-l (build_sku == 'gpu')
+     - nightly-l (build_sku == 'gpu')
 
 testCases:
   CNTK Run must be completed:
