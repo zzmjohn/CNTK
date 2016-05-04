@@ -1,6 +1,6 @@
 dataDir: ../../../Data
 tags:
-     # running unconditionally on every BVT job in 'L' leg
+     # running targetting GPU on every BVT job in 'L' leg
      - bvt-l (build_sku == 'gpu')
      # running unconditionally on every Nightly job in 'L' leg
      - nightly-l (build_sku == 'gpu')
