@@ -60,6 +60,8 @@ echo.
 echo Copying into Publish\%CURRENTVER%
 
 rmdir /s /q Publish
+md Publish
+md Publish\%CURRENTVER%
 md Publish\%CURRENTVER%\x64
 md Publish\%CURRENTVER%\x64\parallel
 md Publish\%CURRENTVER%\x64\sequential
