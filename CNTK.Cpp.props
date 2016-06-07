@@ -45,7 +45,7 @@
     </When>
     <When Condition="'$(CNTK_MKL)' == '1'">
       <PropertyGroup>    
-        <MKLCustomVersion>1</MKLCustomVersion>
+        <MKLCustomVersion>2</MKLCustomVersion>
         <MKLDropDirectory>$(CNTK_MKL_PATH)\$(MKLCustomVersion)</MKLDropDirectory>
         <!-- The prebuild custom MKL DLLs and header files have to be precopied into the directory defined by the user defined CNTK_MKL_PATH environment variable -->
         <!-- inside this directory the MKLCustomVersion defines the version of the custom MKL DLLs to use in this project -->
