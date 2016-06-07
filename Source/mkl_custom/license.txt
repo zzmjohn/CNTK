@@ -1,1 +1,4 @@
-<license information to be added>
+This zip-file contains header files as well as redistributable components of  the Intel (r) Math Kernel Library (Intel (r) MKL).
+
+Included is also a custom link library created out of Intel (r) Math Kernel Library (Intel (r) MKL) required for building the 
+Microsoft Computational Network Toolkit - CNTK. More details can be found on: http:\\www.cntk.ai
