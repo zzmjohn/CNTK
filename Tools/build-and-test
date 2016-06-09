@@ -9,6 +9,8 @@ RANDOM_OUTPUT=0
 CODE_COVERAGE=no
 FLAVORS="debug:release"
 TARGETS="cpu:gpu"
+TARGETS="acml"
+# TODO mkl-sequential
 TESTTARGETS="cpu:gpu"
 
 # parsing command line arguments:
@@ -25,6 +27,7 @@ case $key in
     echo "  -b|--build-only - just build, do not run"
     echo "  -f|--flavors <flavor1:flavor2...> - which flavor to build (by default $FLAVORS)"
     echo "  -t|--targets <target1:target2...> - which target to build (by default $TARGETS)"
+    echo "  -m|--math-library <mathlibrary> - which math library to build with (by default $MATH_LIBRARY)"
     echo "  -tt|--test-targets <testtarget1:testtarget2...> - which target to test (by default $TESTTARGETS)"
     echo "  -cc|--code-coverage - build with support for code coverage (gcov)"
     echo "  -cb|--clean-build - clean up the enlistment binaries before build"
@@ -62,6 +65,10 @@ case $key in
     ;;
     -t|--targets)
     TARGETS="${2,,}"
+    shift # past argument
+    ;;
+    -m|--math-library)
+    MATH_LIBRARY="${2,,}"
     shift # past argument
     ;;
     -tt|--test-targets)
@@ -106,6 +113,7 @@ if [[ $OS == "Windows_NT" && $OSTYPE == "cygwin" ]]; then
         exit 1
     fi
 
+    # TODO fixes for MKL support
     if [[ $ACML_PATH == "" ]]; then
         echo "============ ACML path not set  ============"
         echo "============ ACML libraries are needed to successfully build CNTK ============"
@@ -137,6 +145,7 @@ fi
 SCRIPT=`readlink -f $0`
 SCRIPT_DIR=`dirname $SCRIPT`
 CNTK_ROOT=`dirname $SCRIPT_DIR`
+MATH_LIBRARY_PATH_NAME="${MATH_LIBRARY^^}_PATH"
 
 # Setup the output directory
 if [[ $OUTPUT_DIR == "" ]]; then
@@ -224,7 +233,7 @@ if [[ $BUILD == 1 ]]; then
                         OneBitSGDOPT=yes
                     fi
                 fi
-                ./configure --with-build-top=$BUILD_DIR --with-acml=$ACML_PATH --with-buildtype=$FLAVOR --cuda=$CUDAOPT --with-code-coverage=$CODE_COVERAGE --1bitsgd=$OneBitSGDOPT
+                ./configure --with-build-top=$BUILD_DIR --with-$MATH_LIBRARY=${!MATH_LIBRARY_PATH_NAME} --with-buildtype=$FLAVOR --cuda=$CUDAOPT --with-code-coverage=$CODE_COVERAGE --1bitsgd=$OneBitSGDOPT
                 if [[ $CLEAN_BEFORE == 1 ]]; then
                     make -C $BUILD_DIR -f $MAKEFILE clean 1>&6 2>&7 || exit $?
                 fi
