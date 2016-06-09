@@ -9,7 +9,7 @@ RANDOM_OUTPUT=0
 CODE_COVERAGE=no
 FLAVORS="debug:release"
 TARGETS="cpu:gpu"
-TARGETS="acml"
+MATH_LIBRARY="acml"
 # TODO mkl-sequential
 TESTTARGETS="cpu:gpu"
 
