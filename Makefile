@@ -131,9 +131,9 @@ ifeq ("$(MATHLIB)","acml")
 endif
 
 ifeq ("$(MATHLIB)","mkl")
-  INCLUDEPATH += $(MKL_PATH)/mkl/include
-  LIBPATH += $(MKL_PATH)/compiler/lib/intel64 $(MKL_PATH)/mkl/lib/intel64 $(MKL_PATH)/compiler/lib/mic $(MKL_PATH)/mkl/lib/mic
-  LIBS += -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lm -liomp5 -lpthread
+  INCLUDEPATH += /root/CNTK/Source/mkl_custom/Publish/2/include
+  LIBPATH += /root/CNTK/Source/mkl_custom/Publish/2/x64/parallel
+  LIBS += -lmkl_cntk_p -lm -liomp5 -lpthread
   COMMON_FLAGS += -DUSE_MKL
 endif
 
