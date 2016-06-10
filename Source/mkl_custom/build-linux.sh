@@ -32,3 +32,7 @@ cp -p $MKLROOT/../compiler/lib/intel64_lin/libiomp5.so Publish/$CNTKCUSTOMMKLVER
 rsync -av --files-from headers.txt $MKLROOT/include Publish/$CNTKCUSTOMMKLVERSION/include
 
 cp -p license.txt Publish/$CNTKCUSTOMMKLVERSION
+
+cd Publish
+zip -9r ../CNTKCustomMKL-Linux-$CNTKCUSTOMMKLVERSION.zip $CNTKCUSTOMMKLVERSION.zip
+cd ..
