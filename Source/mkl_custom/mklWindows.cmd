@@ -80,10 +80,10 @@ for %%t in (
   set LIBBASENAME=mkl_cntk_!TFIRSTCHAR!
 
   echo.
-  echo Calling NMAKE libintel64 export=cntklist.txt threading=%%t name=!LIBBASENAME! MKLROOT="%MKLROOT%".
+  echo Calling NMAKE libintel64 export=functions.txt threading=%%t name=!LIBBASENAME! MKLROOT="%MKLROOT%".
   NMAKE /f "%MKLBUILDERROOT%\makefile" ^
     libintel64 ^
-    export=cntklist.txt ^
+    export=functions.txt ^
     threading=%%t ^
     name=!LIBBASENAME! ^
     MKLROOT="%MKLROOT%"
@@ -126,7 +126,7 @@ echo Copying include files to Publish\%CNTKCUSTOMMKLVERSION%\include.
 
 mkdir Publish\%CNTKCUSTOMMKLVERSION%\include
 
-for /f %%h in (cntkheaderlist.txt) do (
+for /f %%h in (headers.txt) do (
   copy "%MKLROOT%\include\%%h" Publish\%CNTKCUSTOMMKLVERSION%\include
   if errorlevel 1 (
     echo Failed to copy "%MKLROOT%\include\%%h".

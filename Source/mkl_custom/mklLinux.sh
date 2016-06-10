@@ -19,7 +19,7 @@ for THREADING in parallel sequential
 do
     LIBBASENAME=libmkl_cntk_$(echo $THREADING | cut -c 1)
     make -f $MKLBUILDERROOT/makefile libintel64 \
-        export=cntklist.txt \
+        export=functions.txt \
         threading=$THREADING \
         name=$LIBBASENAME \
         MKLROOT=$MKLROOT
@@ -29,6 +29,6 @@ done
 
 cp -p $MKLROOT/../compiler/lib/intel64_lin/libiomp5.so Publish/$CNTKCUSTOMMKLVERSION/x64/parallel
 
-rsync -av --files-from cntkheaderlist.txt $MKLROOT/include Publish/$CNTKCUSTOMMKLVERSION/include
+rsync -av --files-from headers.txt $MKLROOT/include Publish/$CNTKCUSTOMMKLVERSION/include
 
 cp -p license.txt Publish/$CNTKCUSTOMMKLVERSION
