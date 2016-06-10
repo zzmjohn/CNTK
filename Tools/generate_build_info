@@ -124,7 +124,7 @@ fi
 # Identify MKL variant being used
 if [ "$MATHLIB" == "mkl" && "$MKL_THREADING" == "sequential" ]; then
     MATHLIB=mkl-sequential
-else
+fi
 
 # Build machine info
 BUILDER=$USER
