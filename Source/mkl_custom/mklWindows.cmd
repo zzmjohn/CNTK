@@ -57,7 +57,7 @@ if errorlevel 1 exit /b 1
 if exist Publish rmdir /s /q Publish
 if errorlevel 1 exit /b 1
 
-mkdir -p Publish\%CNTKCUSTOMMKLVERSION%\x64
+mkdir Publish\%CNTKCUSTOMMKLVERSION%\x64
 
 echo.
 echo Copying "%MKLBUILDERROOT%\lib".
