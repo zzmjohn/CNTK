@@ -34,5 +34,5 @@ rsync -av --files-from headers.txt $MKLROOT/include Publish/$CNTKCUSTOMMKLVERSIO
 cp -p license.txt Publish/$CNTKCUSTOMMKLVERSION
 
 cd Publish
-zip -9r ../CNTKCustomMKL-Linux-$CNTKCUSTOMMKLVERSION.zip $CNTKCUSTOMMKLVERSION.zip
+tar -czf ../CNTKCustomMKL-Linux-$CNTKCUSTOMMKLVERSION.tgz $CNTKCUSTOMMKLVERSION
 cd ..
