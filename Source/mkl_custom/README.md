@@ -1,7 +1,7 @@
 # CNTK custom MKL
 
 This directory contains the necessary files to create a custom Intel® Math Kernel Library (MKL)
-for usage by CNTK. We call this library "CNTK custom MKL" for short.
+for usage by CNTK ("CNTK custom MKL" for short).
 
 By default, a CNTK binary with Intel® MKL support includes a prebuilt CNTK
 custom MKL.
