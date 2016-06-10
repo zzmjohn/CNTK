@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO --math-library support on Windows
 
 # Setting some default values
 BUILD=1
@@ -10,7 +11,6 @@ CODE_COVERAGE=no
 FLAVORS="debug:release"
 TARGETS="cpu:gpu"
 MATH_LIBRARY="acml"
-# TODO mkl-sequential
 TESTTARGETS="cpu:gpu"
 
 # parsing command line arguments:
@@ -68,7 +68,21 @@ case $key in
     shift # past argument
     ;;
     -m|--math-library)
-    MATH_LIBRARY="${2,,}"
+    case ${2,,} in
+        acml)
+        MATH_LIBRARY_OPTION="--with-acml=$ACML_PATH"
+        ;;
+        mkl)
+        MATH_LIBRARY_OPTION="--with-mkl=$MKL_PATH"
+        ;;
+        mkl-sequential)
+        MATH_LIBRARY_OPTION="--with-mkl-sequential=$MKL_PATH"
+        ;;
+        *)
+        echo Unknown math library $MATH_LIBRARY
+        exit 1
+        ;;
+    esac
     shift # past argument
     ;;
     -tt|--test-targets)
@@ -145,7 +159,6 @@ fi
 SCRIPT=`readlink -f $0`
 SCRIPT_DIR=`dirname $SCRIPT`
 CNTK_ROOT=`dirname $SCRIPT_DIR`
-MATH_LIBRARY_PATH_NAME="${MATH_LIBRARY^^}_PATH"
 
 # Setup the output directory
 if [[ $OUTPUT_DIR == "" ]]; then
@@ -233,7 +246,7 @@ if [[ $BUILD == 1 ]]; then
                         OneBitSGDOPT=yes
                     fi
                 fi
-                ./configure --with-build-top=$BUILD_DIR --with-$MATH_LIBRARY=${!MATH_LIBRARY_PATH_NAME} --with-buildtype=$FLAVOR --cuda=$CUDAOPT --with-code-coverage=$CODE_COVERAGE --1bitsgd=$OneBitSGDOPT
+                ./configure --with-build-top=$BUILD_DIR ${MATH_LIBRARY_OPTION} --with-buildtype=$FLAVOR --cuda=$CUDAOPT --with-code-coverage=$CODE_COVERAGE --1bitsgd=$OneBitSGDOPT
                 if [[ $CLEAN_BEFORE == 1 ]]; then
                     make -C $BUILD_DIR -f $MAKEFILE clean 1>&6 2>&7 || exit $?
                 fi
