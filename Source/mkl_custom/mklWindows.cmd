@@ -71,7 +71,7 @@ echo.
 echo Compiling and copying libraries.
 
 for %%t in (
-  threading
+  parallel
   sequential
 ) do (
 
