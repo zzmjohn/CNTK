@@ -28,9 +28,14 @@ if not errorlevel 1 (
     )
 )
 
-:: For now, math lib is basically hardwired
-if exist ACML_PATH (
-    echo #define _MATHLIB_ "acml">> buildinfo.h$$
+if "%CNTK_MKL%" == "1" (
+  if "%CNTK_MKL_SEQUENTIAL%" == "1" (
+    echo #define _MATHLIB_ "mkl-sequential">> buildinfo.h$$
+  ) else (
+    echo #define _MATHLIB_ "mkl">> buildinfo.h$$
+  )
+) else (
+  echo #define _MATHLIB_ "acml">> buildinfo.h$$
 )
 
 echo #define _BUILDER_ "%USERNAME%"     >> buildinfo.h$$

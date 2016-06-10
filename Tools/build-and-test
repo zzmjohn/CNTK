@@ -83,7 +83,7 @@ case $key in
     shift # past argument
     ;;
     *)
-    echo Unkown option $key
+    echo Unknown option $key
     exit 1
     ;;
 esac
