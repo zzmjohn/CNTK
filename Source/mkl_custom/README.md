@@ -1,17 +1,24 @@
-<review - and extend>
+# CNTK custom MKL
 
-In this directory you find the files necessary to create a custom MKL library for CNTK.
+This directory contains the necessary files to create a custom Intel® Math Kernel Library (MKL)
+for usage by CNTK. We call this library "CNTK custom MKL" for short.
 
-By default CNTK uses a prebuild custom MKL library. If you install the CNTK binaries, this custom DLL is included in the binary download.
-In case you want to build CNTK by yourself, you will have to download and install a custom MKL libaray onto your local machine. 
-A detailed describtion is part of the CNTK wiki, see https://github.com/Microsoft/CNTK/wiki/Setup-CNTK-on-your-machine
+By default, a CNTK binary with Intel® MKL support includes a prebuilt CNTK
+custom MKL.
+If you want to build CNTK with Intel® MKL support yourself, you can install a
+prebuilt CNTK custom MKL, available for separate download from the CNTK
+downloads page.
+See [CNTK's setup instructions](https://github.com/Microsoft/CNTK/wiki/Setup-CNTK-on-your-machine)
+for more details.
 
-If you want to add new MKL functions used by CNTK you will have to build your own custom MKL library. This requires you to install the Intel MKL SDK
-(https://software.intel.com/en-us/intel-mkl/) and follow the steps in the MKL documentation for custom link libraries (https://software.intel.com/en-us/node/528366)
+If you want to add new Intel® MKL functions to be used by CNTK you will have to
+build your own CNTK custom MKL.
+This requires you to install the [Intel MKL SDK](https://software.intel.com/en-us/intel-mkl/) for your platform.
+Then, in this directory,
+* extend the file `headers.txt` to expose new headers,
+* extend the file `functions.txt` to expose new functions, and
+* use `build-linux.sh` or `build-windows.cmd` to build for your platform.
 
-The file 'cntklist.txt' in this directory describes the MKL functions used by CNTK. With an installed Intel MKL SDK you copy this file into the 
-builder directory, add the additional MKL functionality you want to use from CNTK, and following the steps in the MKL documentation you can build your own 
-custom MKL library by calling: 
-    nmake libintel64 export=cntklist.txt
-
-This will create a new MKL_CUTOM.DLL you can use in your own development
+For further documentation please seee the Developer Guide for the Intel® MKL, in particular
+[Building Custom Shared Objects (Linux)](https://software.intel.com/en-us/node/528533) and
+[Building Custom Dynamic-link Libraries (Windows)](https://software.intel.com/en-us/node/528362).
