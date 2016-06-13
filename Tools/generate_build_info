@@ -122,7 +122,7 @@ else
 fi
 
 # Identify MKL variant being used
-if [ "$MATHLIB" == "mkl" && "$MKL_THREADING" == "sequential" ]; then
+if [ "$MATHLIB" = "mkl" -a "$MKL_THREADING" = "sequential" ]; then
     MATHLIB=mkl-sequential
 fi
 
