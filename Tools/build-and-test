@@ -127,7 +127,6 @@ if [[ $OS == "Windows_NT" && $OSTYPE == "cygwin" ]]; then
         exit 1
     fi
 
-    # TODO fixes for MKL support
     if [[ $ACML_PATH == "" ]]; then
         echo "============ ACML path not set  ============"
         echo "============ ACML libraries are needed to successfully build CNTK ============"
