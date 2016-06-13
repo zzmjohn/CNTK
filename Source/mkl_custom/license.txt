@@ -1,4 +1,4 @@
-This ZIP file contains header files as well as redistributable components of
+This archive contains header files as well as redistributable components of
 the Intel (r) Math Kernel Library (Intel (r) MKL).
 
 Included is also a custom library created out of Intel (r) Math Kernel Library
