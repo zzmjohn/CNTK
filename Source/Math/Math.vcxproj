@@ -87,7 +87,7 @@
       <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /D /I /Y "$(MathPostBuildPath)" "$(OutDir)"</Command>
+      <Command>xcopy /D /I /Y "$(MathPostBuildCopyPattern)" "$(OutDir)"</Command>
       <Message>Copying $(MathLibraryName) DLLs</Message>
     </PostBuildEvent>
     <CudaCompile>
@@ -129,7 +129,7 @@
       <Profile>true</Profile>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /D /I /Y "$(MathPostBuildPath)" "$(OutDir)"</Command>
+      <Command>xcopy /D /I /Y "$(MathPostBuildCopyPattern)" "$(OutDir)"</Command>
       <Message>Copying $(MathLibraryName) DLLs</Message>
     </PostBuildEvent>
     <CudaCompile>
@@ -224,6 +224,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
   <Target Name="CheckDependencies">
-    <Warning Condition="'$(CNTK_MKL)' == '1' And !Exists('$(MKLDropDirectory)')" Text="The Math project requires that the custom CNTK MKL library is installed on your system. Please see https://github.com/Microsoft/CNTK/wiki/Setup-CNTK-on-Windows for instructions." />
+    <Error Condition="'$(CNTK_MKL)' == '1' And !Exists('$(CNTKCustomMKLPath)')" Text="CNTK custom MKL not found. See https://github.com/Microsoft/CNTK/wiki/Setup-CNTK-on-Windows#optional-mkl for instructions." />
+    <Error Condition="'$(CNTK_MKL)' != '1' And !Exists('$(ACML_PATH)')" Text="ACML not found. See https://github.com/Microsoft/CNTK/wiki/Setup-CNTK-on-Windows#acml for instructions." />
   </Target>
 </Project>
