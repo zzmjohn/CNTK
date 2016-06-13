@@ -26,14 +26,6 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)\CNTK.Cpp.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  
-  <PropertyGroup>
-    <HasOpenCV>false</HasOpenCV>
-    <HasOpenCV Condition="Exists('$(OPENCV_PATH)')">true</HasOpenCV>
-    <UseZip>false</UseZip>
-    <UseZip Condition="Exists('$(ZLIB_PATH)')">true</UseZip>
-  </PropertyGroup>
-  
   <PropertyGroup Condition="$(DebugBuild)" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
