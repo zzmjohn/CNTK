@@ -11,6 +11,9 @@
 #include "DataDeserializer.h"
 #include "ChunkRandomizer.h"
 #include "SequenceRandomizer.h"
+#include "ChunkPrefetcher.h"
+#include <mutex>
+
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
@@ -61,6 +64,11 @@ public:
         return m_deserializer->GetStreamDescriptions();
     }
 
+    ~BlockRandomizer()
+    {
+        m_prefetcher.Stop();
+    }
+
 private:
     // Retrieve data for chunks.
     void RetrieveDataChunks();
@@ -74,6 +82,8 @@ private:
 
     // Prepares a new sweep if needed.
     void PrepareNewSweepIfNeeded(size_t samplePosition);
+
+    ChunkPtr RetrieveDataChunk(ChunkIdType chunkId);
 
     // Global sample position on the timeline.
     size_t m_globalSamplePosition;
@@ -131,6 +141,8 @@ private:
     };
 
     int m_verbosity;
+
+    ChunkPrefetcher m_prefetcher;
 };
 
 }}}

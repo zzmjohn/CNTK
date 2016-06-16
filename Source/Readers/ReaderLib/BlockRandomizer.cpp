@@ -35,7 +35,8 @@ BlockRandomizer::BlockRandomizer(
       m_sweepTotalNumberOfSamples(0),
       m_lastSeenChunkId(CHUNKID_MAX),
       m_chunkRandomizer(std::make_shared<ChunkRandomizer>(deserializer, randomizationRangeInSamples, useLegacyRandomization)),
-      m_multithreadedGetNextSequences(multithreadedGetNextSequence)
+      m_multithreadedGetNextSequences(multithreadedGetNextSequence),
+      m_prefetcher(deserializer)
 {
     assert(deserializer != nullptr);
 
@@ -48,12 +49,15 @@ BlockRandomizer::BlockRandomizer(
     {
         m_sweepTotalNumberOfSamples += chunk->m_numberOfSamples;
     }
+
+    m_prefetcher.Start();
 }
 
 // Start a new epoch.
 void BlockRandomizer::StartEpoch(const EpochConfiguration& config)
 {
     m_lastSeenChunkId = CHUNKID_MAX;
+    m_prefetcher.Clear();
 
     m_config = config;
     if (config.m_totalEpochSizeInSamples == requestDataSize)
@@ -107,6 +111,8 @@ void BlockRandomizer::PrepareNewSweepIfNeeded(size_t samplePosition)
         // Unloading all chunk data from memory.
         m_chunks.clear();
         m_lastSeenChunkId = CHUNKID_MAX;
+
+        m_prefetcher.Clear();
     }
 }
 
@@ -247,6 +253,17 @@ void BlockRandomizer::RetrieveDataChunks()
 
     m_lastSeenChunkId = window[randomizedEnd - 1].m_chunkId;
 
+    // Prefetch things we do not have:
+    std::vector<ChunkIdType> toBePrefetched;
+    for (size_t i = 0; i < window.size(); ++i)
+    {
+        if (m_chunks.find(window[i].m_original->m_id) == m_chunks.end())
+        {
+            toBePrefetched.push_back(window[i].m_original->m_id);
+        }
+    }
+    m_prefetcher.Prefetch(toBePrefetched);
+
     // in the loop we are building a new map of currently loaded chunks:
     // we are iterating thru all chunks in the window and if they are not in m_chunks map -
     // they get requested from the deserializer.
@@ -268,7 +285,8 @@ void BlockRandomizer::RetrieveDataChunks()
         }
         else
         {
-            chunks[chunk.m_chunkId] = m_deserializer->GetChunk(chunk.m_original->m_id);
+            //chunks[chunk.m_chunkId] = m_deserializer->GetChunk(chunk.m_original->m_id);
+            chunks[chunk.m_chunkId] = m_prefetcher.GetPrefetchedChunk(chunk.m_original->m_id);
 
             if (m_verbosity >= Information)
                 fprintf(stderr, "BlockRandomizer::RetrieveDataChunks: paged in randomized chunk %u (original chunk: %u), now %" PRIu64 " chunks in memory\n",
@@ -287,6 +305,21 @@ void BlockRandomizer::RetrieveDataChunks()
                 m_chunks.size(),
                 window.front().m_chunkId,
                 window.back().m_chunkId);
+}
+
+ChunkPtr BlockRandomizer::RetrieveDataChunk(ChunkIdType)
+{
+    return nullptr;
+    /*bool prefetch = false;
+    if (prefetch)
+    {
+        std::lock_guard<std::mutex> guard(m_lock);
+
+    }
+    else
+    {
+        return m_deserializer->GetChunk(chunkId);
+    }*/
 }
 
 }}}
