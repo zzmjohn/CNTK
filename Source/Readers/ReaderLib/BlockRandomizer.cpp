@@ -259,6 +259,7 @@ void BlockRandomizer::RetrieveDataChunks()
             m_decimationMode == DecimationMode::chunk && window[i].m_chunkId % m_config.m_numberOfWorkers == m_config.m_workerRank)
         {
             toBePrefetched = window[i].m_original->m_id;
+            break;
         }
     }
 
