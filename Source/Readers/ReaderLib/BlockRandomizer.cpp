@@ -314,7 +314,7 @@ void BlockRandomizer::RetrieveDataChunks()
         }
 
         m_prefetchedChunk = toBePrefetched;
-        m_prefetch = std::async([this, toBePrefetched]() { return m_deserializer->GetChunk(m_prefetchedChunk); });
+        m_prefetch = std::async(launch::async, [this, toBePrefetched]() { return m_deserializer->GetChunk(m_prefetchedChunk); });
     }
 
     // Swapping current chunks in the m_chunks, by that removing all stale and remembering newly loaded.
