@@ -33,7 +33,8 @@ BlockRandomizer::BlockRandomizer(
       m_sweepTotalNumberOfSamples(0),
       m_lastSeenChunkId(CHUNKID_MAX),
       m_chunkRandomizer(std::make_shared<ChunkRandomizer>(deserializer, randomizationRangeInSamples, useLegacyRandomization)),
-      m_multithreadedGetNextSequences(multithreadedGetNextSequence)
+      m_multithreadedGetNextSequences(multithreadedGetNextSequence),
+      m_prefetchedChunk(CHUNKID_MAX)
 {
     assert(deserializer != nullptr);
 
@@ -252,7 +253,7 @@ void BlockRandomizer::RetrieveDataChunks()
 
     // Identify next chunk to prefetch.
     ChunkIdType toBePrefetched = CHUNKID_MAX;
-    for (size_t i = randomizedEnd - 1; i < window.size(); ++i)
+    for (size_t i = randomizedEnd; i < window.size(); ++i)
     {
         if (m_chunks.find(window[i].m_chunkId) == m_chunks.end() &&
             m_decimationMode == DecimationMode::chunk && window[i].m_chunkId % m_config.m_numberOfWorkers == m_config.m_workerRank)
