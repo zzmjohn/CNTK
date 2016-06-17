@@ -117,7 +117,7 @@ public:
             }
         }
 
-        guard_type guard(m_lock);
+        guard_type guard(m_idLock);
         m_toBePrefetched.insert(m_toBePrefetched.end(), newChunks.begin(), newChunks.end());
         m_notifier.notify_all();
     }
@@ -131,7 +131,7 @@ public:
 
         ChunkPtr result;
         {
-            guard_type guard(m_lock);
+            guard_type guard(m_dataLock);
             while (m_chunks.find(chunkId) == m_chunks.end())
             {
                 m_notifier.wait(guard);
@@ -140,14 +140,24 @@ public:
             result = m_chunks[chunkId];
             m_chunks.erase(chunkId);
         }
+
         m_chunkIds.erase(chunkId);
         return result;
     }
 
     void Clear()
     {
-        guard_type guard(m_lock);
-        m_toBePrefetched.clear();
+        m_chunkIds.clear();
+
+        {
+            guard_type guard(m_idLock);
+            m_toBePrefetched.clear();
+        }
+
+        {
+            guard_type guard(m_dataLock);
+            m_chunks.clear();
+        }
     }
 
 private:
@@ -155,24 +165,26 @@ private:
     void Process()
     {
         std::vector<ChunkIdType> ids;
-        while (!this->m_stopFlag)
+        while (!m_stopFlag)
         {
             {
-                guard_type guard(this->m_lock);
-                while (this->m_toBePrefetched.empty() && !this->m_stopFlag)
+                guard_type guard(m_idLock);
+                while (m_toBePrefetched.empty() && !m_stopFlag)
                 {
-                    this->m_notifier.wait(guard);
+                    m_notifier.wait(guard);
                 }
 
-                ids.assign(this->m_toBePrefetched.begin(), this->m_toBePrefetched.end());
-                this->m_toBePrefetched.clear();
+                ids.assign(m_toBePrefetched.begin(), m_toBePrefetched.end());
+                m_toBePrefetched.clear();
             }
 
+            // We have to lock the loop, so that 
+            // if m_chunks gets cleared we are in consistent state.
+            guard_type guard(m_dataLock);
             for (auto id : ids)
             {
-                ChunkPtr chunk = this->m_deserializer->GetChunk(id);
-                guard_type guard(this->m_lock);
-                this->m_chunks[id] = chunk;
+                ChunkPtr chunk = m_deserializer->GetChunk(id);
+                m_chunks[id] = chunk;
             }
 
             m_notifier.notify_all();
@@ -187,9 +199,9 @@ private:
 
     IDataDeserializerPtr m_deserializer;
 
-    
     typedef std::unique_lock<std::mutex> guard_type;
-    mutable std::mutex m_lock;
+    mutable std::mutex m_dataLock;
+    mutable std::mutex m_idLock;
     std::condition_variable m_notifier;
 
     DISABLE_COPY_AND_MOVE(ChunkPrefetcher);

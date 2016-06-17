@@ -257,7 +257,8 @@ void BlockRandomizer::RetrieveDataChunks()
     std::vector<ChunkIdType> toBePrefetched;
     for (size_t i = 0; i < window.size(); ++i)
     {
-        if (m_chunks.find(window[i].m_original->m_id) == m_chunks.end())
+        if (m_chunks.find(window[i].m_chunkId) == m_chunks.end() &&
+            m_decimationMode == DecimationMode::chunk && window[i].m_chunkId % m_config.m_numberOfWorkers == m_config.m_workerRank)
         {
             toBePrefetched.push_back(window[i].m_original->m_id);
         }
