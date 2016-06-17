@@ -294,6 +294,12 @@ void BlockRandomizer::RetrieveDataChunks()
         }
         else
         {
+            // Wait that there is no outstanding prefetches.
+            if (m_prefetch.valid())
+            {
+                m_prefetch.wait();
+            }
+
             chunks[chunk.m_chunkId] = m_deserializer->GetChunk(chunk.m_original->m_id);
 
             if (m_verbosity >= Information)
