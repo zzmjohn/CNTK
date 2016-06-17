@@ -12,8 +12,7 @@
 #include "ChunkRandomizer.h"
 #include "SequenceRandomizer.h"
 #include "ChunkPrefetcher.h"
-#include <mutex>
-
+#include <future>
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
@@ -66,7 +65,11 @@ public:
 
     ~BlockRandomizer()
     {
-        m_prefetcher.Stop();
+        // Make sure no outstanding calls.
+        if (m_prefetch.valid())
+        {
+            m_prefetch.wait();
+        }
     }
 
 private:
@@ -82,8 +85,6 @@ private:
 
     // Prepares a new sweep if needed.
     void PrepareNewSweepIfNeeded(size_t samplePosition);
-
-    ChunkPtr RetrieveDataChunk(ChunkIdType chunkId);
 
     // Global sample position on the timeline.
     size_t m_globalSamplePosition;
@@ -142,7 +143,9 @@ private:
 
     int m_verbosity;
 
-    ChunkPrefetcher m_prefetcher;
+    // Prefetching of chunks.
+    std::future<ChunkPtr> m_prefetch;
+    ChunkIdType m_prefetchedChunk;
 };
 
 }}}
