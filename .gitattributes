@@ -26,6 +26,7 @@ KaldiReaderReadme text
 Readme text
 
 *.bat text
+*.cmd text
 *.py text
 *.pl text
 *.ps1 text
