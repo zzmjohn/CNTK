@@ -3,58 +3,58 @@ CPU info:
     Hardware threads: 24
     Total Memory: 268381192 kB
 -------------------------------------------------------------------
-=== Running /cygdrive/c/jenkins/workspace/CNTK-Test-Windows-W1/x64/debug/cntk.exe configFile=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM/cntk.cntk currentDirectory=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu DataDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data ConfigDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu DeviceId=0 timestamping=true
+=== Running /cygdrive/c/jenkins/workspace/CNTK-Test-Windows-W1/x64/release/cntk.exe configFile=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM/cntk.cntk currentDirectory=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu DataDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data ConfigDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu DeviceId=0 timestamping=true
 -------------------------------------------------------------------
 Build info: 
 
-		Built time: Jul 12 2016 06:34:05
-		Last modified date: Fri Jul  8 10:29:45 2016
-		Build type: Debug
+		Built time: Jul 14 2016 07:04:27
+		Last modified date: Wed Jul 13 07:40:26 2016
+		Build type: Release
 		Build target: GPU
 		With 1bit-SGD: no
 		Math lib: mkl
 		CUDA_PATH: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5
-		CUB_PATH: C:\src\cub-1.4.1
+		CUB_PATH: c:\src\cub-1.4.1
 		CUDNN_PATH: c:\NVIDIA\cudnn-4.0\cuda
 		Build Branch: HEAD
-		Build SHA1: 906792b54561dcf6226f205d6edea86e04842f47
-		Built by svcphil on liana-08-w
+		Build SHA1: b918e06de12613a1773a0976ab94e213bd09ce52
+		Built by svcphil on cntk-muc01
 		Build Path: c:\jenkins\workspace\CNTK-Build-Windows\Source\CNTK\
 -------------------------------------------------------------------
 Changed current directory to C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data
-07/12/2016 08:23:07: -------------------------------------------------------------------
-07/12/2016 08:23:07: Build info: 
+07/14/2016 07:51:47: -------------------------------------------------------------------
+07/14/2016 07:51:47: Build info: 
 
-07/12/2016 08:23:07: 		Built time: Jul 12 2016 06:34:05
-07/12/2016 08:23:07: 		Last modified date: Fri Jul  8 10:29:45 2016
-07/12/2016 08:23:07: 		Build type: Debug
-07/12/2016 08:23:07: 		Build target: GPU
-07/12/2016 08:23:07: 		With 1bit-SGD: no
-07/12/2016 08:23:07: 		Math lib: mkl
-07/12/2016 08:23:07: 		CUDA_PATH: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5
-07/12/2016 08:23:07: 		CUB_PATH: C:\src\cub-1.4.1
-07/12/2016 08:23:07: 		CUDNN_PATH: c:\NVIDIA\cudnn-4.0\cuda
-07/12/2016 08:23:07: 		Build Branch: HEAD
-07/12/2016 08:23:07: 		Build SHA1: 906792b54561dcf6226f205d6edea86e04842f47
-07/12/2016 08:23:07: 		Built by svcphil on liana-08-w
-07/12/2016 08:23:07: 		Build Path: c:\jenkins\workspace\CNTK-Build-Windows\Source\CNTK\
-07/12/2016 08:23:07: -------------------------------------------------------------------
-07/12/2016 08:23:09: -------------------------------------------------------------------
-07/12/2016 08:23:09: GPU info:
+07/14/2016 07:51:47: 		Built time: Jul 14 2016 07:04:27
+07/14/2016 07:51:47: 		Last modified date: Wed Jul 13 07:40:26 2016
+07/14/2016 07:51:47: 		Build type: Release
+07/14/2016 07:51:47: 		Build target: GPU
+07/14/2016 07:51:47: 		With 1bit-SGD: no
+07/14/2016 07:51:47: 		Math lib: mkl
+07/14/2016 07:51:47: 		CUDA_PATH: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v7.5
+07/14/2016 07:51:47: 		CUB_PATH: c:\src\cub-1.4.1
+07/14/2016 07:51:47: 		CUDNN_PATH: c:\NVIDIA\cudnn-4.0\cuda
+07/14/2016 07:51:47: 		Build Branch: HEAD
+07/14/2016 07:51:47: 		Build SHA1: b918e06de12613a1773a0976ab94e213bd09ce52
+07/14/2016 07:51:47: 		Built by svcphil on cntk-muc01
+07/14/2016 07:51:47: 		Build Path: c:\jenkins\workspace\CNTK-Build-Windows\Source\CNTK\
+07/14/2016 07:51:47: -------------------------------------------------------------------
+07/14/2016 07:51:48: -------------------------------------------------------------------
+07/14/2016 07:51:48: GPU info:
 
-07/12/2016 08:23:09: 		Device[0]: cores = 2880; computeCapability = 3.5; type = "GeForce GTX 780 Ti"; memory = 3072 MB
-07/12/2016 08:23:09: 		Device[1]: cores = 2880; computeCapability = 3.5; type = "GeForce GTX 780 Ti"; memory = 3072 MB
-07/12/2016 08:23:09: 		Device[2]: cores = 2880; computeCapability = 3.5; type = "GeForce GTX 780 Ti"; memory = 3072 MB
-07/12/2016 08:23:09: -------------------------------------------------------------------
+07/14/2016 07:51:48: 		Device[0]: cores = 2880; computeCapability = 3.5; type = "GeForce GTX 780 Ti"; memory = 3072 MB
+07/14/2016 07:51:48: 		Device[1]: cores = 2880; computeCapability = 3.5; type = "GeForce GTX 780 Ti"; memory = 3072 MB
+07/14/2016 07:51:48: 		Device[2]: cores = 2880; computeCapability = 3.5; type = "GeForce GTX 780 Ti"; memory = 3072 MB
+07/14/2016 07:51:48: -------------------------------------------------------------------
 
-07/12/2016 08:23:09: Running on DPHAIM-25 at 2016/07/12 08:23:09
-07/12/2016 08:23:09: Command line: 
-C:\jenkins\workspace\CNTK-Test-Windows-W1\x64\debug\cntk.exe  configFile=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM/cntk.cntk  currentDirectory=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data  RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu  DataDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data  ConfigDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM  OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu  DeviceId=0  timestamping=true
+07/14/2016 07:51:48: Running on DPHAIM-25 at 2016/07/14 07:51:48
+07/14/2016 07:51:48: Command line: 
+C:\jenkins\workspace\CNTK-Test-Windows-W1\x64\release\cntk.exe  configFile=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM/cntk.cntk  currentDirectory=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data  RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu  DataDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data  ConfigDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM  OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu  DeviceId=0  timestamping=true
 
 
 
-07/12/2016 08:23:09: >>>>>>>>>>>>>>>>>>>> RAW CONFIG (VARIABLES NOT RESOLVED) >>>>>>>>>>>>>>>>>>>>
-07/12/2016 08:23:09: precision = "float"
+07/14/2016 07:51:48: >>>>>>>>>>>>>>>>>>>> RAW CONFIG (VARIABLES NOT RESOLVED) >>>>>>>>>>>>>>>>>>>>
+07/14/2016 07:51:48: precision = "float"
 deviceId = $DeviceId$
 command = speechTrain
 // Note: These options are overridden from the command line in some test cases.
@@ -170,17 +170,17 @@ beta = Exp (BS.Parameters.BiasParam ((1)))
     ]
 ]
 currentDirectory=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data
-RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu
+RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu
 DataDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data
 ConfigDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM
-OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu
+OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu
 DeviceId=0
 timestamping=true
 
-07/12/2016 08:23:09: <<<<<<<<<<<<<<<<<<<< RAW CONFIG (VARIABLES NOT RESOLVED)  <<<<<<<<<<<<<<<<<<<<
+07/14/2016 07:51:48: <<<<<<<<<<<<<<<<<<<< RAW CONFIG (VARIABLES NOT RESOLVED)  <<<<<<<<<<<<<<<<<<<<
 
-07/12/2016 08:23:09: >>>>>>>>>>>>>>>>>>>> RAW CONFIG WITH ALL VARIABLES RESOLVED >>>>>>>>>>>>>>>>>>>>
-07/12/2016 08:23:09: precision = "float"
+07/14/2016 07:51:48: >>>>>>>>>>>>>>>>>>>> RAW CONFIG WITH ALL VARIABLES RESOLVED >>>>>>>>>>>>>>>>>>>>
+07/14/2016 07:51:48: precision = "float"
 deviceId = 0
 command = speechTrain
 // Note: These options are overridden from the command line in some test cases.
@@ -189,7 +189,7 @@ truncated = true
 parallelTrain = false
 speechTrain = [
     action = "train"
-    modelPath = "C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu/models/cntkSpeech.dnn"
+    modelPath = "C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu/models/cntkSpeech.dnn"
     traceLevel = 1
     SGD = [
         epochSize = 20480
@@ -296,16 +296,16 @@ beta = Exp (BS.Parameters.BiasParam ((1)))
     ]
 ]
 currentDirectory=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data
-RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu
+RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu
 DataDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data
 ConfigDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM
-OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu
+OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu
 DeviceId=0
 timestamping=true
 
-07/12/2016 08:23:09: <<<<<<<<<<<<<<<<<<<< RAW CONFIG WITH ALL VARIABLES RESOLVED <<<<<<<<<<<<<<<<<<<<
+07/14/2016 07:51:48: <<<<<<<<<<<<<<<<<<<< RAW CONFIG WITH ALL VARIABLES RESOLVED <<<<<<<<<<<<<<<<<<<<
 
-07/12/2016 08:23:09: >>>>>>>>>>>>>>>>>>>> PROCESSED CONFIG WITH ALL VARIABLES RESOLVED >>>>>>>>>>>>>>>>>>>>
+07/14/2016 07:51:48: >>>>>>>>>>>>>>>>>>>> PROCESSED CONFIG WITH ALL VARIABLES RESOLVED >>>>>>>>>>>>>>>>>>>>
 configparameters: cntk.cntk:// Note: These options are overridden from the command line in some test cases.=true
 configparameters: cntk.cntk:command=speechTrain
 configparameters: cntk.cntk:ConfigDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\LSTM
@@ -313,13 +313,13 @@ configparameters: cntk.cntk:currentDirectory=C:\jenkins\workspace\CNTK-Test-Wind
 configparameters: cntk.cntk:DataDir=C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data
 configparameters: cntk.cntk:deviceId=0
 configparameters: cntk.cntk:frameMode=false
-configparameters: cntk.cntk:OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu
+configparameters: cntk.cntk:OutputDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu
 configparameters: cntk.cntk:parallelTrain=false
 configparameters: cntk.cntk:precision=float
-configparameters: cntk.cntk:RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu
+configparameters: cntk.cntk:RunDir=C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu
 configparameters: cntk.cntk:speechTrain=[
     action = "train"
-    modelPath = "C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu/models/cntkSpeech.dnn"
+    modelPath = "C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu/models/cntkSpeech.dnn"
     traceLevel = 1
     SGD = [
         epochSize = 20480
@@ -428,28 +428,28 @@ beta = Exp (BS.Parameters.BiasParam ((1)))
 
 configparameters: cntk.cntk:timestamping=true
 configparameters: cntk.cntk:truncated=true
-07/12/2016 08:23:09: <<<<<<<<<<<<<<<<<<<< PROCESSED CONFIG WITH ALL VARIABLES RESOLVED <<<<<<<<<<<<<<<<<<<<
-07/12/2016 08:23:09: Commands: speechTrain
-07/12/2016 08:23:09: Precision = "float"
-07/12/2016 08:23:09: CNTKModelPath: C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu/models/cntkSpeech.dnn
-07/12/2016 08:23:09: CNTKCommandTrainInfo: speechTrain : 4
-07/12/2016 08:23:09: CNTKCommandTrainInfo: CNTKNoMoreCommands_Total : 4
+07/14/2016 07:51:48: <<<<<<<<<<<<<<<<<<<< PROCESSED CONFIG WITH ALL VARIABLES RESOLVED <<<<<<<<<<<<<<<<<<<<
+07/14/2016 07:51:48: Commands: speechTrain
+07/14/2016 07:51:48: Precision = "float"
+07/14/2016 07:51:48: CNTKModelPath: C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu/models/cntkSpeech.dnn
+07/14/2016 07:51:48: CNTKCommandTrainInfo: speechTrain : 4
+07/14/2016 07:51:48: CNTKCommandTrainInfo: CNTKNoMoreCommands_Total : 4
 
-07/12/2016 08:23:09: ##############################################################################
-07/12/2016 08:23:09: #                                                                            #
-07/12/2016 08:23:09: # Action "train"                                                             #
-07/12/2016 08:23:09: #                                                                            #
-07/12/2016 08:23:09: ##############################################################################
+07/14/2016 07:51:48: ##############################################################################
+07/14/2016 07:51:48: #                                                                            #
+07/14/2016 07:51:48: # Action "train"                                                             #
+07/14/2016 07:51:48: #                                                                            #
+07/14/2016 07:51:48: ##############################################################################
 
-07/12/2016 08:23:09: CNTKCommandTrainBegin: speechTrain
-reading script file C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data/glob_0000.scp ... 948 entries
+07/14/2016 07:51:48: CNTKCommandTrainBegin: speechTrain
+reading script file C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data/glob_0000.scp ... 946 entries
 total 132 state names in state list C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data/state.list
 htkmlfreader: reading MLF file C:\jenkins\workspace\CNTK-Test-Windows-W1\Tests\EndToEndTests\Speech\Data/glob_0000.mlf ... total 948 entries
-...............................................................................................feature set 0: 252734 frames in 948 out of 948 utterances
+...............................................................................................feature set 0: 252508 frames in 946 out of 946 utterances
 label set 0: 129 classes
-minibatchutterancesource: 948 utterances grouped into 3 chunks, av. chunk size: 316.0 utterances, 84244.7 frames
+minibatchutterancesource: 946 utterances grouped into 3 chunks, av. chunk size: 315.3 utterances, 84169.3 frames
 useParallelTrain option is not enabled. ParallelTrain config will be ignored.
-07/12/2016 08:23:11: Creating virgin network.
+07/14/2016 07:51:48: Creating virgin network.
 
 Post-processing network...
 
@@ -849,14 +849,14 @@ Validating network, final pass.
 
 Post-processing network complete.
 
-07/12/2016 08:23:13: Created model with 287 nodes on GPU 0.
+07/14/2016 07:51:49: Created model with 287 nodes on GPU 0.
 
-07/12/2016 08:23:13: Training criterion node(s):
-07/12/2016 08:23:13: 	ce = SumElements
+07/14/2016 07:51:49: Training criterion node(s):
+07/14/2016 07:51:49: 	ce = SumElements
 
-07/12/2016 08:23:13: Evaluation criterion node(s):
+07/14/2016 07:51:49: Evaluation criterion node(s):
 
-07/12/2016 08:23:13: 	err = SumElements
+07/14/2016 07:51:49: 	err = SumElements
 
 
 Allocating matrices for forward and/or backward propagation.
@@ -864,406 +864,406 @@ Allocating matrices for forward and/or backward propagation.
 Memory Sharing Structure:
 
 0000000000000000: {[BS.Constants.One Gradient[1]] [ScaledLogLikelihood Gradient[132 x 1 x *]] [ScaledLogLikelihood._ Gradient[132 x 1 x *]] [err Gradient[1]] [err.matrix Gradient[1 x 1 x *]] [err.matrix.MinusArgs[1] Gradient[1 x 1 x *]] [err.matrix.MinusArgs[1].rightMatrix Gradient[132 x 1 x *]] [feashift Gradient[33 x 1 x *]] [featNorm Gradient[33 x 1 x *]] [featNorm.invStdDevVector Gradient[33 x 1]] [featNorm.meanVector Gradient[33 x 1]] [features Gradient[1 x 363 x *]] [labels Gradient[132 x *]] [logPrior Gradient[132]] [logPrior._ Gradient[132]] [realFeatures Gradient[363 x 1 x *]] }
-0000003FDA863DB0: {[B Value[132]] }
-0000003FF266C540: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF266C610: {[LSTMoutput[2].lstmState.h.Wmr Value[256 x 1024]] }
-0000003FF266CE30: {[W Value[132 x 256]] }
-0000003FF266CF00: {[LSTMoutput[3].lstmState.h.Wmr Value[256 x 1024]] }
-0000003FF266DE70: {[z.PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF266E1B0: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].beta._ Value[1]] }
-0000003FF266E420: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF28C74A0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].prevState.h Value[256 x 1 x *]] }
-0000003FF28C7570: {[BS.Constants.One Value[1]] }
-0000003FF28C7640: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF28C7710: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF28C7B20: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF28C7BF0: {[featNorm.meanVector Value[33 x 1]] }
-0000003FF28C7CC0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 33]] }
-0000003FF28C7D90: {[featNorm.invStdDevVector Value[33 x 1]] }
-0000003FF28C7E60: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF28C7F30: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 33]] }
-0000003FF28C80D0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF28C81A0: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].beta._ Value[1]] }
-0000003FF28C8270: {[labels Value[132 x *]] }
-0000003FF28C8340: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF28C8410: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF28C84E0: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].beta._ Value[1]] }
-0000003FF28C85B0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF28C8680: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF28C8750: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF28C88F0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF28C89C0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF28C8A90: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF28C8B60: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z Gradient[1024 x 1 x *]] [LSTMoutput[2].prevState.c Value[1024 x 1 x *]] }
-0000003FF28C8C30: {[logPrior._ Value[132]] }
-0000003FF28C8DD0: {[features Value[1 x 363 x *]] }
-0000003FF28C8F70: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF28C9040: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF28C9110: {[LSTMoutput[1].lstmState.h.Wmr Value[256 x 1024]] }
-0000003FF28C91E0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF28C92B0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF28C9380: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF2901590: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Value[1024]] }
-0000003FF2901660: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF2901800: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF29018D0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF2901A70: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF2901C10: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF2901DB0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF2901F50: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF2902020: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 33]] }
-0000003FF29020F0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF29021C0: {[LSTMoutput[1].prevState.c Value[1024 x 1 x *]] }
-0000003FF2902360: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF2902500: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Value[1024 x 33]] }
-0000003FF29025D0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF2902770: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF2902840: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF2902910: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF29029E0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].prevState.h Value[256 x 1 x *]] }
-0000003FF2902AB0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF2902B80: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF2902C50: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF2902DF0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF2902EC0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF2902F90: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF2903060: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF2903130: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF2903200: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF29032D0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF2903470: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF2939620: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF29396F0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF29397C0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF2939890: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF2939960: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF2939A30: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF2939B00: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF2939BD0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF2939CA0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
-0000003FF2939D70: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF2939E40: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF2939F10: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF2939FE0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF293A0B0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF293A180: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Value[1024]] }
-0000003FF293A3F0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Value[1024]] }
-0000003FF293A4C0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].prevState.h Value[256 x 1 x *]] }
-0000003FF293A590: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
-0000003FF293A660: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF293A730: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF293A8D0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF293AA70: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF293ACE0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
-0000003FF293ADB0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF293AE80: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[33 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z Gradient[1024 x 1 x *]] [LSTMoutput[3].prevState.c Value[1024 x 1 x *]] }
-0000003FF293AF50: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF293B020: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
-0000003FF293B1C0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
-0000003FF293B290: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF293B360: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
-0000003FF293B430: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
-0000003FF295D680: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].beta Value[1]] }
-0000003FF295D820: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 33]] }
-0000003FF295D8F0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF295D9C0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295DD00: {[ce Value[1]] }
-0000003FF295DDD0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF295DEA0: {[realFeatures Value[363 x 1 x *]] }
-0000003FF295DF70: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[33 x 1 x *]] }
-0000003FF295E040: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF295E1E0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 33]] }
-0000003FF295E450: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295E5F0: {[featNorm Value[33 x 1 x *]] }
-0000003FF295E6C0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295E860: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295E930: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295EA00: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295EAD0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295EBA0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF295ED40: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
-0000003FF295EFB0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF295F080: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295F150: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF295F2F0: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].beta Value[1]] }
-0000003FF295F3C0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[33 x 1 x *]] }
-0000003FF295F490: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF295F630: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF295F700: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295F7D0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF295F8A0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF295F970: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF295FA40: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
-0000003FF295FBE0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[33 x 1 x *]] }
-0000003FF295FCB0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Value[33 x 1 x *]] }
-0000003FF295FD80: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
-0000003FF295FE50: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF295FF20: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].beta Value[1]] }
-0000003FF295FFF0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF29600C0: {[feashift Value[33 x 1 x *]] }
-0000003FF2960190: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2960260: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF2960330: {[err Value[1]] }
-0000003FF2960400: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[1].lstmState.h.htp.TimesArgs[1].beta._ Gradient[1]] }
-0000003FF29604D0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 33]] }
-0000003FF29605A0: {[z.PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF2960670: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF2960740: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF2960810: {[ScaledLogLikelihood Value[132 x 1 x *]] }
-0000003FF29608E0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF29609B0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF2960A80: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2960B50: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2960C20: {[logPrior Value[132]] }
-0000003FF2960CF0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF2960DC0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF2960E90: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2960F60: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
-0000003FF2961030: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2961100: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF29611D0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF29612A0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF2961370: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
-0000003FF2961440: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2961510: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
-0000003FF2A1B060: {[LSTMoutput[1].lstmState._privateInnards.it._ Value[1024 x 1 x *]] }
-0000003FF2A1B130: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A1B200: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A1B2D0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1B3A0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1B470: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A1B540: {[LSTMoutput[1].lstmState._privateInnards.it Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A1B610: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._ Value[1024 x 1 x *]] }
-0000003FF2A1B6E0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A1B7B0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1B880: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
-0000003FF2A1B950: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1BA20: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState.h.htp.TimesArgs[1].beta._ Gradient[1]] }
-0000003FF2A1BAF0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[33 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A1BBC0: {[LSTMoutput[2].lstmState._privateInnards.ot._ Value[1024 x 1 x *]] }
-0000003FF2A1BC90: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1BD60: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1BE30: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A1BF00: {[LSTMoutput[1].lstmState._privateInnards.ot._ Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1BFD0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A1C0A0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1C170: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1C240: {[LSTMoutput[1].lstmState._privateInnards.ht.ElementTimesArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1C310: {[LSTMoutput[1].lstmState._privateInnards.bft Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1C3E0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1C4B0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1C580: {[LSTMoutput[1].lstmState._privateInnards.ft Value[1024 x 1 x *]] }
-0000003FF2A1C650: {[LSTMoutput[1].lstmState._privateInnards.ot._ Value[1024 x 1 x *]] }
-0000003FF2A1C720: {[LSTMoutput[1].lstmState._privateInnards.ht Value[1024 x 1 x *]] }
-0000003FF2A1C7F0: {[LSTMoutput[1].lstmState.h.Wmr Gradient[256 x 1024]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1C8C0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1C990: {[LSTMoutput[1].lstmState._privateInnards.it Value[1024 x 1 x *]] }
-0000003FF2A1CA60: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A1CB30: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1CC00: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1CCD0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A1CDA0: {[LSTMoutput[1].lstmState._privateInnards.ct Value[1024 x 1 x *]] }
-0000003FF2A1CE70: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A1CF40: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1D010: {[LSTMoutput[1].lstmState._privateInnards.bit Value[1024 x 1 x *]] }
-0000003FF2A1D0E0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1D1B0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it Value[1024 x 1 x *]] }
-0000003FF2A1D280: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1D350: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z Value[1024 x 1 x *]] }
-0000003FF2A1D420: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1D4F0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z Value[1024 x 1 x *]] }
-0000003FF2A1D5C0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit Value[1024 x 1 x *]] }
-0000003FF2A1D690: {[LSTMoutput[1].lstmState.h.htp Value[256 x 1 x *]] }
-0000003FF2A1D760: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
-0000003FF2A1D830: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1D900: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A1D9D0: {[LSTMoutput[1].lstmState._privateInnards.ot Value[1024 x 1 x *]] }
-0000003FF2A1DAA0: {[LSTMoutput[1].lstmState._privateInnards.ht.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1DB70: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A1DC40: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A1DD10: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Gradient[33 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[1].prevState.h Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft Value[1024 x 1 x *]] }
-0000003FF2A1DDE0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bft Value[1024 x 1 x *]] }
-0000003FF2A1DEB0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
-0000003FF2A1DF80: {[LSTMoutput[1].lstmState._privateInnards.ft._ Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._ Value[1024 x 1 x *]] }
-0000003FF2A1E050: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[33 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A1E120: {[LSTMoutput[1].lstmState._privateInnards.ft._ Value[1024 x 1 x *]] }
-0000003FF2A1E1F0: {[LSTMoutput[2].lstmState._privateInnards.ct Value[1024 x 1 x *]] }
-0000003FF2A1E2C0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1E390: {[LSTMoutput[1].lstmState._privateInnards.bft Value[1024 x 1 x *]] }
-0000003FF2A1E460: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A1E530: {[LSTMoutput[2].lstmState.h.Wmr Gradient[256 x 1024]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1E600: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A1E6D0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1E7A0: {[LSTMoutput[2].lstmState._privateInnards.ht.ElementTimesArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A1E870: {[LSTMoutput[2].lstmState._privateInnards.ot Value[1024 x 1 x *]] }
-0000003FF2A1E940: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A1EA10: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState.h.htp.TimesArgs[1].beta._ Gradient[1]] }
-0000003FF2A1EAE0: {[LSTMoutput[2].lstmState._privateInnards.ht Value[1024 x 1 x *]] }
-0000003FF2A1EBB0: {[LSTMoutput[2].lstmState.h.htp Value[256 x 1 x *]] }
-0000003FF2A1EC80: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
-0000003FF2A1ED50: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A1EE20: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A1EEF0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
-0000003FF2A23080: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.it Gradient[1024 x 1 x *]] }
-0000003FF2A23150: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1] Gradient[1024 x 1 x *]] }
-0000003FF2A23220: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z Gradient[1024 x 1 x *]] }
-0000003FF2A232F0: {[B Gradient[132]] [ce.matrix.MinusArgs[0].out Gradient[1 x 1 x *]] }
-0000003FF2A233C0: {[LSTMoutput[2].lstmState.h.htp Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Gradient[1024 x 1 x *]] }
-0000003FF2A23490: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.it Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A23560: {[LSTMoutput[1].lstmState._privateInnards.ct Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit Value[1024 x 1 x *]] }
-0000003FF2A23630: {[LSTMoutput[3].lstmState._privateInnards.ot Value[1024 x 1 x *]] }
-0000003FF2A23700: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A237D0: {[LSTMoutput[3].lstmState.h.htp Value[256 x 1 x *]] }
-0000003FF2A238A0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it Value[1024 x 1 x *]] }
-0000003FF2A23970: {[z.PlusArgs[0] Value[132 x 1 x *]] [z.PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
-0000003FF2A23A40: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._ Value[1024 x 1 x *]] }
-0000003FF2A23B10: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A23BE0: {[LSTMoutput[3].lstmState._privateInnards.ht Value[1024 x 1 x *]] }
-0000003FF2A23CB0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bft Value[1024 x 1 x *]] }
-0000003FF2A23D80: {[LSTMoutput[3].lstmState._privateInnards.ht.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [ce.matrix.MinusArgs[0].out.input Gradient[132 x 1 x *]] [ce.matrix.MinusArgs[1] Value[1 x 1 x *]] }
-0000003FF2A23E50: {[LSTMoutput[1].lstmState._privateInnards.ot Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A23F20: {[err.matrix.MinusArgs[1].rightMatrix Value[132 x 1 x *]] }
-0000003FF2A23FF0: {[err.matrix.MinusArgs[1] Value[1 x 1 x *]] }
-0000003FF2A240C0: {[LSTMoutput[2].lstmState._privateInnards.ht.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A24190: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A24260: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A24330: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A24400: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A244D0: {[LSTMoutput[1].lstmState._privateInnards.ht Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z Value[1024 x 1 x *]] }
-0000003FF2A245A0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A24670: {[LSTMoutput[2].lstmState._privateInnards.ot._ Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A24740: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bft Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A24810: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A248E0: {[LSTMoutput[3].lstmState._privateInnards.ct Value[1024 x 1 x *]] }
-0000003FF2A249B0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A24A80: {[W Gradient[132 x 256]] [z Value[132 x 1 x *]] }
-0000003FF2A24B50: {[LSTMoutput[3].lstmState._privateInnards.ot Gradient[1024 x 1 x *]] [ce.matrix.MinusArgs[0].out.input Value[132 x 1 x *]] }
-0000003FF2A24C20: {[LSTMoutput[3].lstmState._privateInnards.ht Gradient[1024 x 1 x *]] [ce.matrix.MinusArgs[0].out Value[1 x 1 x *]] [ce.matrix.MinusArgs[0].out.input.MinusArgs[1] Gradient[132 x 1 x *]] }
-0000003FF2A24CF0: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A24DC0: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].result Gradient[1024 x 1 x *]] [ce.matrix Value[1 x 1 x *]] [z Gradient[132 x 1 x *]] [z.PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] }
-0000003FF2A24E90: {[ce Gradient[1]] }
-0000003FF2A24F60: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A25030: {[LSTMoutput[3].lstmState._privateInnards.ct Gradient[1024 x 1 x *]] [ce.matrix Gradient[1 x 1 x *]] }
-0000003FF2A25100: {[LSTMoutput[3].lstmState.h.htp Gradient[256 x 1 x *]] [ce.matrix.MinusArgs[1] Gradient[1 x 1 x *]] [z.PlusArgs[0] Gradient[132 x 1 x *]] }
-0000003FF2A252A0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
-0000003FF2A25370: {[LSTMoutput[3].lstmState._privateInnards.ot._ Gradient[1024 x 1 x *]] }
-0000003FF2A25440: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0] Gradient[1024 x 1 x *]] }
-0000003FF2A25510: {[LSTMoutput[3].lstmState.h.Wmr Gradient[256 x 1024]] [z.PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A255E0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1] Gradient[1024 x 1 x *]] }
-0000003FF2A256B0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A25780: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A25850: {[ScaledLogLikelihood._ Value[132 x 1 x *]] }
-0000003FF2A25920: {[LSTMoutput[3].lstmState._privateInnards.ot._ Value[1024 x 1 x *]] }
-0000003FF2A259F0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0] Value[1024 x 1 x *]] }
-0000003FF2A25AC0: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].beta Gradient[1]] [ce.matrix.MinusArgs[0].out.input.MinusArgs[1] Value[132 x 1 x *]] [z.PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] }
-0000003FF2A25B90: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[2].prevState.h Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft Value[1024 x 1 x *]] }
-0000003FF2A25C60: {[err.matrix Value[1 x 1 x *]] }
-0000003FF2A25D30: {[LSTMoutput[3].lstmState._privateInnards.ht.ElementTimesArgs[1] Value[1024 x 1 x *]] }
-0000003FF2A25E00: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] }
-0000003FF2A25ED0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
-0000003FF2A25FA0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] }
-0000003FF2A26070: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] }
-0000003FF2A26140: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
-0000003FF2A26210: {[LSTMoutput[1].lstmState._privateInnards.ft Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bft Gradient[1024 x 1 x *]] }
-0000003FF2A262E0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Gradient[1024 x 33]] [LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ft._ Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._ Value[1024 x 1 x *]] }
-0000003FF2A263B0: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.bit Gradient[1024 x 1 x *]] }
-0000003FF2A26480: {[LSTMoutput[1].lstmState._privateInnards.it._ Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1] Gradient[1024 x 1 x *]] }
-0000003FF2A26550: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] }
-0000003FF2A26620: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[3].prevState.h Gradient[256 x 1 x *]] }
-0000003FF2A266F0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] }
-0000003FF2A267C0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] }
-0000003FF2A26890: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Gradient[1024]] }
-0000003FF2A26960: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Gradient[1024 x 1 x *]] }
-0000003FF2A26A30: {[LSTMoutput[1].lstmState._privateInnards.bit Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Gradient[1024 x 1 x *]] }
-0000003FF2A26B00: {[LSTMoutput[1].prevState.c Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0] Gradient[1024 x 1 x *]] }
-0000003FF2A26BD0: {[LSTMoutput[1].lstmState.h.htp Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].prevState.c Gradient[1024 x 1 x *]] }
-0000003FF2A26CA0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
-0000003FF2A26D70: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A26E40: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] }
-0000003FF2A26F10: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._ Gradient[1024 x 1 x *]] }
-0000003FF2A2B310: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A2B3E0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] }
-0000003FF2A2B720: {[LSTMoutput[2].lstmState._privateInnards.ht Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] }
-0000003FF2A2BA60: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A2C0E0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] }
-0000003FF2A2C1B0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] }
-0000003FF2A2C280: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] }
-0000003FF2A2C350: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] }
-0000003FF2A2C420: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] }
-0000003FF2A2C4F0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ft._ Gradient[1024 x 1 x *]] }
-0000003FF2A2CB70: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] }
-0000003FF2A2CD10: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].prevState.c Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] }
-0000003FF2A2CDE0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] }
-0000003FF2A2CEB0: {[LSTMoutput[2].lstmState._privateInnards.ot Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] }
-0000003FF2A2D050: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] }
-0000003FF2A2D120: {[LSTMoutput[2].lstmState._privateInnards.ct Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] }
-0000003FF2A2D460: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] }
-0000003FF2A2D7A0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._ Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft Gradient[1024 x 1 x *]] }
-0000003FF2A2D940: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.bit Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] }
-0000003FF2A2DC80: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0] Gradient[1024 x 1 x *]] }
-0000003FF2A2DE20: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1] Gradient[1024 x 1 x *]] }
-0000003FF2A2E090: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] }
+000000440EF75370: {[LSTMoutput[1].lstmState._privateInnards.ot._ Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF75410: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0] Value[1024 x 1 x *]] }
+000000440EF75870: {[LSTMoutput[1].lstmState._privateInnards.ht.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF759B0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+000000440EF75A50: {[LSTMoutput[1].lstmState._privateInnards.it Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0] Value[1024 x 1 x *]] }
+000000440EF75AF0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Gradient[33 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[1].prevState.h Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft Value[1024 x 1 x *]] }
+000000440EF75E10: {[z.PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+000000440EF75EB0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF75F50: {[featNorm.meanVector Value[33 x 1]] }
+000000440EF75FF0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._ Value[1024 x 1 x *]] }
+000000440EF76130: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF761D0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[33 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0] Value[1024 x 1 x *]] }
+000000440EF76270: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+000000440EF76310: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF76450: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF768B0: {[LSTMoutput[1].lstmState._privateInnards.bft Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF76950: {[LSTMoutput[1].lstmState._privateInnards.ft._ Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._ Value[1024 x 1 x *]] }
+000000440EF769F0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it Value[1024 x 1 x *]] }
+000000440EF76C70: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF76D10: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF76DB0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+000000440EF76E50: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bft Value[1024 x 1 x *]] }
+000000440EF76EF0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[33 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Value[1024 x 1 x *]] }
+000000440EF77030: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+000000440EF770D0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF77210: {[features Value[1 x 363 x *]] }
+000000440EF794E0: {[LSTMoutput[1].lstmState._privateInnards.it._ Value[1024 x 1 x *]] }
+000000440EF79620: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1] Value[1024 x 1 x *]] }
+000000440EF796C0: {[LSTMoutput[1].lstmState._privateInnards.ot._ Value[1024 x 1 x *]] }
+000000440EF798A0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+000000440EF79940: {[LSTMoutput[1].lstmState._privateInnards.ot Value[1024 x 1 x *]] }
+000000440EF799E0: {[LSTMoutput[1].lstmState._privateInnards.ht Value[1024 x 1 x *]] }
+000000440EF79A80: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].result Value[1024 x 1 x *]] }
+000000440EF79B20: {[LSTMoutput[1].lstmState.h.htp Value[256 x 1 x *]] }
+000000440EF79BC0: {[LSTMoutput[1].lstmState._privateInnards.bit Value[1024 x 1 x *]] }
+000000440EF79D00: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+000000440EF79DA0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState.h.htp.TimesArgs[1].beta._ Gradient[1]] }
+000000440EF79E40: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+000000440EF79EE0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
+000000440EF79F80: {[LSTMoutput[1].lstmState.h.Wmr Value[256 x 1024]] }
+000000440EF7A0C0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF7A160: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
+000000440EF7A200: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+000000440EF7A2A0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
+000000440EF7A520: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+000000440EF7AAC0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+000000440EF7AC00: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF7ACA0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF7AD40: {[LSTMoutput[1].lstmState.h.Wmr Gradient[256 x 1024]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF7ADE0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF7AFC0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF7B060: {[LSTMoutput[1].lstmState._privateInnards.ht.ElementTimesArgs[1] Value[1024 x 1 x *]] }
+000000440EF7B420: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+000000440EF7B4C0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z Value[1024 x 1 x *]] }
+000000440EF7B560: {[LSTMoutput[1].lstmState._privateInnards.it Value[1024 x 1 x *]] }
+000000440EF7B740: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Value[1024 x 1 x *]] }
+000000440EF7B920: {[LSTMoutput[1].lstmState._privateInnards.ct Value[1024 x 1 x *]] }
+000000440EF7BC40: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+000000440EF7BD80: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+000000440EF7BE20: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF7C3C0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
+000000440EF7C640: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].beta._ Value[1]] }
+000000440EF7CC80: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF7CFA0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
+000000440EF7D180: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
+000000440EF81510: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[33 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z Gradient[1024 x 1 x *]] [LSTMoutput[3].prevState.c Value[1024 x 1 x *]] }
+000000440EF815B0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
+000000440EF816F0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+000000440EF81790: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+000000440EF81A10: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF81BF0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+000000440EF81DD0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000440EF81F10: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
+000000440EF82050: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000440EF820F0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+000000440EF82190: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+000000440EF82230: {[LSTMoutput[2].lstmState._privateInnards.ht.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF822D0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+000000440EF82370: {[LSTMoutput[2].lstmState._privateInnards.ot._ Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF82410: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0] Value[1024 x 1 x *]] }
+000000440EF824B0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+000000440EF825F0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000440EF82690: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+000000440EF82730: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+000000440EF82C30: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+000000440EF82E10: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
+000000440EF82EB0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000440EF82FF0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000440EF831D0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+000000440EF83270: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000440EF83310: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+000000440EF833B0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+000000440EF83450: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+000000440EF836D0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+000000440EF83770: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+000000440EF83A90: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+000000440EF83D10: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._ Value[1024 x 1 x *]] }
+000000440EF83DB0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+000000440EF83E50: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000440EF84030: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].beta._ Value[1]] }
+000000440EF84170: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+000000440EF84210: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[2].prevState.h Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft Value[1024 x 1 x *]] }
+000000440EF845D0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+000000440EF847B0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000440EF848F0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+000000440EF84AD0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bft Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF84FD0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.it Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0] Value[1024 x 1 x *]] }
+000000440EF85070: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1] Value[1024 x 1 x *]] }
+000000440EF85110: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+000000440EF85250: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+00000044115E2B50: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
+00000044115E2BF0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+00000044115E2DD0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+00000044115E2E70: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
+00000044115E2F10: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+00000044115E2FB0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1] Value[1024 x 1 x *]] }
+00000044115E32D0: {[LSTMoutput[2].lstmState._privateInnards.ct Value[1024 x 1 x *]] }
+00000044115E34B0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+00000044115E35F0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Value[1024]] }
+00000044115E3690: {[LSTMoutput[2].lstmState._privateInnards.ht Value[1024 x 1 x *]] }
+00000044115E37D0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+00000044115E39B0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z Value[1024 x 1 x *]] }
+00000044115E3C30: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1] Value[1024 x 1 x *]] }
+00000044115E3D70: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit Value[1024 x 1 x *]] }
+00000044115E3F50: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+00000044115E3FF0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+00000044115E4590: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].result Value[1024 x 1 x *]] }
+00000044115E46D0: {[LSTMoutput[2].lstmState.h.Wmr Gradient[256 x 1024]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+00000044115E4810: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+00000044115E48B0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+00000044115E4950: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+00000044115E49F0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState.h.htp.TimesArgs[1].beta._ Gradient[1]] }
+00000044115E4A90: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+00000044115E4B30: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+00000044115E4BD0: {[LSTMoutput[2].lstmState.h.htp Value[256 x 1 x *]] }
+00000044115E4C70: {[LSTMoutput[2].lstmState._privateInnards.ot._ Value[1024 x 1 x *]] }
+00000044115E4D10: {[LSTMoutput[2].lstmState._privateInnards.ht.ElementTimesArgs[1] Value[1024 x 1 x *]] }
+00000044115E4E50: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+00000044115E4EF0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+00000044115E50D0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Value[1024 x 33]] }
+00000044115E5170: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+00000044115E5210: {[LSTMoutput[2].lstmState._privateInnards.ot Value[1024 x 1 x *]] }
+00000044115E58F0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+00000044115E66B0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
+00000044115E6890: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 33]] }
+0000004411602C60: {[logPrior._ Value[132]] }
+0000004411602DA0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+0000004411602E40: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+00000044116032A0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+0000004411603480: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+0000004411603520: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+0000004411603660: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+0000004411603A20: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+0000004411603AC0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+0000004411603C00: {[LSTMoutput[3].lstmState.h.htp Value[256 x 1 x *]] }
+00000044116042E0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Value[1024]] }
+0000004411604380: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+0000004411604740: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+00000044116047E0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+00000044116049C0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+0000004411604B00: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+0000004411604BA0: {[LSTMoutput[3].lstmState.h.Wmr Gradient[256 x 1024]] [z.PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+0000004411604E20: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+0000004411605140: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+0000004411605280: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+0000004411606040: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z Gradient[1024 x 1 x *]] [LSTMoutput[2].prevState.c Value[1024 x 1 x *]] }
+0000004411606360: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+0000004411607BC0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+0000004411608160: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+00000044116082A0: {[ce Value[1]] }
+0000004411608340: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+0000004411608480: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+00000044116085C0: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].beta Value[1]] }
+0000004411608840: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+00000044116088E0: {[z.PlusArgs[0].TimesArgs[1].beta Value[1]] }
+0000004411608C00: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+0000004411608D40: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].beta Value[1]] }
+0000004411608FC0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+0000004411609100: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Value[1024]] }
+00000044116091A0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 256]] }
+0000004411609380: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+0000004411609420: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+00000044116094C0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+0000004411609600: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+0000004411609C40: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+0000004411609E20: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+0000004411609F60: {[ScaledLogLikelihood Value[132 x 1 x *]] }
+000000441160A1E0: {[err Value[1]] }
+000000441160A5A0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].prevState.h Value[256 x 1 x *]] }
+000000441160A640: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+000000441160A6E0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+000000441160A780: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].beta Value[1]] }
+000000441160A820: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+000000441160A8C0: {[z.PlusArgs[0] Value[132 x 1 x *]] [z.PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
+000000441160AA00: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+00000044116C2220: {[LSTMoutput[2].lstmState._privateInnards.ot Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] }
+00000044116C22C0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._ Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft Gradient[1024 x 1 x *]] }
+00000044116C2360: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] }
+00000044116C2400: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.bit Gradient[1024 x 1 x *]] }
+00000044116C24A0: {[LSTMoutput[2].lstmState._privateInnards.ht Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] }
+00000044116C2540: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] }
+00000044116C25E0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] }
+00000044116C2680: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] }
+00000044116C27C0: {[LSTMoutput[1].lstmState._privateInnards.it._ Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1] Gradient[1024 x 1 x *]] }
+00000044116C2860: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].prevState.c Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] }
+00000044116C2900: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] }
+00000044116C2A40: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] }
+00000044116C2B80: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] }
+00000044116C2C20: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z Gradient[1024 x 1 x *]] }
+00000044116C2CC0: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] }
+00000044116C2EA0: {[LSTMoutput[2].lstmState._privateInnards.ct Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] }
+00000044116C2F40: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[1] Gradient[1024]] }
+00000044116C2FE0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ft._ Gradient[1024 x 1 x *]] }
+00000044116C3080: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] }
+00000044116C3120: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] }
+00000044116C31C0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0] Gradient[1024 x 1 x *]] }
+00000044116C3260: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] }
+00000044116C3300: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[3].prevState.h Gradient[256 x 1 x *]] }
+00000044116C33A0: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] }
+00000044116C3620: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1] Gradient[1024 x 1 x *]] }
+00000044116C36C0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.bit Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] }
+00000044116C3760: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0] Gradient[1024 x 1 x *]] }
+00000044116C39E0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1] Gradient[1024 x 1 x *]] }
+00000044116C3A80: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Gradient[1024 x 1 x *]] }
+00000044116C3B20: {[LSTMoutput[2].lstmState.h.htp.TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] }
+00000044116C3C60: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] }
+00000044116C3D00: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] }
+00000044116C3DA0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.it Gradient[1024 x 1 x *]] }
+00000044116C3E40: {[LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] }
+00000044116C3EE0: {[LSTMoutput[2].lstmState.h.htp Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Gradient[1024 x 1 x *]] }
+00000044116C4020: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] }
+00000044116C4160: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._ Gradient[1024 x 1 x *]] }
+00000044116C4200: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] }
+00000044116C42A0: {[LSTMoutput[1].lstmState._privateInnards.ft Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bft Gradient[1024 x 1 x *]] }
+00000044116C4340: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] }
+00000044116C43E0: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
+00000044116C4480: {[LSTMoutput[1].prevState.c Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0] Gradient[1024 x 1 x *]] }
+00000044116C4520: {[LSTMoutput[1].lstmState._privateInnards.bit Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Gradient[1024 x 1 x *]] }
+00000044116C45C0: {[LSTMoutput[1].lstmState.h.htp Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].prevState.c Gradient[1024 x 1 x *]] }
+00000044116C4660: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] }
+00000044116C4840: {[LSTMoutput[3].lstmState._privateInnards.ot._ Gradient[1024 x 1 x *]] }
+00000044116C48E0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] }
+00000044116C4980: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.ft._.PlusArgs[1] Gradient[1024 x 1 x *]] }
+00000044116C9A20: {[err.matrix.MinusArgs[1] Value[1 x 1 x *]] }
+00000044116C9AC0: {[LSTMoutput[3].lstmState.h.htp Gradient[256 x 1 x *]] [ce.matrix.MinusArgs[1] Gradient[1 x 1 x *]] [z.PlusArgs[0] Gradient[132 x 1 x *]] }
+00000044116C9C00: {[LSTMoutput[3].lstmState._privateInnards.ot Gradient[1024 x 1 x *]] [ce.matrix.MinusArgs[0].out.input Value[132 x 1 x *]] }
+00000044116C9CA0: {[LSTMoutput[3].lstmState._privateInnards.ht.ElementTimesArgs[1] Gradient[1024 x 1 x *]] [ce.matrix.MinusArgs[0].out.input Gradient[132 x 1 x *]] [ce.matrix.MinusArgs[1] Value[1 x 1 x *]] }
+00000044116C9D40: {[err.matrix Value[1 x 1 x *]] }
+00000044116C9DE0: {[LSTMoutput[3].lstmState._privateInnards.ct Gradient[1024 x 1 x *]] [ce.matrix Gradient[1 x 1 x *]] }
+00000044116C9E80: {[LSTMoutput[3].lstmState._privateInnards.ht Gradient[1024 x 1 x *]] [ce.matrix.MinusArgs[0].out Value[1 x 1 x *]] [ce.matrix.MinusArgs[0].out.input.MinusArgs[1] Gradient[132 x 1 x *]] }
+00000044116C9F20: {[err.matrix.MinusArgs[1].rightMatrix Value[132 x 1 x *]] }
+00000044116C9FC0: {[B Gradient[132]] [ce.matrix.MinusArgs[0].out Gradient[1 x 1 x *]] }
+00000044116CA060: {[ce Gradient[1]] }
+00000044116CA100: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].result Gradient[1024 x 1 x *]] [ce.matrix Value[1 x 1 x *]] [z Gradient[132 x 1 x *]] [z.PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] }
+0000004412DA3310: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1] Value[1024 x 1 x *]] }
+0000004412DA33B0: {[LSTMoutput[1].lstmState._privateInnards.ct Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit Value[1024 x 1 x *]] }
+0000004412DA3450: {[B Value[132]] }
+0000004412DA3770: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+0000004412DA3950: {[LSTMoutput[3].lstmState._privateInnards.ht.ElementTimesArgs[1] Value[1024 x 1 x *]] }
+0000004412DA39F0: {[LSTMoutput[3].lstmState._privateInnards.ot._.PlusArgs[1] Value[1024 x 1 x *]] }
+0000004412DA3A90: {[LSTMoutput[3].lstmState._privateInnards.ot Value[1024 x 1 x *]] }
+0000004412DA3B30: {[LSTMoutput[1].lstmState._privateInnards.ht Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z Value[1024 x 1 x *]] }
+0000004412DA3BD0: {[LSTMoutput[3].lstmState._privateInnards.ot._ Value[1024 x 1 x *]] }
+0000004412DA3E50: {[LSTMoutput[3].lstmState._privateInnards.ct Value[1024 x 1 x *]] }
+0000004412DA40D0: {[LSTMoutput[3].lstmState._privateInnards.ht Value[1024 x 1 x *]] }
+0000004412DA4530: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].result Value[1024 x 1 x *]] }
+0000004412DA7110: {[LSTMoutput[3].lstmState.h.htp.TimesArgs[1].beta Gradient[1]] [ce.matrix.MinusArgs[0].out.input.MinusArgs[1] Value[132 x 1 x *]] [z.PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] }
+0000004412DA77F0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Value[1]] }
+0000004412FB1480: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+0000004412FB2240: {[LSTMoutput[1].lstmState.h.htp.TimesArgs[1].beta._ Value[1]] }
+0000004412FB2420: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+0000004412FB2600: {[W Gradient[132 x 256]] [z Value[132 x 1 x *]] }
+0000004412FB2740: {[ScaledLogLikelihood._ Value[132 x 1 x *]] }
+0000004412FB2A60: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 33]] }
+0000004412FB2B00: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+0000004412FB3000: {[featNorm.invStdDevVector Value[33 x 1]] }
+0000004412FB38C0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+0000004412FB9EE0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+0000004412FBA3E0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+0000004412FBAB60: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] }
+0000004412FBACA0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
+0000004412FBAD40: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+0000004412FBAFC0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Value[1]] }
+0000004412FBB060: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].result Value[33 x 1 x *]] }
+0000004412FBB100: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0] Value[1024 x 1 x *]] }
+0000004412FBB1A0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Value[1024]] }
+0000004412FBB240: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1] Value[1024 x 1 x *]] }
+0000004412FBB2E0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Value[1024 x 33]] }
+0000004412FBB420: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+0000004412FBB560: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[33 x 1 x *]] }
+0000004412FBB6A0: {[LSTMoutput[1].lstmState._privateInnards.ft._ Value[1024 x 1 x *]] }
+0000004412FBB7E0: {[LSTMoutput[1].lstmState._privateInnards.bft Value[1024 x 1 x *]] }
+0000004412FBB880: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+0000004412FBBA60: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0] Value[1024 x 1 x *]] }
+0000004412FBBB00: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+0000004412FBBC40: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+0000004412FBBCE0: {[LSTMoutput[1].lstmState._privateInnards.ft Value[1024 x 1 x *]] }
+0000004412FBBD80: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+0000004412FBBE20: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0] Value[1024 x 1 x *]] }
+0000004412FBBF60: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+0000004412FBC000: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 33]] }
+0000004412FBC1E0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 33]] }
+0000004412FBC280: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+0000004412FBC3C0: {[LSTMoutput[1].prevState.c Value[1024 x 1 x *]] }
+0000004412FBC5A0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[0] Value[1024]] }
+0000004412FBC6E0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[0] Gradient[1024 x 33]] }
+0000004412FBC780: {[logPrior Value[132]] }
+0000004412FBC820: {[realFeatures Value[363 x 1 x *]] }
+0000004412FBC8C0: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[33 x 1 x *]] }
+0000004412FBC960: {[featNorm Value[33 x 1 x *]] }
+0000004412FBCBE0: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Value[1]] }
+0000004412FBCC80: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Value[1]] }
+0000004412FBCE60: {[LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+0000004412FBCFA0: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Value[33 x 1 x *]] }
+0000004412FBD040: {[LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[1].beta Value[1]] }
+0000004412FBD180: {[LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[1].lstmState.h.htp.TimesArgs[1].beta._ Gradient[1]] }
+0000004412FBD220: {[LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Value[1024 x 1 x *]] [LSTMoutput[1].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[1].lstmState._privateInnards.ot._.PlusArgs[1].ElementTimesArgs[1].beta._ Gradient[1]] }
+0000004412FBD2C0: {[LSTMoutput[2].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].prevState.h Value[256 x 1 x *]] }
+0000004412FBD400: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[1].prevState.h Value[256 x 1 x *]] }
+0000004412FBD4A0: {[feashift Value[33 x 1 x *]] }
+0000004412FBDA40: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Value[1]] }
+0000004412FBDB80: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Value[1024 x 256]] }
+0000004412FBDC20: {[LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta._ Value[1]] }
+0000004412FE0B70: {[LSTMoutput[2].lstmState.h.Wmr Value[256 x 1024]] }
+0000004412FE0CB0: {[LSTMoutput[1].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bft Value[1024 x 1 x *]] }
+0000004412FE0D50: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0] Value[1024 x 1 x *]] }
+0000004412FE0F30: {[labels Value[132 x *]] }
+0000004412FE0FD0: {[LSTMoutput[1].lstmState._privateInnards.ot Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1] Value[1024 x 1 x *]] }
+0000004412FE1110: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[0] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].result Value[256 x 1 x *]] }
+0000004412FE11B0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].result Value[1024 x 1 x *]] }
+0000004412FE1570: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[0].TimesArgs[0] Gradient[1024 x 33]] [LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].beta Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.ft._ Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it._ Value[1024 x 1 x *]] }
+0000004412FE1610: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1].ElementTimesArgs[1].result Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[1].result Value[256 x 1 x *]] }
+0000004412FE19D0: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0] Gradient[1024 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[0].PlusArgs[0].TimesArgs[1].result Gradient[256 x 1 x *]] [LSTMoutput[2].lstmState._privateInnards.ot._.PlusArgs[0].PlusArgs[0].PlusArgs[1] Gradient[1024]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0] Value[1024 x 1 x *]] }
+0000004412FE1B10: {[LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[0].PlusArgs[1].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[3].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1] Value[1024 x 1 x *]] }
+0000004412FE1CF0: {[LSTMoutput[1].lstmState._privateInnards.bit.ElementTimesArgs[1].z.PlusArgs[1].PlusArgs[0].TimesArgs[0] Gradient[1024 x 256]] [LSTMoutput[2].lstmState._privateInnards.ft._.PlusArgs[1] Gradient[1024 x 1 x *]] [LSTMoutput[3].lstmState._privateInnards.it Value[1024 x 1 x *]] }
+0000004412FE2010: {[W Value[132 x 256]] }
+0000004412FE2290: {[LSTMoutput[3].lstmState.h.Wmr Value[256 x 1024]] }
+0000004412FE25B0: {[LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1].TimesArgs[1].beta._ Gradient[1]] [LSTMoutput[2].lstmState._privateInnards.it._.PlusArgs[1].ElementTimesArgs[1].beta Gradient[1]] [LSTMoutput[3].lstmState._privateInnards.it._.PlusArgs[0].PlusArgs[1] Value[1024 x 1 x *]] }
+0000004412FE2830: {[BS.Constants.One Value[1]] }
 
 
-07/12/2016 08:23:13: Precomputing --> 3 PreCompute nodes found.
+07/14/2016 07:51:49: Precomputing --> 3 PreCompute nodes found.
 
-07/12/2016 08:23:13: 	featNorm.meanVector = Mean()
-07/12/2016 08:23:13: 	featNorm.invStdDevVector = InvStdDev()
-07/12/2016 08:23:13: 	logPrior._ = Mean()
-minibatchiterator: epoch 0: frames [0..252734] (first utterance at frame 0), data subset 0 of 1, with 1 datapasses
+07/14/2016 07:51:49: 	featNorm.meanVector = Mean()
+07/14/2016 07:51:49: 	featNorm.invStdDevVector = InvStdDev()
+07/14/2016 07:51:49: 	logPrior._ = Mean()
+minibatchiterator: epoch 0: frames [0..252508] (first utterance at frame 0), data subset 0 of 1, with 1 datapasses
 requiredata: determined feature kind as 33-dimensional 'USER' with frame shift 10.0 ms
 
-07/12/2016 08:23:25: Precomputing --> Completed.
+07/14/2016 07:51:50: Precomputing --> Completed.
 
 
-07/12/2016 08:23:26: Starting Epoch 1: learning rate per sample = 0.000781  effective momentum = 0.000000  momentum as time constant = 0.0 samples
+07/14/2016 07:51:51: Starting Epoch 1: learning rate per sample = 0.000781  effective momentum = 0.000000  momentum as time constant = 0.0 samples
 minibatchiterator: epoch 0: frames [0..20480] (first utterance at frame 0), data subset 0 of 1, with 1 datapasses
 
-07/12/2016 08:23:26: Starting minibatch loop.
-07/12/2016 08:23:34:  Epoch[ 1 of 4]-Minibatch[   1-  10, 0.98%]: ce = 4.76924805 * 6400; err = 0.86984375 * 6400; time = 8.0089s; samplesPerSecond = 799.1
-07/12/2016 08:23:43:  Epoch[ 1 of 4]-Minibatch[  11-  20, 1.95%]: ce = 4.55673950 * 6400; err = 0.86484375 * 6400; time = 8.2211s; samplesPerSecond = 778.5
-07/12/2016 08:23:52:  Epoch[ 1 of 4]-Minibatch[  21-  30, 2.93%]: ce = 4.59775187 * 5556; err = 0.91018719 * 5556; time = 9.1726s; samplesPerSecond = 605.7
-07/12/2016 08:24:00:  Epoch[ 1 of 4]-Minibatch[  31-  40, 3.91%]: ce = 4.60854674 * 2094; err = 0.94030564 * 2094; time = 8.5367s; samplesPerSecond = 245.3
-07/12/2016 08:24:03: Finished Epoch[ 1 of 4]: [Training] ce = 4.63622092 * 20558; err = 0.88588384 * 20558; totalSamplesSeen = 20558; learningRatePerSample = 0.00078125001; epochTime=37.3253s
-07/12/2016 08:24:04: SGD: Saving checkpoint model 'C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu/models/cntkSpeech.dnn.1'
+07/14/2016 07:51:51: Starting minibatch loop.
+07/14/2016 07:51:53:  Epoch[ 1 of 4]-Minibatch[   1-  10, 0.98%]: ce = 4.79880341 * 6400; err = 0.89765625 * 6400; time = 2.4554s; samplesPerSecond = 2606.5
+07/14/2016 07:51:55:  Epoch[ 1 of 4]-Minibatch[  11-  20, 1.95%]: ce = 4.62154999 * 6400; err = 0.88203125 * 6400; time = 2.4090s; samplesPerSecond = 2656.7
+07/14/2016 07:51:58:  Epoch[ 1 of 4]-Minibatch[  21-  30, 2.93%]: ce = 5.04831627 * 5510; err = 0.87549909 * 5510; time = 2.8420s; samplesPerSecond = 1938.8
+07/14/2016 07:52:01:  Epoch[ 1 of 4]-Minibatch[  31-  40, 3.91%]: ce = 4.56837607 * 1872; err = 0.92414530 * 1872; time = 2.5460s; samplesPerSecond = 735.3
+07/14/2016 07:52:03:  Epoch[ 1 of 4]-Minibatch[  41-  50, 4.88%]: ce = 4.66635078 * 338; err = 0.92603550 * 338; time = 2.3173s; samplesPerSecond = 145.9
+07/14/2016 07:52:04: Finished Epoch[ 1 of 4]: [Training] ce = 4.78640935 * 20574; err = 0.88947215 * 20574; totalSamplesSeen = 20574; learningRatePerSample = 0.00078125001; epochTime=13.2734s
+07/14/2016 07:52:04: SGD: Saving checkpoint model 'C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu/models/cntkSpeech.dnn.1'
 
-07/12/2016 08:24:05: Starting Epoch 2: learning rate per sample = 0.000781  effective momentum = 0.900000  momentum as time constant = 6074.4 samples
-minibatchiterator: epoch 1: frames [20480..40960] (first utterance at frame 20558), data subset 0 of 1, with 1 datapasses
+07/14/2016 07:52:05: Starting Epoch 2: learning rate per sample = 0.000781  effective momentum = 0.900000  momentum as time constant = 6074.4 samples
+minibatchiterator: epoch 1: frames [20480..40960] (first utterance at frame 20574), data subset 0 of 1, with 1 datapasses
 
-07/12/2016 08:24:06: Starting minibatch loop.
-07/12/2016 08:24:13:  Epoch[ 2 of 4]-Minibatch[   1-  10, 0.98%]: ce = 4.38210968 * 6400; err = 0.83812500 * 6400; time = 7.6325s; samplesPerSecond = 838.5
-07/12/2016 08:24:21:  Epoch[ 2 of 4]-Minibatch[  11-  20, 1.95%]: ce = 4.37365631 * 6400; err = 0.88156250 * 6400; time = 8.0383s; samplesPerSecond = 796.2
-07/12/2016 08:24:30:  Epoch[ 2 of 4]-Minibatch[  21-  30, 2.93%]: ce = 4.37190384 * 5444; err = 0.89088905 * 5444; time = 9.0071s; samplesPerSecond = 604.4
-07/12/2016 08:24:39:  Epoch[ 2 of 4]-Minibatch[  31-  40, 3.91%]: ce = 4.29127224 * 1644; err = 0.91605839 * 1644; time = 8.3361s; samplesPerSecond = 197.2
-07/12/2016 08:24:46:  Epoch[ 2 of 4]-Minibatch[  41-  50, 4.88%]: ce = 4.04051242 * 458; err = 0.76419214 * 458; time = 7.8287s; samplesPerSecond = 58.5
-07/12/2016 08:24:49: Finished Epoch[ 2 of 4]: [Training] ce = 4.36129808 * 20410; err = 0.87074963 * 20410; totalSamplesSeen = 40968; learningRatePerSample = 0.00078125001; epochTime=44.289s
-07/12/2016 08:24:50: SGD: Saving checkpoint model 'C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu/models/cntkSpeech.dnn.2'
+07/14/2016 07:52:05: Starting minibatch loop.
+07/14/2016 07:52:07:  Epoch[ 2 of 4]-Minibatch[   1-  10, 0.98%]: ce = 4.39684204 * 6400; err = 0.87328125 * 6400; time = 2.3374s; samplesPerSecond = 2738.1
+07/14/2016 07:52:09:  Epoch[ 2 of 4]-Minibatch[  11-  20, 1.95%]: ce = 4.37962524 * 6400; err = 0.88578125 * 6400; time = 2.4759s; samplesPerSecond = 2584.9
+07/14/2016 07:52:12:  Epoch[ 2 of 4]-Minibatch[  21-  30, 2.93%]: ce = 4.42834953 * 5588; err = 0.90193271 * 5588; time = 2.7941s; samplesPerSecond = 1999.9
+07/14/2016 07:52:15:  Epoch[ 2 of 4]-Minibatch[  31-  40, 3.91%]: ce = 4.46132655 * 1988; err = 0.94064386 * 1988; time = 2.5851s; samplesPerSecond = 769.0
+07/14/2016 07:52:16: Finished Epoch[ 2 of 4]: [Training] ce = 4.40378089 * 20478; err = 0.89115148 * 20478; totalSamplesSeen = 41052; learningRatePerSample = 0.00078125001; epochTime=11.139s
+07/14/2016 07:52:16: SGD: Saving checkpoint model 'C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu/models/cntkSpeech.dnn.2'
 
-07/12/2016 08:24:51: Starting Epoch 3: learning rate per sample = 0.000781  effective momentum = 0.900000  momentum as time constant = 6074.4 samples
-minibatchiterator: epoch 2: frames [40960..61440] (first utterance at frame 40968), data subset 0 of 1, with 1 datapasses
+07/14/2016 07:52:16: Starting Epoch 3: learning rate per sample = 0.000781  effective momentum = 0.900000  momentum as time constant = 6074.4 samples
+minibatchiterator: epoch 2: frames [40960..61440] (first utterance at frame 41052), data subset 0 of 1, with 1 datapasses
 
-07/12/2016 08:24:52: Starting minibatch loop.
-07/12/2016 08:25:00:  Epoch[ 3 of 4]-Minibatch[   1-  10, 0.98%]: ce = 4.15045990 * 6400; err = 0.83921875 * 6400; time = 8.0444s; samplesPerSecond = 795.6
-07/12/2016 08:25:08:  Epoch[ 3 of 4]-Minibatch[  11-  20, 1.95%]: ce = 4.23216095 * 6400; err = 0.86984375 * 6400; time = 8.6170s; samplesPerSecond = 742.7
-07/12/2016 08:25:18:  Epoch[ 3 of 4]-Minibatch[  21-  30, 2.93%]: ce = 4.30172631 * 5456; err = 0.90835777 * 5456; time = 9.5881s; samplesPerSecond = 569.0
-07/12/2016 08:25:27:  Epoch[ 3 of 4]-Minibatch[  31-  40, 3.91%]: ce = 4.29239248 * 2020; err = 0.92920792 * 2020; time = 8.9314s; samplesPerSecond = 226.2
-07/12/2016 08:25:35:  Epoch[ 3 of 4]-Minibatch[  41-  50, 4.88%]: ce = 4.14770736 * 214; err = 0.90654206 * 214; time = 8.1186s; samplesPerSecond = 26.4
-07/12/2016 08:25:38: Finished Epoch[ 3 of 4]: [Training] ce = 4.23144968 * 20564; err = 0.87716398 * 20564; totalSamplesSeen = 61532; learningRatePerSample = 0.00078125001; epochTime=46.8339s
-07/12/2016 08:25:39: SGD: Saving checkpoint model 'C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu/models/cntkSpeech.dnn.3'
+07/14/2016 07:52:16: Starting minibatch loop.
+07/14/2016 07:52:19:  Epoch[ 3 of 4]-Minibatch[   1-  10, 0.98%]: ce = 4.12543182 * 6400; err = 0.83437500 * 6400; time = 2.3273s; samplesPerSecond = 2750.0
+07/14/2016 07:52:21:  Epoch[ 3 of 4]-Minibatch[  11-  20, 1.95%]: ce = 4.23332855 * 6400; err = 0.88953125 * 6400; time = 2.3823s; samplesPerSecond = 2686.4
+07/14/2016 07:52:24:  Epoch[ 3 of 4]-Minibatch[  21-  30, 2.93%]: ce = 4.16931091 * 5556; err = 0.86771058 * 5556; time = 2.7685s; samplesPerSecond = 2006.9
+07/14/2016 07:52:26:  Epoch[ 3 of 4]-Minibatch[  31-  40, 3.91%]: ce = 4.30958540 * 1812; err = 0.93211921 * 1812; time = 2.5320s; samplesPerSecond = 715.6
+07/14/2016 07:52:29:  Epoch[ 3 of 4]-Minibatch[  41-  50, 4.88%]: ce = 4.05046623 * 248; err = 0.89112903 * 248; time = 2.3009s; samplesPerSecond = 107.8
+07/14/2016 07:52:29: Finished Epoch[ 3 of 4]: [Training] ce = 4.18663020 * 20416; err = 0.87010188 * 20416; totalSamplesSeen = 61468; learningRatePerSample = 0.00078125001; epochTime=12.3255s
+07/14/2016 07:52:29: SGD: Saving checkpoint model 'C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu/models/cntkSpeech.dnn.3'
 
-07/12/2016 08:25:40: Starting Epoch 4: learning rate per sample = 0.000781  effective momentum = 0.900000  momentum as time constant = 6074.4 samples
-minibatchiterator: epoch 3: frames [61440..81920] (first utterance at frame 61532), data subset 0 of 1, with 1 datapasses
+07/14/2016 07:52:29: Starting Epoch 4: learning rate per sample = 0.000781  effective momentum = 0.900000  momentum as time constant = 6074.4 samples
+minibatchiterator: epoch 3: frames [61440..81920] (first utterance at frame 61468), data subset 0 of 1, with 1 datapasses
 
-07/12/2016 08:25:40: Starting minibatch loop.
-07/12/2016 08:25:48:  Epoch[ 4 of 4]-Minibatch[   1-  10, 0.98%]: ce = 3.94207031 * 6400; err = 0.81593750 * 6400; time = 7.9325s; samplesPerSecond = 806.8
-07/12/2016 08:25:56:  Epoch[ 4 of 4]-Minibatch[  11-  20, 1.95%]: ce = 4.06333008 * 6400; err = 0.87625000 * 6400; time = 8.2034s; samplesPerSecond = 780.2
-07/12/2016 08:26:06:  Epoch[ 4 of 4]-Minibatch[  21-  30, 2.93%]: ce = 4.16142923 * 5548; err = 0.88968998 * 5548; time = 9.2880s; samplesPerSecond = 597.3
-07/12/2016 08:26:14:  Epoch[ 4 of 4]-Minibatch[  31-  40, 3.91%]: ce = 3.93137992 * 1828; err = 0.82330416 * 1828; time = 8.4695s; samplesPerSecond = 215.8
-07/12/2016 08:26:22:  Epoch[ 4 of 4]-Minibatch[  41-  50, 4.88%]: ce = 4.11798692 * 430; err = 0.91860465 * 430; time = 7.8589s; samplesPerSecond = 54.7
-07/12/2016 08:26:26: Finished Epoch[ 4 of 4]: [Training] ce = 4.04040939 * 20690; err = 0.85669406 * 20690; totalSamplesSeen = 82222; learningRatePerSample = 0.00078125001; epochTime=45.9256s
-07/12/2016 08:26:27: SGD: Saving checkpoint model 'C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160712072209.774664\Speech\LSTM_Truncated@debug_gpu/models/cntkSpeech.dnn'
-07/12/2016 08:26:28: CNTKCommandTrainEnd: speechTrain
+07/14/2016 07:52:29: Starting minibatch loop.
+07/14/2016 07:52:32:  Epoch[ 4 of 4]-Minibatch[   1-  10, 0.98%]: ce = 3.99401550 * 6400; err = 0.82625000 * 6400; time = 2.2994s; samplesPerSecond = 2783.4
+07/14/2016 07:52:34:  Epoch[ 4 of 4]-Minibatch[  11-  20, 1.95%]: ce = 4.15361450 * 6400; err = 0.87484375 * 6400; time = 2.4061s; samplesPerSecond = 2659.9
+07/14/2016 07:52:37:  Epoch[ 4 of 4]-Minibatch[  21-  30, 2.93%]: ce = 4.16377893 * 5276; err = 0.88836240 * 5276; time = 2.7673s; samplesPerSecond = 1906.5
+07/14/2016 07:52:39:  Epoch[ 4 of 4]-Minibatch[  31-  40, 3.91%]: ce = 4.07707624 * 2056; err = 0.91877432 * 2056; time = 2.5640s; samplesPerSecond = 801.9
+07/14/2016 07:52:42:  Epoch[ 4 of 4]-Minibatch[  41-  50, 4.88%]: ce = 4.00839844 * 520; err = 0.90576923 * 520; time = 2.3464s; samplesPerSecond = 221.6
+07/14/2016 07:52:42: Finished Epoch[ 4 of 4]: [Training] ce = 4.09383983 * 20698; err = 0.86858634 * 20698; totalSamplesSeen = 82166; learningRatePerSample = 0.00078125001; epochTime=12.8558s
+07/14/2016 07:52:43: SGD: Saving checkpoint model 'C:\Users\svcphil\AppData\Local\Temp\cntk-test-20160714074226.621347\Speech\LSTM_Truncated@release_gpu/models/cntkSpeech.dnn'
+07/14/2016 07:52:43: CNTKCommandTrainEnd: speechTrain
 
-07/12/2016 08:26:28: Action "train" complete.
+07/14/2016 07:52:43: Action "train" complete.
 
-07/12/2016 08:26:28: __COMPLETED__
+07/14/2016 07:52:43: __COMPLETED__
