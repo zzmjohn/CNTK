@@ -476,6 +476,8 @@ class minibatchutterancesourcemulti : public minibatchsource
 
             assert(m_currentRangeEndChunkIdx == endChunkIdx);
 
+            fprintf(stderr, "RANDOM!!! : %d\n", (int)Microsoft::MSR::CNTK::rand(0, 1000));
+
             // now randomize them --we use the nested loop again to avoid storing a backpointer
             // The condition is that a randomized frame may not be moved out of its associated chunk window.
             // The actual range we randomize is up to the last frame that position (globalte - 1) could
