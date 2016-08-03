@@ -211,6 +211,8 @@ static void Print(const char* m, const std::vector<RandomizedSequenceDescription
         message << seq.m_id;
         message << ":";
         message << seq.m_chunk->m_original->m_id;
+        message << ":";
+        message << seq.m_chunk->m_chunkId;
         message << " ";
     }
     message << "]";
