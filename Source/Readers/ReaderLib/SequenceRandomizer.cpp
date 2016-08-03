@@ -249,7 +249,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             }
         }
 
-        fprintf(stderr, "RANDOM!!! : %d\n", rand(0, 10000));
+        fprintf(stderr, "RANDOM!!! : %d\n", (int)rand(0, 10000));
         
         //Print("chunk", sss);
 
