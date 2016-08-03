@@ -139,24 +139,24 @@ namespace Microsoft { namespace MSR { namespace CNTK {
                 m_randomizationCursor);
     }
 
-    static void Print(const char* m, const std::vector<RandomizedSequenceDescription>& s)
-    {
-        std::stringstream message;
-        message << "[";
-        message << m;
-        message << ":";
-        for (const auto& seq : s)
-        {
-            message << seq.m_id;
-            message << ":";
-            message << seq.m_chunk->m_original->m_id;
-            message << ":";
-            message << seq.m_chunk->m_chunkId;
-            message << " ";
-        }
-        message << "]";
-        fprintf(stderr, "%s\n", message.str().c_str());
-    }
+    //static void Print(const char* m, const std::vector<RandomizedSequenceDescription>& s)
+    //{
+    //    std::stringstream message;
+    //    message << "[";
+    //    message << m;
+    //    message << ":";
+    //    for (const auto& seq : s)
+    //    {
+    //        message << seq.m_id;
+    //        message << ":";
+    //        message << seq.m_chunk->m_original->m_id;
+    //        message << ":";
+    //        message << seq.m_chunk->m_chunkId;
+    //        message << " ";
+    //    }
+    //    message << "]";
+    //    fprintf(stderr, "%s\n", message.str().c_str());
+    //}
 
     // Randomize one more chunk if needed after the chunk cursor has been incremented.
     void SequenceRandomizer::RandomizeNextChunkIfNeeded()
@@ -249,7 +249,9 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             }
         }
 
-        Print("chunk", sss);
+        fprintf(stderr, "RANDOM!!! : %d\n", rand(0, 10000));
+        
+        //Print("chunk", sss);
 
         // Let's recalculate number of samples in the randomized chunks for efficient indexing in seek.
         size_t sampleCount = 0;
