@@ -200,6 +200,23 @@ bool BlockRandomizer::GetNextSequenceDescriptions(size_t sampleCount, std::vecto
     return false;
 }
 
+static void Print(const char* m, const std::vector<RandomizedSequenceDescription>& s)
+{
+    std::stringstream message;
+    message << "[";
+    message << m;
+    message << ":";
+    for(const auto& seq : s)
+    {
+        message << seq.m_id;
+        message << ":";
+        message << seq.m_chunk->m_original->m_id;
+        message << " ";
+    }
+    message << "]";
+    fprintf(stderr, "%s\n", message.str().c_str());
+}
+
 // Decimates sequences and load/unloads chunks using infromation of the SequenceRandomizer.
 void BlockRandomizer::Decimate(const std::vector<RandomizedSequenceDescription>& all, std::vector<RandomizedSequenceDescription>& decimated)
 {
@@ -236,6 +253,9 @@ void BlockRandomizer::Decimate(const std::vector<RandomizedSequenceDescription>&
     {
         LogicError("Not supported mode.");
     }
+
+    Print("all", all);
+    Print("decimated", decimated);
 }
 
 // Retrieves chunk data based on the window information provided by SequenceRandomizer
