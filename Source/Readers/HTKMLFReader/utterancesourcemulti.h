@@ -548,7 +548,7 @@ class minibatchutterancesourcemulti : public minibatchsource
         void reset(unsigned int randSeed)
         {
             //srand(randSeed);
-            rand_state1 = 0;
+            rand_state1 = randSeed;
 
             size_t sweepts = m_randomizedChunks[0][0].globalts;
             size_t totalFrames = m_randomizedChunks[0].back().globalte() - sweepts;
