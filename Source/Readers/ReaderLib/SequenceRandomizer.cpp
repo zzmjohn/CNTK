@@ -45,7 +45,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
     // Resets the current sweep according to the randomization seed provided.
     void SequenceRandomizer::Reset(size_t randSeed)
     {
-        srand((unsigned int)randSeed);
+        rand_state = (unsigned int)randSeed;
 
         m_sequenceWindow.clear();
         m_chunkWindow.clear();
@@ -216,7 +216,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             for (;;)
             {
                 // Pick a sequence position from [posBegin, posEnd)
-                const size_t j = rand(posBegin, posEnd);
+                const size_t j = rand_r(&rand_state, posBegin, posEnd);
 
                 // Pick up j sequence.
                 ChunkIdType jChunkIndex = GetChunkIndexForSequencePosition(j);
@@ -249,7 +249,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             }
         }
 
-        fprintf(stderr, "RANDOM!!! : %d\n", (int)rand(0, 10000));
+        fprintf(stderr, "RANDOM!!! : %d\n", (int)rand_r(&rand_state, 0, 10000));
         
         //Print("chunk", sss);
 

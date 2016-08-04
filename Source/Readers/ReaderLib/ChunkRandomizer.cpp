@@ -15,16 +15,16 @@ namespace Microsoft { namespace MSR { namespace CNTK {
     template <typename TVector>
     void RandomShuffle(TVector& v, size_t randomSeed)
     {
+        unsigned int rand_state = (unsigned int) randomSeed;
         if (v.size() > RAND_MAX * static_cast<size_t>(RAND_MAX))
         {
             RuntimeError("RandomShuffle: too large set: need to change to different random generator!");
         }
 
-        srand(static_cast<unsigned int>(randomSeed));
         foreach_index(currentLocation, v)
         {
             // Pick a random location a location and swap with current
-            const size_t randomLocation = rand(0, v.size());
+            const size_t randomLocation = rand_r(&rand_state, 0, v.size());
             std::swap(v[currentLocation], v[randomLocation]);
         }
     }

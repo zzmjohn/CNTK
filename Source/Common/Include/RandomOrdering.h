@@ -24,6 +24,14 @@ static inline size_t rand(const size_t begin, const size_t end)
     return begin + randno % (end - begin);
 }
 
+static inline size_t rand_r(unsigned int *rand_state, const size_t begin, const size_t end)
+{
+    // BUGBUG: still only covers 32-bit range
+    size_t randno = ::rand_r(rand_state) * RAND_MAX;
+    randno += ::rand_r(rand_state);
+    return begin + randno % (end - begin);
+}
+
 class RandomOrdering // note: NOT thread-safe at all
 {
     // constants for randomization

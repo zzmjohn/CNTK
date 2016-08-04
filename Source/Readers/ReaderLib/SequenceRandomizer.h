@@ -164,6 +164,8 @@ private:
 
     // General configuration
     int m_verbosity;
+
+    unsigned int rand_state;
 };
 
 typedef std::shared_ptr<SequenceRandomizer> SequenceRandomizerPtr;
