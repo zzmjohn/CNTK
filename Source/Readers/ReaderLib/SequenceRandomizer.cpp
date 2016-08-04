@@ -223,7 +223,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             for (;;)
             {
                 // Pick a sequence position from [posBegin, posEnd)
-                const size_t j = rand(posBegin, posEnd);
+                const size_t j = mt_rand(posBegin, posEnd, m_gen);
 
                 // Pick up j sequence.
                 ChunkIdType jChunkIndex = GetChunkIndexForSequencePosition(j);
