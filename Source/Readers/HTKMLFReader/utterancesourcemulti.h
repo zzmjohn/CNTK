@@ -525,6 +525,7 @@ class minibatchutterancesourcemulti : public minibatchsource
                 }
             }
 
+            if (firstFramePosToRandomize != endFramePosToRandomize)
             fprintf(stderr, "RANDOM!!! : %d, first-end %d %d\n", (int)Microsoft::MSR::CNTK::rand_r(&rand_state1, 0, 10000),
             (int)firstFramePosToRandomize,
             (int)endFramePosToRandomize);
