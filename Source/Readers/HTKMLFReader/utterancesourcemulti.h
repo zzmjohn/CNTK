@@ -1307,6 +1307,8 @@ private:
                 }
                 while (chunk.globalts - randomizedchunks[i][chunk.windowbegin].globalts > randomizationrange / 2)
                     chunk.windowbegin++; // too early
+                chunk.windowbegin = std::min(chunk.windowbegin, k);
+                chunk.windowend = std::max(chunk.windowend, k + 1);
                 while (chunk.windowend < randomizedchunks[i].size() && randomizedchunks[i][chunk.windowend].globalte() - chunk.globalts < randomizationrange / 2)
                     chunk.windowend++; // got more space
             }
