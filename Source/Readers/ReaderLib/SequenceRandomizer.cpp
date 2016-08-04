@@ -197,6 +197,8 @@ namespace Microsoft { namespace MSR { namespace CNTK {
             m_randomizationCursor == 0 ? 0 : m_randomizedChunks[m_randomizationCursor - 1].SequenceEndPosition();
 
         size_t endSequencePosToRandomize = m_randomizedChunks[nextRandomizationCursor - 1].SequenceEndPosition();
+        fprintf(stderr, "before RANDOM!!! : %d, first-end %d %d\n", (int)rand_r(&rand_state, 0, 10000), (int)firstSequencePositionToRandomize, (int)endSequencePosToRandomize);
+        
         for (size_t t = firstSequencePositionToRandomize; t < endSequencePosToRandomize; ++t)
         {
             // Get valid randomization range, expressed in chunks
