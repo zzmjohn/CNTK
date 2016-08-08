@@ -21,7 +21,7 @@ namespace Microsoft { namespace MSR { namespace CNTK {
 
 // We use our own distribution in order to match baselines between different operating systems,
 // because uniform_distribution is not guranteed to provide the same numbers on different platforms.
-// TODO: Switch to Boost would eliminate this problem.
+// TODO: Switching to Boost would eliminate this problem.
 static inline size_t RandMT(const size_t begin, const size_t end, std::mt19937_64& rng)
 {
     const size_t randomNumber = rng();
@@ -30,7 +30,7 @@ static inline size_t RandMT(const size_t begin, const size_t end, std::mt19937_6
 
 // We use our own distribution in order to match baselines between different operating systems,
 // instead of using std::shuffle which uses unitform_distribution internally.
-// TODO: Switch to Boost would eliminate this problem.
+// TODO: Switching to Boost would eliminate this problem.
 template <typename TVector>
 inline void RandomShuffle(TVector& v, std::mt19937_64& rng)
 {
