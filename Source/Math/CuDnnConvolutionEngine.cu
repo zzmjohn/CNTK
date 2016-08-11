@@ -234,6 +234,7 @@ protected:
         // REVIEW alexeyk: NVIDIA is currently reviewing this issue.
         if (CUDNN_STATUS_INVALID_VALUE == err && m_fwdAlgo.Algo.memory > 0)
         {
+            // TODO we should log this?
             auto err2 = cudnnConvolutionForward(*m_cudnn, &C::One, m_inT, ptr(in), *m_kernelT, ptr(kernel), *m_conv,
                                                 m_fwdAlgo.NoWorkspaceAlgo, nullptr, 0, &C::Zero, m_outT, ptr(out));
             // Update original error in case of success.
@@ -345,6 +346,7 @@ private:
             algo.Algo.memory = 0;
             algo.Algo.status = CUDNN_STATUS_SUCCESS;
             algo.NoWorkspaceAlgo = noMemAlgo;
+            algo.Print();
             return;
         }
         CUDNN_CALL(err);
@@ -374,6 +376,7 @@ private:
         }
         else
             algo.NoWorkspaceAlgo = (*res).algo;
+        algo.Print();
     }
 
     static ElemType* ptr(Mat& src)
@@ -413,6 +416,18 @@ private:
             // We assume no other dimensions of tensors can change so we don't check it.
             // REVIEW alexeyk: review once we get response from NVIDIA.
             return (Algo.status != CUDNN_STATUS_SUCCESS || batchSize > MaxAllowedMBSizeForCurrentAlgo);
+        }
+
+        void Print()
+        {
+            std::cerr << typeid(T).name()
+                << " algo: " << Algo.algo
+                << " status: " << Algo.status
+                << " time: " << Algo.time
+                << " memory: " << Algo.memory
+                << " NoWorkspaceAlgo: " << NoWorkspaceAlgo
+                << " MaxAllowedMBSizeForCurrentAlgo: " << MaxAllowedMBSizeForCurrentAlgo
+                << "\n";
         }
     };
 
