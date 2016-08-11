@@ -234,7 +234,7 @@ protected:
         // REVIEW alexeyk: NVIDIA is currently reviewing this issue.
         if (CUDNN_STATUS_INVALID_VALUE == err && m_fwdAlgo.Algo.memory > 0)
         {
-            // TODO we should log this?
+            std::cerr << "Warning - fallback to no workspace algo\n";
             auto err2 = cudnnConvolutionForward(*m_cudnn, &C::One, m_inT, ptr(in), *m_kernelT, ptr(kernel), *m_conv,
                                                 m_fwdAlgo.NoWorkspaceAlgo, nullptr, 0, &C::Zero, m_outT, ptr(out));
             // Update original error in case of success.
