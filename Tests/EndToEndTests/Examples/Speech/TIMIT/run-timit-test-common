@@ -33,4 +33,4 @@ fi
 DeviceNumber=$CNTKDeviceId
 LibDir=$ConfigDir/../lib
 
-CntkArguments="LibDir=$LibDir ScpDir=$ScpDir MlfDir=$MlfDir NdlDir=$ConfigDir MelDir=$ConfigDir ExpDir=$ExpDir DeviceNumber=$DeviceNumber"
+CntkArguments="numCPUThreads=3 LibDir=$LibDir ScpDir=$ScpDir MlfDir=$MlfDir NdlDir=$ConfigDir MelDir=$ConfigDir ExpDir=$ExpDir DeviceNumber=$DeviceNumber"
