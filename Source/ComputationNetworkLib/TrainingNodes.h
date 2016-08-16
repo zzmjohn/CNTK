@@ -1668,6 +1668,8 @@ public:
                 fstream >> m_useCntkEngine;
             }
         }
+
+        m_doPrint = true;
     }
 
     void CopyTo(ComputationNodeBasePtr nodeP, const std::wstring& newName, const CopyNodeFlags flags) const override
@@ -1848,6 +1850,14 @@ public:
         ValidateNaryZip(isFinalValidationPass, /*allowBroadcast=*/ true, GetNumInputs());
 #endif
 
+        if (m_doPrint)
+        {
+            const Matrix<ElemType>& runInvStdDev = Input(4)->Value();
+            fprintf(stderr, "--- %ls runInvStdDev after loading\n", NodeName().c_str());
+            runInvStdDev.Print();
+            m_doPrint = false;
+        }
+
         if (isFinalValidationPass)
         {
             // check inputs
@@ -1999,6 +2009,8 @@ private:
     shared_ptr<Matrix<ElemType>> m_dBias;
 
     std::unique_ptr<BatchNormEngine<ElemType>> m_bnEng;
+
+    bool m_doPrint = false;
 };
 
 template class BatchNormalizationNode<float>;
