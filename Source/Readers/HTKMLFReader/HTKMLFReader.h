@@ -152,6 +152,11 @@ public:
     HTKMLFReader()
         : m_pMBLayout(make_shared<MBLayout>())
     {
+        fprintf(stderr, 
+            "********** DEPRECATED **********\n" 
+            "HTKMLFReader is no longer actively maintained.\n"
+            "If you do not use lattices, please switch your configuration to use new HTK Deserializers.\n"
+            "For more details please see https://github.com/Microsoft/CNTK/wiki/Understanding-and-Extending-Readers\n");
         m_pMBLayout->SetUniqueAxisName(L"HTKMLFReader");
     }
     template <class ConfigRecordType>
