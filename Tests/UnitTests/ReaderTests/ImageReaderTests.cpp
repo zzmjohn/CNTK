@@ -36,6 +36,56 @@ BOOST_AUTO_TEST_CASE(ImageReaderSimple)
         1);
 }
 
+BOOST_AUTO_TEST_CASE(ImageReaderNoRandomization)
+{
+    auto test = [this](std::vector<std::wstring> additionalParameters)
+    {
+        HelperRunReaderTest<float>(
+            testDataPath() + "/Config/ImageReaderSimple_Config.cntk",
+            testDataPath() + "/Control/ImageReaderNoRandomization_Control.txt",
+            testDataPath() + "/Control/ImageReaderNoRandomization_Output.txt",
+            "Simple_Test",
+            "reader",
+            400,
+            30,
+            1,
+            1,
+            1,
+            0,
+            1,
+            false,
+            false,
+            true,
+            additionalParameters);
+    };
+    test({ L"Simple_Test=[reader=[randomize=\"none\"]]" });
+};
+
+BOOST_AUTO_TEST_CASE(ImageReaderForWrite)
+{
+    auto test = [this](std::vector<std::wstring> additionalParameters)
+    {
+        HelperRunReaderTest<float>(
+            testDataPath() + "/Config/ImageReaderSimple_Config.cntk",
+            testDataPath() + "/Control/ImageReaderNoRandomization_Control.txt",
+            testDataPath() + "/Control/ImageReaderWrite_Output.txt",
+            "Simple_Test",
+            "reader",
+            400,
+            30,
+            1,
+            1,
+            1,
+            0,
+            1,
+            false,
+            false,
+            true,
+            additionalParameters);
+    };
+    test({ L"Simple_Test=[action=\"write\"]" });
+};
+
 BOOST_AUTO_TEST_CASE(ImageAndTextReaderSimple)
 {
     HelperRunReaderTest<float>(

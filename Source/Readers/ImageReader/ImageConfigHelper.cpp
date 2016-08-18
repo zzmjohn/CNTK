@@ -60,8 +60,11 @@ ImageConfigHelper::ImageConfigHelper(const ConfigParameters& config)
     m_mapPath = config(L"file");
 
     m_grayscale = config(L"grayscale", c == 1);
-    std::string rand = config(L"randomize", "auto");
 
+    wstring action = config(L"action", L"");
+    bool isActionWrite = AreEqualIgnoreCase(action, L"write");
+
+    std::string rand = isActionWrite ? "none" : config(L"randomize", "auto");
     if (AreEqualIgnoreCase(rand, "auto"))
     {
         m_randomize = true;
