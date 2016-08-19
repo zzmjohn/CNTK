@@ -1696,7 +1696,16 @@ private: // time-constant conversions
     {
         // in inference mode, only use long-term mean and do not update running estimates
         if (!Environment().IsTraining())
-            return 0;                                        //  (m_normTimeConst == infinity) no new contribution from current minibatch
+        {
+            assert(0 < m_mbCount);                           // something must have been trained
+            return 0;                                        // (m_normTimeConst == infinity) no new contribution from current minibatch
+        }
+
+        // Initialization case: only use current minibatch.
+        if (m_mbCount == 0)
+        {
+            return 1.0;
+        }
 
         // REVIEW alexeyk: hack, m_normTimeConst < 0 is used to denote corpus-level statistics (without forgetting factor).
         if (m_normTimeConst < 0)
@@ -1720,7 +1729,16 @@ private: // time-constant conversions
     {
         // in inference mode, only use long-term mean and do not update running estimates
         if (!Environment().IsTraining())
-            return 1.0; // (m_blendTimeConst == infinity) estimate is taken 100% from the long-term running estimate
+        {
+            assert(0 < m_mbCount);  // something must have been trained
+            return 1.0;             // (m_blendTimeConst == infinity) estimate is taken 100% from the long-term running estimate
+        }
+
+        // Initialization case: only use current minibatch.
+        if (m_mbCount == 0)
+        {
+            return 0;
+        }
 
         // convert to blend factor (= weight for running stats)
         // The code below special-cases two boundary cases, but those are just the limit cases of the main formula.
@@ -1762,8 +1780,6 @@ public:
                          /*out=*/ sliceOutputValue,            // (out) batch-normalized output value
                          m_epsilon,
                          *m_saveMean, *m_saveInvStdDev);       // (out) actual interpolated mean/stddev values. Note: unused/empty for blendFactor==1 for CNTK engine
-
-        m_mbCount++;
     }
 
     // Note: This function assumes that inputIndex=0 is called before the others.
@@ -1800,6 +1816,8 @@ public:
                               blendFactor,                      // (in)  smoothing weight for running stats (1=use only running stats)
                               actualMean, actualInvStdDev,      // (in)  actual mean/stddev values used in ForwardProp()
                               *m_dScale, *m_dBias);             // (out) gradients for scale and bias
+
+            m_mbCount++; // TODO better place?
         }
         else if (inputIndex == 1) // derivative with respect to the scale
         {
