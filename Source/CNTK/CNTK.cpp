@@ -110,6 +110,8 @@ void DumpNodeInfo(const ConfigParameters& config)
     }
 
     ComputationNetworkPtr net = ComputationNetwork::CreateFromFile<ElemType>(CPUDEVICE, modelPath);
+    if (config(L"deterministic", false))
+        net->MakeDeterministic();
     net->DumpNodeInfoToFile(nodeName, printValues, printMetadata, outputFile, nodeNameRegexStr);
 }
 
