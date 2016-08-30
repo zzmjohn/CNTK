@@ -42,12 +42,14 @@ TrainConvNet = {
         # define regression loss
         # rmse = sqrt(SquareError(regrLabels, ol) / labelDim)
         sqerr = SquareError (regrLabels, ol)
-        rmse = Sqrt (Constant(1/labelDim).* sqerr)
+        #rmse = Sqrt (Constant(1/labelDim).* sqerr)
 
         featureNodes    = (features)
         labelNodes      = (regrLabels)
-        criterionNodes  = (rmse)
-        evaluationNodes = (rmse)
+        #criterionNodes  = (rmse)
+        criterionNodes  = (sqerr)
+        #evaluationNodes = (rmse)
+        evaluationNodes = (sqerr)
         OutputNodes     = (ol)
     ]
 
