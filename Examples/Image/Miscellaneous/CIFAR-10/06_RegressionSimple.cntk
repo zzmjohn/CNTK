@@ -59,7 +59,7 @@ TrainConvNet = {
         learningRatesPerSample = 0.0005
         momentumAsTimeConstant = 1024
 
-        firstMBsToShowResult = 5 ; numMBsToShowResult = 50
+        firstMBsToShowResult = 1 ; numMBsToShowResult = 1
     }
 
     # The reader is a composite reader that uses the ImageReader to read imageShape
