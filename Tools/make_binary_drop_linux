@@ -165,6 +165,10 @@ mkdir -p $baseIncludePath
 echo "Copying Include files..." >&3
 CopyFilesFromList $includePath includeFiles[@] $baseIncludePath 
 
+# Copy Tutorials
+cp -r Tutorials $baseDropPath
+find $baseDropPath/Tutorials -name '*.zip' -print0 | xargs -0 rm -f
+
 # Copy Examples
 echo "Copying Examples..." >&3
 cp -r Examples $baseDropPath

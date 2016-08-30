@@ -108,6 +108,9 @@ New-Item -Path $baseIncludePath -ItemType directory
 Write-Verbose "Copying Include files ..."
 Copy-Item $includeFile -Destination $baseIncludePath
 
+# Copy Tutorials
+Copy-Item Tutorials -Recurse -Destination $baseDropPath\Tutorials -Exclude *.zip
+
 # Copy Examples
 Write-Verbose "Copying Examples ..."
 Copy-Item Examples -Recurse -Destination $baseDropPath\Examples
