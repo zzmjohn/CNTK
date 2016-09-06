@@ -166,6 +166,8 @@ public:
         fflush(stderr);
         // TODO: Check for error code and throw if !std::uncaught_exception()
 
+if (std::uncaught_exception()) fprintf(stderr, "~MPIWrapper uncaught exception\n"); else fprintf(stderr, "~MPIWrapper no uncaught exception\n");
+
         // Do not finalize in event of an exception since calling MPI_Finalize without
         // all pending communications being finished results in a hang
         if (!std::uncaught_exception())
@@ -255,6 +257,7 @@ public:
 
     static void DeleteInstance()
     {
+        if (std::uncaught_exception()) fprintf(stderr, "DeleteInstance uncaught exception\n"); else fprintf(stderr, "DeleteInstance no uncaught exception\n");
         s_mpi = nullptr;
     }
 

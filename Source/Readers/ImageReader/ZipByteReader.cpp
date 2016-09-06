@@ -6,6 +6,8 @@
 #include "stdafx.h"
 #include <opencv2/opencv.hpp>
 #include "ByteReader.h"
+#include <thread>
+#include <chrono>
 
 #ifdef USE_ZIP
 #include <File.h>
@@ -101,6 +103,15 @@ cv::Mat ZipByteReader::Read(size_t seqId, const std::string& path, bool grayscal
     if (contents.size() < size)
         contents.resize(size);
     auto zipFile = m_zips.pop_or_create([this]() { return OpenZip(); });
+    static int x = 0;
+    if (x++ == 10) //0 && !(getpid() & 1)) // 
+    {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+            RuntimeError("Catch me");
+    }
+
+    //if (rand() & 0x3F == 1) RuntimeError("Catch me");
+
     attempt(5, [&zipFile, &contents, &path, index, seqId, size]()
     {
         std::unique_ptr<zip_file_t, void(*)(zip_file_t*)> file(

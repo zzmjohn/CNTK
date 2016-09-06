@@ -720,6 +720,7 @@ struct ScopeExit {
 
     ~ScopeExit() 
     {
+        if (std::uncaught_exception()) fprintf(stderr, "ScopeExit uncaught exception\n"); else fprintf(stderr, "ScopeExit no uncaught exception\n");
         if (m_exitOnDestruction)
             m_exitFunction(); 
     }

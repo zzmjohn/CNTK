@@ -123,7 +123,20 @@ bool ReaderShim<ElemType>::GetMinibatch(StreamMinibatchInputs& matrices)
 
     assert(m_prefetchTask.valid());
 
-    Minibatch minibatch = m_prefetchTask.get();
+
+
+    Minibatch minibatch;
+   
+    try
+    {
+            minibatch = m_prefetchTask.get();
+    }
+    catch(...)
+    {
+           fprintf(stderr, "re-throw from GetMinibatch\n");
+           throw;
+    }
+
     if (minibatch.m_endOfEpoch)
     {
         m_endOfEpoch = true;
@@ -197,6 +210,8 @@ bool ReaderShim<ElemType>::GetMinibatch(StreamMinibatchInputs& matrices)
             return m_reader->ReadMinibatch();
         });
     }
+
+fprintf(stderr, "end of GetMinibatch\n");
 
     return !minibatch.m_data.empty();
 }

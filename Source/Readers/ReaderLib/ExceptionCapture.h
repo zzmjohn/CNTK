@@ -25,6 +25,8 @@ public:
         }
         catch (...)
         {
+            if (std::uncaught_exception()) fprintf(stderr, "uncaught exception\n"); else fprintf(stderr, "no uncaught exception\n");
+            // TODO: Check for error code and throw if !std::uncaught_exception()
             Capture();
         }
     }
@@ -34,7 +36,8 @@ public:
     {
         if (m_exception)
         {
-            std::rethrow_exception(m_exception);
+            //std::rethrow_exception(m_exception);
+            RuntimeError("rethrown TODO");
         }
     }
 
