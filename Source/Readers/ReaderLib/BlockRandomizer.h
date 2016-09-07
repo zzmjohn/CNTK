@@ -89,9 +89,8 @@ private:
     // Performs io prefetch of the specified chunk if needed.
     void Prefetch(ChunkIdType chunkId);
 
-    // Returns next candidate for the prefetch in the given range.
-    template<class Iter>
-    ChunkIdType GetChunkToPrefetch(const Iter& begin, const Iter& end);
+    // Returns next candidate for the prefetch starting from the given randomized chunk index.
+    ChunkIdType GetChunkToPrefetch(size_t chunkIndex);
 
     // Global sample position on the timeline.
     size_t m_globalSamplePosition;

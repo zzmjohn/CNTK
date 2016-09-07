@@ -1258,6 +1258,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Truncated-Kaldi", "Truncate
 		Tests\EndToEndTests\Speech\LSTM\Truncated-Kaldi\testcases.yml = Tests\EndToEndTests\Speech\LSTM\Truncated-Kaldi\testcases.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{67C7638A-9FFA-4A23-B67C-300040ABDDC7}"
+	ProjectSection(SolutionItems) = preProject
+		Performance1.psess = Performance1.psess
+		Performance2.psess = Performance2.psess
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_CpuOnly|x64 = Debug_CpuOnly|x64
@@ -1717,5 +1723,8 @@ Global
 		{D293C7C7-B7D7-47CE-A796-45262C16F980} = {19EE975B-232D-49F0-94C7-6F1C6424FB53}
 		{4F534076-39A5-40E2-BF87-64EC464C52B2} = {19EE975B-232D-49F0-94C7-6F1C6424FB53}
 		{31263D7F-F590-475E-B4F0-7DFA4E4FF4B8} = {19EE975B-232D-49F0-94C7-6F1C6424FB53}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

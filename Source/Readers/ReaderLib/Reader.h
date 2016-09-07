@@ -35,9 +35,12 @@ struct EpochConfiguration
 // Supported primitive element types, will be extended in the future.
 enum class ElementType
 {
-    tfloat,  // single precision
-    tdouble, // double precision
-    tatom    // sizeof(atom) == 1 constitute of blobs -> sequences of atoms (i.e. used for lattices, hmmm, etc.)
+    tstart,   // start
+    tfloat,   // single precision
+    tdouble,  // double precision
+    tuchar,   // unsigned char precision
+    tatom,    // sizeof(atom) == 1 constitute of blobs -> sequences of atoms (i.e. used for lattices, hmmm, etc.)
+    tend      // end
 };
 
 // Supported storage types, will be extended in the future.

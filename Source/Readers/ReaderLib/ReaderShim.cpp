@@ -17,6 +17,7 @@
 #define DATAREADER_EXPORTS // creating the exports here
 #include "DataReader.h"
 #include "ReaderShim.h"
+#include "TimerUtility.h"
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
@@ -109,6 +110,8 @@ bool ReaderShim<ElemType>::GetMinibatch(StreamMinibatchInputs& matrices)
     // TODO: verify that the set of matrix names is identical 
     // to the set of reader input names. Warn if it's a subset, throw
     // if it's a superset.
+    Timer timer;
+    timer.Start();
 
     if (m_endOfEpoch)
     {
@@ -132,6 +135,9 @@ bool ReaderShim<ElemType>::GetMinibatch(StreamMinibatchInputs& matrices)
             return false;
         }
     }
+
+    timer.Stop();
+    fprintf(stderr, "Async read of the minibatch in shim took %.6g seconds\n", timer.ElapsedSeconds());
 
     // Reset stale mb layouts.
     // BUGBUG: This seems incorrect. (1) layouts should all be updated below, and (2) some of these layouts are the same, we are resetting them twice.
@@ -194,7 +200,12 @@ bool ReaderShim<ElemType>::GetMinibatch(StreamMinibatchInputs& matrices)
         // return the result and kick off a new one.
         m_prefetchTask = std::async(m_launchType, [this]()
         {
-            return m_reader->ReadMinibatch();
+            Timer innerTimer;
+            innerTimer.Start();
+            auto result = m_reader->ReadMinibatch();
+            innerTimer.Stop();
+            fprintf(stderr, "Actual read of the minibatch in took %.6g seconds\n", innerTimer.ElapsedSeconds());
+            return result;
         });
     }
 

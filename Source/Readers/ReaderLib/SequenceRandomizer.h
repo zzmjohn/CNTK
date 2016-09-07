@@ -56,6 +56,11 @@ public:
         return m_chunkWindow;
     }
 
+    size_t GetNextChunkIndexToRandomize() const
+    {
+        return m_randomizationCursor;
+    }
+
     // Release chunks from the chunk window that are not needed anymore.
     void ReleaseChunks();
 

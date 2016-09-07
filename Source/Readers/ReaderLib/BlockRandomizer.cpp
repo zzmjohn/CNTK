@@ -14,6 +14,7 @@
 
 #include "DataReader.h"
 #include "ExceptionCapture.h"
+#include <TimerUtility.h>
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
@@ -161,9 +162,9 @@ Sequences BlockRandomizer::GetNextSequences(size_t sampleCount)
         }
     };
 
+    ExceptionCapture capture;
     if (m_multithreadedGetNextSequences)
     {
-        ExceptionCapture capture;
 #pragma omp parallel for schedule(dynamic)
         for (int i = 0; i < decimated.size(); ++i)
             capture.SafeRun(process, i);
@@ -334,26 +335,26 @@ ChunkIdType BlockRandomizer::LoadDataChunks()
                 window.front().m_chunkId,
                 window.back().m_chunkId);
 
-    return GetChunkToPrefetch(window.begin() + randomizedEnd, window.end());
+    return GetChunkToPrefetch(m_sequenceRandomizer->GetNextChunkIndexToRandomize());
 }
 
 // Identifies chunk id that should be prefetched.
 // TODO: DecimationMode::sequence is not supported because it should eventually go away.
-template<class Iter>
-ChunkIdType BlockRandomizer::GetChunkToPrefetch(const Iter& begin, const Iter& end)
+ChunkIdType BlockRandomizer::GetChunkToPrefetch(size_t nextChunkToRandomize)
 {
-    auto current = begin;
+    const auto& chunks = m_chunkRandomizer->GetRandomizedChunks();
     ChunkIdType toBePrefetched = CHUNKID_MAX;
-    while (current != end)
+    while (nextChunkToRandomize < chunks.size())
     {
-        if (m_chunks.find(current->m_original->m_id) == m_chunks.end() &&
+        const auto& current = chunks[nextChunkToRandomize];
+        if (m_chunks.find(current.m_original->m_id) == m_chunks.end() &&
             m_decimationMode == DecimationMode::chunk && 
-            current->m_chunkId % m_config.m_numberOfWorkers == m_config.m_workerRank)
+            current.m_chunkId % m_config.m_numberOfWorkers == m_config.m_workerRank)
         {
-            toBePrefetched = current->m_original->m_id;
+            toBePrefetched = current.m_original->m_id;
             break;
         }
-        ++current;
+        nextChunkToRandomize++;
     }
     return toBePrefetched;
 }
@@ -371,7 +372,16 @@ void BlockRandomizer::Prefetch(ChunkIdType chunkId)
         }
 
         m_prefetchedChunk = chunkId;
-        m_prefetch = std::async(m_launchType, [this, chunkId]() { return m_deserializer->GetChunk(chunkId); });
+        m_prefetch = std::async(m_launchType, [this, chunkId]()
+        {
+            Timer timer;
+            timer.Start();
+            auto result = m_deserializer->GetChunk(chunkId);
+            timer.Stop();
+            if (m_verbosity >= Debug)
+                fprintf(stderr, "BlockRandomizer::Prefetch: prefetched original chunk: %u, in %.6g seconds\n", chunkId, timer.ElapsedSeconds());
+            return result;
+        });
 
         if (m_verbosity >= Debug)
             fprintf(stderr, "BlockRandomizer::Prefetch: prefetching original chunk: %u\n", chunkId);

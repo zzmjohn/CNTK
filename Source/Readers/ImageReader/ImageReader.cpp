@@ -49,8 +49,9 @@ ImageReader::ImageReader(MemoryProviderPtr provider,
         // We do not use legacy randomization.
         bool useLegacyRandomization = false;
         // We do not do io prefetching, because chunks are single images currently.
-        bool ioPrefetch = false;
-        randomizer = std::make_shared<BlockRandomizer>(0, 1, deserializer, ioPrefetch, BlockRandomizer::DecimationMode::sequence, useLegacyRandomization, multithreadedGetNextSequences);
+        bool ioPrefetch = true;
+        int verbosity = config(L"verbosity", 0);
+        randomizer = std::make_shared<BlockRandomizer>(verbosity, 1024, deserializer, ioPrefetch, BlockRandomizer::DecimationMode::chunk, useLegacyRandomization, true);
     }
     else
     {
@@ -66,15 +67,14 @@ ImageReader::ImageReader(MemoryProviderPtr provider,
     transformations.push_back(Transformation{ std::make_shared<ScaleTransformer>(featureStream), featureName });
     transformations.push_back(Transformation{ std::make_shared<ColorTransformer>(featureStream), featureName });
     transformations.push_back(Transformation{ std::make_shared<IntensityTransformer>(featureStream), featureName });
+    transformations.push_back(Transformation{ std::make_shared<CastTransformer>(featureStream), featureName });
     transformations.push_back(Transformation{ std::make_shared<MeanTransformer>(featureStream), featureName });
-
     if (configHelper.GetDataFormat() == CHW)
     {
         transformations.push_back(Transformation{ std::make_shared<TransposeTransformer>(featureStream), featureName });
     }
 
     m_sequenceEnumerator = std::make_shared<TransformController>(transformations, randomizer);
-
     m_packer = std::make_shared<FramePacker>(
         m_provider,
         m_sequenceEnumerator,

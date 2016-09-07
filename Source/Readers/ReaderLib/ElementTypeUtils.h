@@ -22,6 +22,8 @@ inline size_t GetSizeByType(ElementType type)
         return sizeof(double);
     case ElementType::tatom:
         return sizeof(char);
+    case ElementType::tuchar:
+	return sizeof(unsigned char);
     default:
         RuntimeError("Unsupported type '%d'", type);
     }
