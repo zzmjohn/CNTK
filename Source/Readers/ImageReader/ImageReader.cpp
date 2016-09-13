@@ -49,7 +49,7 @@ ImageReader::ImageReader(const ConfigParameters& config)
     }
 
     auto deserializer = std::make_shared<ImageDataDeserializer>(config);
-
+    int verbosity = config(L"verbosity", 0);
     SequenceEnumeratorPtr randomizer;
     // Request multi-threaded randomizer operation to speed up CPU-intensive image-decoding and transformations.
     const bool multithreadedGetNextSequences = true;
@@ -59,7 +59,7 @@ ImageReader::ImageReader(const ConfigParameters& config)
         bool useLegacyRandomization = false;
         // We do not do io prefetching, because chunks are single images currently.
         bool ioPrefetch = true;
-        randomizer = std::make_shared<BlockRandomizer>(0, 1, deserializer, ioPrefetch, BlockRandomizer::DecimationMode::sequence, useLegacyRandomization, multithreadedGetNextSequences);
+        randomizer = std::make_shared<BlockRandomizer>(verbosity, 10000, deserializer, ioPrefetch, BlockRandomizer::DecimationMode::chunk, useLegacyRandomization, multithreadedGetNextSequences);
     }
     else
     {

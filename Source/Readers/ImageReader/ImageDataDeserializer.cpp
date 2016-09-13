@@ -342,7 +342,7 @@ void ImageDataDeserializer::CreateSequenceDescriptions(CorpusDescriptorPtr corpu
         }
 
         // Creating new chunk if necessary.
-        if (currentChunk->m_numberOfSamples > 0)
+        if (currentChunk->m_numberOfSamples > 511)
         {
             m_chunks.push_back(currentChunk);
             currentChunk = std::make_shared<ImageChunkDescription>();
