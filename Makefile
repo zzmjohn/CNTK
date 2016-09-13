@@ -724,6 +724,9 @@ INCLUDEPATH += $(BOOST_PATH)/include
 
 IMAGE_READER_LIBS += -lopencv_core -lopencv_imgproc -lopencv_imgcodecs
 
+BOOSTLIB_PATH = $(BOOST_PATH)/lib
+BOOSTLIBS := -lboost_date_time -lboost_filesystem -lboost_system
+
 ifdef LIBZIP_PATH
   CPPFLAGS += -DUSE_ZIP
   INCLUDEPATH += $(LIBZIP_PATH)/lib/libzip/include
@@ -749,7 +752,7 @@ LIBPATH += $(OPENCV_PATH)/lib $(OPENCV_PATH)/release/lib
 
 $(IMAGEREADER): $(IMAGEREADER_OBJ) | $(CNTKMATH_LIB)
 	@echo $(SEPARATOR)
-	$(CXX) $(LDFLAGS) -shared $(patsubst %,-L%, $(LIBDIR) $(LIBPATH)) $(patsubst %,$(RPATH)%, $(ORIGINDIR) $(LIBPATH)) -o $@ $^ -l$(CNTKMATH) $(IMAGE_READER_LIBS)
+	$(CXX) $(LDFLAGS) -shared $(patsubst %,-L%, $(LIBDIR) $(LIBPATH) $(BOOSTLIB_PATH)) $(patsubst %,$(RPATH)%, $(ORIGINDIR) $(LIBPATH) $(BOOST_LIBPATH)) -o $@ $^ $(BOOSTLIBS) -l$(CNTKMATH) $(IMAGE_READER_LIBS)
 endif
 endif
 
