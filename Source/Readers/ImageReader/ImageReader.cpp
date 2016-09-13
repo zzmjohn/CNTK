@@ -58,7 +58,7 @@ ImageReader::ImageReader(const ConfigParameters& config)
         // We do not use legacy randomization.
         bool useLegacyRandomization = false;
         // We do not do io prefetching, because chunks are single images currently.
-        bool ioPrefetch = false;
+        bool ioPrefetch = true;
         randomizer = std::make_shared<BlockRandomizer>(0, 1, deserializer, ioPrefetch, BlockRandomizer::DecimationMode::sequence, useLegacyRandomization, multithreadedGetNextSequences);
     }
     else

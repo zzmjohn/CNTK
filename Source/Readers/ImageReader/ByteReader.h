@@ -15,6 +15,14 @@
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
+struct ImageData
+{
+    unsigned char* m_data;
+    size_t m_size;
+};
+
+typedef std::shared_ptr<ImageData> ImageDataPtr;
+
 class ByteReader
 {
 public:
@@ -22,7 +30,7 @@ public:
     virtual ~ByteReader() = default;
 
     virtual void Register(const std::map<std::string, size_t>& sequences) = 0;
-    virtual cv::Mat Read(size_t seqId, const std::string& path, bool grayscale) = 0;
+    virtual ImageDataPtr Read(size_t seqId, const std::string& path/*, bool grayscale*/) = 0;
 
     DISABLE_COPY_AND_MOVE(ByteReader);
 };
@@ -31,7 +39,7 @@ class FileByteReader : public ByteReader
 {
 public:
     void Register(const std::map<std::string, size_t>&) override {}
-    cv::Mat Read(size_t seqId, const std::string& path, bool grayscale) override;
+    ImageDataPtr Read(size_t seqId, const std::string& path/*, bool grayscale*/) override;
 };
 
 #ifdef USE_ZIP
@@ -41,7 +49,7 @@ public:
     ZipByteReader(const std::string& zipPath);
 
     void Register(const std::map<std::string, size_t>& sequences) override;
-    cv::Mat Read(size_t seqId, const std::string& path, bool grayscale) override;
+    ImageDataPtr Read(size_t seqId, const std::string& path/*, bool grayscale*/) override;
 
 private:
     using ZipPtr = std::unique_ptr<zip_t, void(*)(zip_t*)>;

@@ -132,6 +132,15 @@ private:
 // Represents a chunk description.
 struct ChunkDescription
 {
+    ChunkDescription() : m_id(0), m_numberOfSamples(0), m_numberOfSequences(0)
+    {}
+
+    ChunkDescription(ChunkIdType id, size_t numberOfSamples, size_t numberOfSequences)
+        : m_id(id),
+        m_numberOfSamples(numberOfSamples),
+        m_numberOfSequences(numberOfSequences)
+    {}
+
     // Chunk id.
     ChunkIdType m_id;
     // Number of samples in the chunk.

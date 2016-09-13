@@ -16,6 +16,9 @@
 #include "TimerUtility.h"
 #include "ImageTransformers.h"
 
+#include <boost/interprocess/file_mapping.hpp>
+#include <boost/interprocess/mapped_region.hpp>
+
 namespace Microsoft { namespace MSR { namespace CNTK {
 
 struct StaticSparseSequenceData : SparseSequenceData
@@ -71,33 +74,52 @@ private:
 };
 
 // Used to keep track of the image. Accessed only using DenseSequenceData interface.
-//struct DeserializedImage : DenseSequenceData
-//{
-//    cv::Mat m_image;
-//};
+struct DeserializedImage : ImageSequenceData
+{
+    ImageDataPtr m_buffer;
+};
 
 // For image, chunks correspond to a single image.
 class ImageDataDeserializer::ImageChunk : public Chunk, public std::enable_shared_from_this<ImageChunk>
 {
-    ImageSequenceDescription m_description;
+    //ImageSequenceDescription m_description;
+    ChunkIdType m_id;
+
     ImageDataDeserializer& m_parent;
+    std::vector<ImageDataPtr> m_data;
 
 public:
-    ImageChunk(ImageSequenceDescription& description, ImageDataDeserializer& parent)
-        : m_description(description), m_parent(parent)
+    ImageChunk(ChunkIdType id, ImageDataDeserializer& parent) : m_id(id), m_parent(parent)
     {
+        // Let's read all sequences we need.
+        const auto& currentChunk = *m_parent.m_chunks[m_id];
+        m_data.reserve(currentChunk.m_numberOfSamples);
+        for (int i = 0; i < currentChunk.m_numberOfSamples; ++i)
+        {
+            size_t currentImage = currentChunk.m_startIndex + i;
+            const auto& imageSequence = m_parent.m_imageSequences[currentImage];
+
+            auto read = m_parent.ReadImage(imageSequence.m_id, imageSequence.m_path);
+            m_data.push_back(read);
+        }
     }
 
     virtual void GetSequence(size_t sequenceId, std::vector<SequenceDataPtr>& result) override
     {
-        assert(sequenceId == m_description.m_id);
-        const auto& imageSequence = m_description;
+        const auto& currentChunk = *m_parent.m_chunks[m_id];
+        size_t index = sequenceId - currentChunk.m_startIndex;
 
-        auto image = std::make_shared<ImageSequenceData>();
-        image->m_image = std::move(m_parent.ReadImage(m_description.m_id, imageSequence.m_path, m_parent.m_grayscale));
+        const auto& imageSequence = m_parent.m_imageSequences[sequenceId];
+
+        auto image = std::make_shared<DeserializedImage>();
+        auto data = m_data[index];
+        image->m_image = cv::imdecode(cv::Mat(1, (int)data->m_size, CV_8UC1, data->m_data), m_parent.m_grayscale ? cv::IMREAD_GRAYSCALE : cv::IMREAD_COLOR);
+
         auto& cvImage = image->m_image;
         if (!cvImage.data)
+        {
             RuntimeError("Cannot open file '%s'", imageSequence.m_path.c_str());
+        }
 
         // Convert element type.
         auto depth = cvImage.depth();
@@ -122,7 +144,8 @@ public:
 
         ImageDimensions dimensions(cvImage.cols, cvImage.rows, cvImage.channels());
         image->m_sampleLayout = std::make_shared<TensorShape>(dimensions.AsTensorShape(HWC));
-        image->m_id = sequenceId;
+        image->m_id = imageSequence.m_id;
+        image->m_buffer = data;
         image->m_numberOfSamples = 1;
         image->m_chunk = shared_from_this();
         image->m_elementType = dataType;
@@ -237,23 +260,20 @@ ImageDataDeserializer::ImageDataDeserializer(const ConfigParameters& config)
 ChunkDescriptions ImageDataDeserializer::GetChunkDescriptions()
 {
     ChunkDescriptions result;
-    result.reserve(m_imageSequences.size());
-    for (auto const& s : m_imageSequences)
+    result.reserve(m_chunks.size());
+    for (const auto& c : m_chunks)
     {
-        auto chunk = std::make_shared<ChunkDescription>();
-        chunk->m_id = s.m_chunkId;
-        chunk->m_numberOfSamples = 1;
-        chunk->m_numberOfSequences = 1;
-        result.push_back(chunk);
+        result.push_back(c);
     }
-
     return result;
 }
 
 void ImageDataDeserializer::GetSequencesForChunk(ChunkIdType chunkId, std::vector<SequenceDescription>& result)
 {
-    // Currently a single sequence per chunk.
-    result.push_back(m_imageSequences[chunkId]);
+    for (size_t i = 0; i < m_chunks[chunkId]->m_numberOfSequences; i++)
+    {
+        result.push_back(m_imageSequences[m_chunks[chunkId]->m_startIndex + i]);
+    }
 }
 
 void ImageDataDeserializer::CreateSequenceDescriptions(CorpusDescriptorPtr corpus, std::string mapPath, size_t labelDimension, bool isMultiCrop)
@@ -276,6 +296,10 @@ void ImageDataDeserializer::CreateSequenceDescriptions(CorpusDescriptorPtr corpu
     timer.Start();
 
     auto& stringRegistry = corpus->GetStringRegistry();
+
+    ChunkIdType currentChunkId = 0;
+    ImageChunkDescriptionPtr currentChunk = std::make_shared<ImageChunkDescription>();
+
     for (size_t lineIndex = 0; std::getline(mapFile, line); ++lineIndex)
     {
         std::stringstream ss(line);
@@ -317,10 +341,20 @@ void ImageDataDeserializer::CreateSequenceDescriptions(CorpusDescriptorPtr corpu
             RuntimeError("Maximum number of chunks exceeded.");
         }
 
+        // Creating new chunk if necessary.
+        if (currentChunk->m_numberOfSamples > 0)
+        {
+            m_chunks.push_back(currentChunk);
+            currentChunk = std::make_shared<ImageChunkDescription>();
+            currentChunk->m_id = ++currentChunkId;
+            currentChunk->m_numberOfSamples = currentChunk->m_numberOfSequences = 0;
+            currentChunk->m_startIndex = m_imageSequences.size();
+         }
+
         for (size_t start = curId; curId < start + itemsPerLine; curId++)
         {
             description.m_id = curId;
-            description.m_chunkId = (ChunkIdType)curId;
+            description.m_chunkId = (ChunkIdType)currentChunkId;
             description.m_path = imagePath;
             description.m_classId = cid;
             description.m_key.m_sequence = stringRegistry[sequenceKey];
@@ -328,8 +362,16 @@ void ImageDataDeserializer::CreateSequenceDescriptions(CorpusDescriptorPtr corpu
 
             m_keyToSequence[description.m_key.m_sequence] = m_imageSequences.size();
             m_imageSequences.push_back(description);
+            currentChunk->m_numberOfSamples++;
+            currentChunk->m_numberOfSequences++;
             RegisterByteReader(description.m_id, description.m_path, knownReaders, readerSequences);
         }
+    }
+
+    // Adding the last chunk.
+    if (currentChunk->m_numberOfSamples > 0)
+    {
+        m_chunks.push_back(currentChunk);
     }
 
     for (auto& reader : knownReaders)
@@ -346,8 +388,8 @@ void ImageDataDeserializer::CreateSequenceDescriptions(CorpusDescriptorPtr corpu
 
 ChunkPtr ImageDataDeserializer::GetChunk(ChunkIdType chunkId)
 {
-    auto sequenceDescription = m_imageSequences[chunkId];
-    return std::make_shared<ImageChunk>(sequenceDescription, *this);
+    auto sequenceDescription = m_chunks[chunkId];
+    return std::make_shared<ImageChunk>(chunkId, *this);
 }
 
 void ImageDataDeserializer::RegisterByteReader(size_t seqId, const std::string& path, PathReaderMap& knownReaders, ReaderSequenceMap& readerSequences)
@@ -390,21 +432,33 @@ void ImageDataDeserializer::RegisterByteReader(size_t seqId, const std::string& 
 #endif
 }
 
-cv::Mat ImageDataDeserializer::ReadImage(size_t seqId, const std::string& path, bool grayscale)
+ImageDataPtr ImageDataDeserializer::ReadImage(size_t seqId, const std::string& path)
 {
     assert(!path.empty());
 
     ImageDataDeserializer::SeqReaderMap::const_iterator r;
     if (m_readers.empty() || (r = m_readers.find(seqId)) == m_readers.end())
-        return m_defaultReader.Read(seqId, path, grayscale);
-    return (*r).second->Read(seqId, path, grayscale);
+        return m_defaultReader.Read(seqId, path/*, grayscale*/);
+    return (*r).second->Read(seqId, path/*, grayscale*/);
 }
 
-cv::Mat FileByteReader::Read(size_t, const std::string& path, bool grayscale)
+struct FileMappedData : ImageData
 {
-    assert(!path.empty());
+    FileMappedData(const std::string& path)
+         : m_fm(path.c_str(), boost::interprocess::read_only),
+        m_region(m_fm, boost::interprocess::read_only)
+    {
+        m_data = (unsigned char*)m_region.get_address();
+        m_size = m_region.get_size() / sizeof(unsigned char);
+    }
 
-    return cv::imread(path, grayscale ? cv::IMREAD_GRAYSCALE : cv::IMREAD_COLOR);
+    boost::interprocess::file_mapping m_fm;
+    boost::interprocess::mapped_region m_region;
+};
+
+ImageDataPtr FileByteReader::Read(size_t, const std::string& path)
+{
+    return std::make_shared<FileMappedData>(path.c_str());
 }
 
 bool ImageDataDeserializer::GetSequenceDescriptionByKey(const KeyType& key, SequenceDescription& result)

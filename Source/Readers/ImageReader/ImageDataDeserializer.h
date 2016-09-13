@@ -13,6 +13,17 @@
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
+
+struct ImageChunkDescription : ChunkDescription
+{
+    ImageChunkDescription() : m_startIndex(0)
+    {}
+
+    size_t m_startIndex;
+};
+
+typedef std::shared_ptr<ImageChunkDescription> ImageChunkDescriptionPtr;
+
 // Image data deserializer based on the OpenCV library.
 // The deserializer currently supports two output streams only: a feature and a label stream.
 // All sequences consist only of a single sample (image/label).
@@ -74,7 +85,7 @@ private:
     using PathReaderMap = std::unordered_map<std::string, std::shared_ptr<ByteReader>>;
     using ReaderSequenceMap = std::map<std::string, std::map<std::string, size_t>>;
     void RegisterByteReader(size_t seqId, const std::string& path, PathReaderMap& knownReaders, ReaderSequenceMap& readerSequences);
-    cv::Mat ReadImage(size_t seqId, const std::string& path, bool grayscale);
+    ImageDataPtr ReadImage(size_t seqId, const std::string& path);
 
     // REVIEW alexeyk: can potentially use vector instead of map. Need to handle default reader and resizing though.
     using SeqReaderMap = std::unordered_map<size_t, std::shared_ptr<ByteReader>>;
@@ -82,6 +93,8 @@ private:
 
     FileByteReader m_defaultReader;
     int m_verbosity;
+
+    std::vector<ImageChunkDescriptionPtr> m_chunks;
 };
 
 }}}

@@ -12,6 +12,17 @@
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
+    struct ZippedFileData : ImageData
+    {
+        ZippedFileData(size_t size) : m_buffer(size)
+        {
+            m_data = (unsigned char*)m_buffer.data();
+            m_size = size;
+        }
+
+        std::vector<unsigned char*> m_buffer;
+    };
+
 std::string GetZipError(int err)
 {
     zip_error_t error;
@@ -87,7 +98,7 @@ void ZipByteReader::Register(const std::map<std::string, size_t>& sequences)
     }
 }
 
-cv::Mat ZipByteReader::Read(size_t seqId, const std::string& path, bool grayscale)
+ImageDataPtr ZipByteReader::Read(size_t seqId, const std::string& path/*, bool grayscale*/)
 {
     // Find index of the file in .zip file.
     auto r = m_seqIdToIndex.find(seqId);
@@ -97,11 +108,12 @@ cv::Mat ZipByteReader::Read(size_t seqId, const std::string& path, bool grayscal
     zip_uint64_t index = std::get<0>((*r).second);
     zip_uint64_t size = std::get<1>((*r).second);
 
-    auto contents = m_workspace.pop_or_create([size]() { return vector<unsigned char>(size); });
-    if (contents.size() < size)
-        contents.resize(size);
+    //auto contents = m_workspace.pop_or_create([size]() { return vector<unsigned char>(size); });
+    //if (contents.size() < size)
+    //    contents.resize(size);
+    auto result = std::make_shared<ZippedFileData>(size);
     auto zipFile = m_zips.pop_or_create([this]() { return OpenZip(); });
-    attempt(5, [&zipFile, &contents, &path, index, seqId, size]()
+    attempt(5, [&zipFile, &result, &path, index, seqId, size]()
     {
         std::unique_ptr<zip_file_t, void(*)(zip_file_t*)> file(
             zip_fopen_index(zipFile.get(), index, 0),
@@ -120,8 +132,9 @@ cv::Mat ZipByteReader::Read(size_t seqId, const std::string& path, bool grayscal
             RuntimeError("Could not open file %s in the zip file, sequence id = %lu, zip library error: %s",
                          path.c_str(), (long)seqId, GetZipError(zip_error_code_zip(zip_get_error(zipFile.get()))).c_str());
         }
-        assert(contents.size() >= size);
-        zip_uint64_t bytesRead = zip_fread(file.get(), contents.data(), size);
+        //assert(contents.size() >= size);
+        //zip_uint64_t bytesRead = zip_fread(file.get(), contents.data(), size);
+        zip_uint64_t bytesRead = zip_fread(file.get(), result->m_buffer.data(), size);
         assert(bytesRead == size);
         if (bytesRead != size)
         {
@@ -131,11 +144,11 @@ cv::Mat ZipByteReader::Read(size_t seqId, const std::string& path, bool grayscal
     });
     m_zips.push(std::move(zipFile));
 
-    cv::Mat img; 
-    img = cv::imdecode(cv::Mat(1, (int)size, CV_8UC1, contents.data()), grayscale ? cv::IMREAD_GRAYSCALE : cv::IMREAD_COLOR);
-    assert(nullptr != img.data);
-    m_workspace.push(std::move(contents));
-    return img;
+    //cv::Mat img; 
+    //img = cv::imdecode(cv::Mat(1, (int)size, CV_8UC1, contents.data()), grayscale ? cv::IMREAD_GRAYSCALE : cv::IMREAD_COLOR);
+    //assert(nullptr != img.data);
+    //m_workspace.push(std::move(contents));
+    return result;
 }
 }}}
 
