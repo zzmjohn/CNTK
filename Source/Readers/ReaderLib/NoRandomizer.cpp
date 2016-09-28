@@ -143,6 +143,11 @@ std::vector<SequenceDescription> NoRandomizer::GetNextSequenceDescriptions(size_
     return result;
 }
 
+size_t NoRandomizer::GetCurrentSamplePosition()
+{
+    return m_globalSamplePosition;
+}
+
 Sequences NoRandomizer::GetNextSequences(size_t sampleCount)
 {
     Sequences result;
