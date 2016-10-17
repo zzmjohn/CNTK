@@ -308,7 +308,6 @@ MATH_SRC =\
 	$(SOURCEDIR)/Math/DataTransferer.cpp \
 	$(SOURCEDIR)/Math/RNGHandle.cpp \
 	$(SOURCEDIR)/Math/TensorView.cpp \
-	$(SOURCEDIR)/Math/cudalattice.cpp \
 
 ifdef SUPPORT_AVX2
 MATH_SRC +=\
@@ -330,6 +329,7 @@ MATH_SRC +=\
 	$(SOURCEDIR)/Math/GPURNGHandle.cu \
 	$(SOURCEDIR)/Math/MatrixQuantizerGPU.cu \
 	$(SOURCEDIR)/Math/cudalatticeops.cu \
+	$(SOURCEDIR)/Math/cudalattice.cpp \
 
 else
 MATH_SRC +=\
