@@ -308,6 +308,7 @@ MATH_SRC =\
 	$(SOURCEDIR)/Math/DataTransferer.cpp \
 	$(SOURCEDIR)/Math/RNGHandle.cpp \
 	$(SOURCEDIR)/Math/TensorView.cpp \
+	$(SOURCEDIR)/Math/cudalattice.cpp \
 
 ifdef SUPPORT_AVX2
 MATH_SRC +=\
@@ -328,6 +329,7 @@ MATH_SRC +=\
 	$(SOURCEDIR)/Math/GPUWatcher.cu \
 	$(SOURCEDIR)/Math/GPURNGHandle.cu \
 	$(SOURCEDIR)/Math/MatrixQuantizerGPU.cu \
+	$(SOURCEDIR)/Math/cudalatticeops.cu \
 
 else
 MATH_SRC +=\
@@ -381,13 +383,7 @@ SEQUENCE_TRAINING_LIB_SRC =\
 
 ifdef CUDA_PATH
 SEQUENCE_TRAINING_LIB_SRC +=\
-	$(SOURCEDIR)/Math/cudalatticeops.cu \
-	$(SOURCEDIR)/Math/cudalattice.cpp \
 	$(SOURCEDIR)/Math/cudalib.cpp \
-
-else
-SEQUENCE_TRAINING_LIB_SRC +=\
-	$(SOURCEDIR)/Math/latticeNoGPU.cpp \
 
 endif
 
