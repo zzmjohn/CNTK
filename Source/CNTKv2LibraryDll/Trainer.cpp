@@ -51,7 +51,7 @@ namespace CNTK
     }
 
     Trainer::Trainer(const FunctionPtr& model, const FunctionPtr& lossFunction, const FunctionPtr& evaluationFunction, const std::unordered_set<LearnerPtr>& parameterLearners)
-        : Trainer(model, lossFunction, nullptr, parameterLearners, nullptr)
+        : Trainer(model, lossFunction, evaluationFunction, parameterLearners, nullptr)
     {}
 
     Trainer::Trainer(const FunctionPtr& model, const FunctionPtr& lossFunction, const std::unordered_set<LearnerPtr>& parameterLearners)
