@@ -405,6 +405,7 @@ CNTKLIBRARY_SRC =\
 	$(SOURCEDIR)/CNTKv2LibraryDll/Variable.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/Learner.cpp \
 	$(SOURCEDIR)/CNTKv2LibraryDll/DistributedCommunicator.cpp \
+	$(SOURCEDIR)/CNTKv2LibraryDll/DataParallelDistributedTrainer.cpp \
 
 CNTKLIBRARY_SRC+=$(CNTK_COMMON_SRC)
 CNTKLIBRARY_SRC+=$(COMPUTATION_NETWORK_LIB_SRC)
@@ -831,7 +832,7 @@ CNTK:=$(BINDIR)/cntk
 ALL+=$(CNTK)
 SRC+=$(CNTK_SRC)
 
-$(CNTK): $(CNTK_OBJ) | $(CNTKMATH_LIB)
+$(CNTK): $(CNTK_OBJ) | $(CNTKMATH_LIB)| $(CNTKLIBRARY_LIB)
 	@echo $(SEPARATOR)
 	@mkdir -p $(dir $@)
 	@echo building output for $(ARCH) with build type $(BUILDTYPE)
