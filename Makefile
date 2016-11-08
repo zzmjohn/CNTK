@@ -321,6 +321,7 @@ MATH_SRC =\
 	$(SOURCEDIR)/Math/DataTransferer.cpp \
 	$(SOURCEDIR)/Math/RNGHandle.cpp \
 	$(SOURCEDIR)/Math/TensorView.cpp \
+	$(SOURCEDIR)/Math/NcclComm.cpp \
 
 ifdef SUPPORT_AVX2
 MATH_SRC +=\
@@ -341,7 +342,6 @@ MATH_SRC +=\
 	$(SOURCEDIR)/Math/GPUWatcher.cu \
 	$(SOURCEDIR)/Math/GPURNGHandle.cu \
 	$(SOURCEDIR)/Math/MatrixQuantizerGPU.cu \
-	$(SOURCEDIR)/Math/NcclComm.cpp \
 
 else
 MATH_SRC +=\
