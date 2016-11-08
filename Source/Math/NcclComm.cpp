@@ -99,7 +99,7 @@ void NcclComm::Sync()
 #else // !USE_NCCL
 namespace Microsoft { namespace MSR { namespace CNTK {
 
-NcclComm::NcclComm(int deviceId, const MPIWrapperPtr& mpi)
+NcclComm::NcclComm(int /*deviceId*/, const MPIWrapperPtr& /*mpi*/)
 {
     return;
 }
