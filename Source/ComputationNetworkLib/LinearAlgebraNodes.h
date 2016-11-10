@@ -689,18 +689,19 @@ public:
     ElemType m_scaleA;
     bool m_reuseA;
     bool m_firstPass;
-#ifdef SUPPORT_AVX2
-    BlockMultiplier<BlockHandlerAVX> m_mult;
-#else
-    BlockMultiplier<BlockHandlerSSE> m_mult;
-#endif
+    size_t m_extraBits;
+//#ifdef SUPPORT_AVX2
+//    BlockMultiplier<BlockHandlerAVX> m_mult;
+//#else
+//    BlockMultiplier<BlockHandlerSSE> m_mult;
+//#endif
     int16_t* m_matA, m_newA, m_matB;
     int32_t* m_matC;
     int m_m, m_l, m_k;
 
 public:
     QuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t extraBits = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
-        : Base(deviceId, name, outputRank, inferInputRankToMap)
+        : Base(deviceId, name, outputRank, inferInputRankToMap), m_extraBits(extraBits)
     {
         if (deviceId != CPUDEVICE)
             LogicError("Quantized operation is supposed to be used on CPU device only.");
@@ -711,6 +712,28 @@ public:
         : QuantizedTimesNode(configp->Get(L"deviceId"), L"<placeholder>", configp->Get(L"extraBits"), configp->Get(L"outputRank"), configp->Get(L"inferInputRankToMap"))
     {
         AttachInputsFromConfig(configp, this->GetExpectedNumInputs());
+    }
+
+    virtual void CopyTo(ComputationNodeBasePtr nodeP, const std::wstring& newName, const CopyNodeFlags flags) const override
+    {
+        Base::CopyTo(nodeP, newName, flags);
+        if (flags & CopyNodeFlags::copyNodeValue)
+        {
+            auto node = dynamic_pointer_cast<QuantizedTimesNode<ElemType>>(nodeP);
+            node->m_extraBits = m_extraBits;
+        }
+    }
+
+    void Save(File& fstream) const
+    {
+        Base::Save(fstream);
+        fstream << m_extraBits;
+    }
+
+    virtual void Load(File& fstream, size_t modelVersion) override
+    {
+        Base::Load(fstream, modelVersion);
+        fstream >> m_extraBits;
     }
 
     //QuantizedTimesNode(const QuantizedTimesNode& node) : QuantizedTimesNode(node.GetDeviceId(), node.NodeName(), node.GetOutputRank(), node.InferInputRankToMap())
@@ -801,10 +824,10 @@ public:
 
     virtual ~QuantizedTimesNode()
     {
-        if (m_preparedA != nullptr)
+        /*if (m_preparedA != nullptr)
         {
             FreeQuantizedMatrix(m_preparedA);
-        }
+        }*/
         /*m_mult.FreeMatrix(m_matB);
         m_mult.FreeMatrix(m_matC);*/
     }
