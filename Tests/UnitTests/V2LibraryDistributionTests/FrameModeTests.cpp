@@ -13,7 +13,10 @@ using namespace std::placeholders;
 
 extern bool Is1bitSGDAvailable();
 
-void TrainSimpleDistributedFeedForwardClassifer(const DeviceDescriptor& device, DistributedTrainerPtr distributedTrainer, size_t rank)
+size_t g_outputFreqInMB = 20;
+size_t g_minibatchSize = 25;
+
+void TrainSimpleDistributedFeedForwardClassifer(const DeviceDescriptor& device, DistributedTrainerPtr distributedTrainer, size_t rank, std::vector<double>* trainCE=nullptr)
 {
     UNUSED(rank);
     const size_t inputDim = 2;
@@ -21,10 +24,9 @@ void TrainSimpleDistributedFeedForwardClassifer(const DeviceDescriptor& device, 
     const size_t hiddenLayerDim = 50;
     const size_t numHiddenLayers = 2;
 
-    const size_t minibatchSize = 25;
     const size_t numSamplesPerSweep = 10000;
     const size_t numSweepsToTrainWith = 2;
-    const size_t numMinibatchesToTrain = (numSamplesPerSweep * numSweepsToTrainWith) / minibatchSize;
+    const size_t numMinibatchesToTrain = (numSamplesPerSweep * numSweepsToTrainWith) / g_minibatchSize;
 
     auto featureStreamName = L"features";
     auto labelsStreamName = L"labels";
@@ -42,8 +44,8 @@ void TrainSimpleDistributedFeedForwardClassifer(const DeviceDescriptor& device, 
     for (size_t i = 1; i < numHiddenLayers; ++i)
         classifierOutput = FullyConnectedDNNLayer(classifierOutput, hiddenLayerDim, device, nonLinearity, std::wstring(L"FullyConnectedHidden"));
 
-    auto outputTimesParam = Parameter(NDArrayView::RandomUniform<float>({ numOutputClasses, hiddenLayerDim }, -0.05, 0.05, 1, device), L"outputTimesParam");
-    auto outputBiasParam = Parameter(NDArrayView::RandomUniform<float>({ numOutputClasses }, -0.05, 0.05, 1, device), L"outputBiasParam");
+    auto outputTimesParam = Parameter({ numOutputClasses, hiddenLayerDim }, DataType::Float, UniformInitializer(CNTK::DefaultParamInitScale, 1), device, L"outputTimesParam");
+    auto outputBiasParam = Parameter({ numOutputClasses }, DataType::Float, UniformInitializer(CNTK::DefaultParamInitScale, 1), device, L"outputBiasParam");
     classifierOutput = Plus(outputBiasParam, Times(outputTimesParam, classifierOutput), L"classifierOutput");
 
     auto labels = InputVariable({ numOutputClasses }, DataType::Float, L"labels");
@@ -53,32 +55,55 @@ void TrainSimpleDistributedFeedForwardClassifer(const DeviceDescriptor& device, 
     auto learningRatePerSample = LearningRatePerSampleSchedule(0.02);
     minibatchSource = TextFormatMinibatchSource(L"SimpleDataTrain_cntk_text.txt", { { L"features", inputDim }, { L"labels", numOutputClasses } });
     Trainer trainer(classifierOutput, trainingLoss, prediction, { SGDLearner(classifierOutput->Parameters(), learningRatePerSample) }, distributedTrainer);
-    size_t outputFrequencyInMinibatches = 20;
+    if (trainCE) trainCE->clear();
     for (size_t i = 0; i < numMinibatchesToTrain; ++i)
     {
-        auto minibatchData = minibatchSource->GetNextMinibatch(minibatchSize, device);
+        auto minibatchData = minibatchSource->GetNextMinibatch(g_minibatchSize, device);
         trainer.TrainMinibatch({ { input, minibatchData[featureStreamInfo].m_data }, { labels, minibatchData[labelStreamInfo].m_data } }, device);
-        PrintTrainingProgress(trainer, i, outputFrequencyInMinibatches);
+        PrintTrainingProgress(trainer, i, g_outputFreqInMB);
+
+        if ((i % g_outputFreqInMB) == 0 && trainCE)
+        {
+            trainCE->push_back(trainer.PreviousMinibatchLossAverage());
+        }
     }
 }
 
 void TestFrameMode()
 {
+    std::vector<double> CPUTrainCE;
+    std::vector<double> GPUTrainCE;
     {
         auto communicator = MPICommunicator();
         auto distributedTrainer = CreateDataParallelDistributedTrainer(communicator, false);
-        TrainSimpleDistributedFeedForwardClassifer(DeviceDescriptor::CPUDevice(), distributedTrainer, communicator->CurrentWorker().m_globalRank);
+        TrainSimpleDistributedFeedForwardClassifer(DeviceDescriptor::CPUDevice(), distributedTrainer, communicator->CurrentWorker().m_globalRank, &CPUTrainCE);
 
         if (IsGPUAvailable())
-            TrainSimpleDistributedFeedForwardClassifer(DeviceDescriptor::GPUDevice(0), distributedTrainer, communicator->CurrentWorker().m_globalRank);
+        {
+            TrainSimpleDistributedFeedForwardClassifer(DeviceDescriptor::GPUDevice(0), distributedTrainer, communicator->CurrentWorker().m_globalRank, &GPUTrainCE);
+
+            for (int i = 0; i < CPUTrainCE.size(); i++)
+            {
+                FloatingPointCompare(CPUTrainCE[i], GPUTrainCE[i], "CPU/GPU training is not matching");
+            }
+        }
     }
 
     if (Is1bitSGDAvailable())
     {
         {
-            auto communicator = QuantizedMPICommunicator(true, true, 32);
-            auto distributedTrainer = CreateQuantizedDataParallelDistributedTrainer(communicator, false);
-            TrainSimpleDistributedFeedForwardClassifer(DeviceDescriptor::CPUDevice(), distributedTrainer, communicator->CurrentWorker().m_globalRank);
+            size_t distributedAfterMB = 100;
+            std::vector<double> TrainCE;
+            size_t distributedAfterSampleCount = distributedAfterMB * g_minibatchSize;
+
+            auto communicator = QuantizedMPICommunicator(true, true, 1);
+            auto distributedTrainer = CreateQuantizedDataParallelDistributedTrainer(communicator, false, distributedAfterSampleCount);
+            TrainSimpleDistributedFeedForwardClassifer(DeviceDescriptor::CPUDevice(), distributedTrainer, communicator->CurrentWorker().m_globalRank, &TrainCE);
+
+            for (int i = 0; i < distributedAfterMB / g_outputFreqInMB; i++)
+            {
+                FloatingPointCompare(TrainCE[i], CPUTrainCE[i], "Warm start CE deviated from non-distributed");
+            }
 
             if (IsGPUAvailable())
                 TrainSimpleDistributedFeedForwardClassifer(DeviceDescriptor::GPUDevice(0), distributedTrainer, communicator->CurrentWorker().m_globalRank);

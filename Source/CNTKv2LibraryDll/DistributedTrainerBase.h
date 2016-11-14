@@ -31,7 +31,7 @@ namespace CNTK
         }
 
     protected:
-        explicit DistributedTrainerBase(DistributedCommunicatorPtr communicator);
+        explicit DistributedTrainerBase(DistributedCommunicatorPtr communicator, size_t distributedAfterSampleCount);
 
         DistributedCommunicatorPtr m_communicator;
     };
