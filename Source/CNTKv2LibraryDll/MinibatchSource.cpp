@@ -263,7 +263,7 @@ namespace CNTK
                 m_prevMinibatchSize = minibatchSizeInSamples;
             }
 
-            auto compositeReaderMinibatchDataEmpty = m_shim->GetMinibatch(m_matrices);
+            auto hasData = m_shim->GetMinibatch(m_matrices);
             m_epochEndReached = m_shim->IsEndOfEpoch();
 
             for (const auto& s: m_streamInfos)
@@ -272,9 +272,10 @@ namespace CNTK
                 auto& currentStreamInfo = s;
 
                 ValuePtr minibatchValuePtr;
-                if (!compositeReaderMinibatchDataEmpty)
+                if (!hasData)
                 {
                     minibatchValuePtr = MakeSharedObject<Value>(MakeSharedObject<NDArrayView>(currentStreamInfo.m_elementType, s.m_sampleLayout.AppendShape({ 0, 0 }), DeviceDescriptor::CPUDevice()));
+                    m_minibatchData[currentStreamInfo] = { 0, 0, minibatchValuePtr };
                     continue;
                 }
 
