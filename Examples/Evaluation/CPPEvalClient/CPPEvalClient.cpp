@@ -31,39 +31,12 @@ typedef std::map<std::wstring, std::vector<float>*> Layer;
 /// first run the example in <CNTK>/Examples/Image/MNIST. Once the model file 01_OneHidden is created,
 /// you can run this client.
 /// This program demonstrates the usage of the Evaluate method requiring the input and output layers as parameters.
-int main(int argc, char* argv[])
+int main()
 {
-    // Get the binary path (current working directory)
-    argc = 0;   
-    std::string app = argv[0];
-    std::string path; 
     IEvaluateModel<float> *model;
-    size_t pos;
-    int ret;
-
-#ifdef _WIN32
-    pos = app.rfind("\\");
-    path = (pos == std::string::npos) ? "." : app.substr(0, pos);
-
-    // This relative path assumes launching from CNTK's binary folder, e.g. x64\Release
-    const std::string modelWorkingDirectory = path + "/../../Examples/Image/GettingStarted";
-#else // on Linux
-    pos = app.rfind("/");
-    path = (pos == std::string::npos) ? "." : app.substr(0, pos);
-
-    // This relative path assumes launching from CNTK's binary folder, e.g. build/cpu/release/bin/
-    const std::string modelWorkingDirectory = path + "/../../../../Examples/Image/GettingStarted";
-#endif
-    const std::string modelFilePath = modelWorkingDirectory + "/Output/Models/01_OneHidden";
-
+    int ret=0;
     try
     {
-        struct stat statBuf;
-        if (stat(modelFilePath.c_str(), &statBuf) != 0)
-        {
-            fprintf(stderr, "Error: The model %s does not exist. Please follow instructions in README.md in <CNTK>/Examples/Image/GettingStarted to create the model.\n", modelFilePath.c_str());
-            return(1);
-        }
 
         GetEvalF(&model);
 
@@ -73,7 +46,7 @@ int main(int argc, char* argv[])
         // When specifying outputNodeNames in the configuration, it will REPLACE the list of output nodes 
         // with the ones specified.
         //networkConfiguration += "outputNodeNames=\"h1.z:ol.z\"\n";
-        networkConfiguration += "modelPath=\"" + modelFilePath + "\"";
+        networkConfiguration += "modelPath=\"D:\\Projects\\Quant\\quantized.67\"";
         model->CreateNetwork(networkConfiguration);
 
         // get the model's layers dimensions

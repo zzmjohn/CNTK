@@ -18,8 +18,6 @@
 #include <cstdio>
 #include "ProgressTracing.h"
 #include "ComputationNetworkBuilder.h"
-#include "LinearAlgebraNodes.h"
-#include "InputAndParamNodes.h"
 
 using namespace std;
 
@@ -152,7 +150,7 @@ public:
     }
 
     // TODO: Remove code dup with above function by creating a fake Writer object and then calling the other function.
-    void WriteOutput(IDataReader& dataReader, size_t mbSize, std::wstring outputPath, const std::vector<std::wstring>& outputNodeNames, const WriteFormattingOptions& formattingOptions, size_t numOutputSamples = requestDataSize, bool quantizeTimes = false, bool nodeUnitTest = false)
+    void WriteOutput(IDataReader& dataReader, size_t mbSize, std::wstring outputPath, const std::vector<std::wstring>& outputNodeNames, const WriteFormattingOptions& formattingOptions, size_t numOutputSamples = requestDataSize, bool nodeUnitTest = false)
     {
         // In case of unit test, make sure backprop works
         ScopedNetworkOperationMode modeGuard(m_net, nodeUnitTest ? NetworkOperationMode::training : NetworkOperationMode::inferring);
@@ -161,11 +159,6 @@ public:
         std::vector<ComputationNodeBasePtr> inputNodes = m_net->InputNodesForOutputs(outputNodeNames);
         std::vector<ComputationNodePtr> gradientNodes;
         std::vector<ComputationNodeBasePtr> allOutputNodes = outputNodes;
-
-        if (quantizeTimes)
-        {
-            m_net->QuantizeTimesNodes(L"foo");
-        }
 
         if (!nodeUnitTest)                                        // regular operation
         {

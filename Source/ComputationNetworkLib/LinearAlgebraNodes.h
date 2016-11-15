@@ -20,6 +20,7 @@
 #include <assert.h>
 #include "BlockMultiplier.h"
 #include "BlockHandlerSSE.h"
+#include "Quantizers.h"
 #ifdef SUPPORT_AVX2
 #include "BlockHandlerAVX.h"
 #endif
@@ -682,27 +683,26 @@ class QuantizedTimesNode : public TimesNodeBase<ElemType, false>
         return L"QuantizedTimes";
     }
 
-public:
-    //DeclareConstructorFromConfigWithNumInputs(QuantizedTimesNode);
-
-    int16_t* m_preparedA = nullptr;
+private:
+    short * m_preparedA = nullptr;
     ElemType m_scaleA;
     bool m_reuseA;
     bool m_firstPass;
     size_t m_extraBits;
-//#ifdef SUPPORT_AVX2
-//    BlockMultiplier<BlockHandlerAVX> m_mult;
-//#else
-//    BlockMultiplier<BlockHandlerSSE> m_mult;
-//#endif
-    int16_t* m_matA, m_newA, m_matB;
+#ifdef SUPPORT_AVX2
+    BlockMultiplier<BlockHandlerAVX> m_mult;
+#else
+    BlockMultiplier<BlockHandlerSSE> m_mult;
+#endif
+    short *m_matA, *m_newA, *m_matB;
     int32_t* m_matC;
-    int m_m, m_l, m_k;
+    int m_m, m_l, m_k, m_n;
 
 public:
     QuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t extraBits = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
         : Base(deviceId, name, outputRank, inferInputRankToMap), m_extraBits(extraBits)
     {
+
         if (deviceId != CPUDEVICE)
             LogicError("Quantized operation is supposed to be used on CPU device only.");
         m_firstPass = true;
@@ -736,13 +736,52 @@ public:
         fstream >> m_extraBits;
     }
 
-    //QuantizedTimesNode(const QuantizedTimesNode& node) : QuantizedTimesNode(node.GetDeviceId(), node.NodeName(), node.GetOutputRank(), node.InferInputRankToMap())
-    //{
-    //    LogicError("TODO: Copy ctor for the QuantizedTimesNode");
-    //}
-
     virtual void /*ComputationNode::*/ ForwardProp(const FrameRange& fr) override
     {
+        if (!fr.IsOneColumnWrt(InputRef(0).GetMBLayout()))
+        {
+            //// recursively call ourselves for each individual time and sequence
+            auto timeRange = fr.GetTimeRange();
+            auto sequenceRange = fr.GetSequenceRange();
+            for (auto t = timeRange.first; t < timeRange.second; t++)
+                for (auto s = sequenceRange.first; s < sequenceRange.second; s++)
+                    ForwardProp(fr.WithTimeStep(t).Sequence(s));
+            return;
+        }
+
+        shared_ptr<SymmetricQuantizer<ElemType, short>> pSq(new SymmetricQuantizer<ElemType, short>(2));
+
+        // TensorView::DoMatrixProductOf() will reduce each tensor object into a 2D tensor (or fail if it cannot)
+        // and recreate actual Matrix objects (in case of sparse, they must be identical to the original tensor storage object).
+        // Transposition is applied after flattening into 2D, but only allowed if the input sample is 2D anyway.
+        auto input0 = OneSampleTensorFor(0,  /*gradient=*/false, fr.AllowBroadcast());
+        auto input1 = OneSampleTensorFor(1,  /*gradient=*/false, fr.AllowBroadcast());
+        auto output = OneSampleTensorFor(-1, /*gradient=*/false, fr);
+        output.AssignMatrixProductOf(false/*transC*/, input0, false/*transA*/, input1, false/*transB*/, 1.0f, pSq);
+
+        if (m_firstPass)
+        {
+            auto shapeA = input0.GetShape();
+            auto shapeB = input1.GetShape();
+            auto shapeC = output.GetShape();
+           
+            //auto quantizer = SymmetricQuantizer<float, short>(input0.AsMatrix(), m_extraBits);
+
+            m_m = (int)shapeA.GetDim(0);
+            m_k = (int)shapeA.GetDim(1);
+            m_l = (int)shapeB.GetDim(0);
+            m_n = (int)shapeB.GetDim(1);
+            assert(m_k == m_l);
+
+            m_matA = m_mult.CreateMatrixA(m_m, m_k);
+            m_newA = m_mult.PrepareB(m_matA, m_k, m_m);
+            m_matB = m_mult.CreateMatrixB(m_k, m_n);
+            m_matC = m_mult.CreateMatrixC(m_m, m_n);
+            m_firstPass = false;
+        }
+
+        m_mult.MultiplyMatrices(m_matB, m_n, m_k, m_newA, m_m, m_matC, (short)1, (short)0);
+
         //if (!fr.IsOneColumnWrt(Input(0)->GetMBLayout()))
         //    Base::ForwardProp(fr); // It will come back
         //if (Input(0)->Value().GetMatrixType() != DENSE || Input(1)->Value().GetMatrixType() != DENSE)

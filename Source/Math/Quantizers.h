@@ -4,7 +4,7 @@
 //
 #pragma once
 #include "Basics.h"
-
+#undef max
 namespace Microsoft { namespace MSR { namespace CNTK {
 
 // RawType - input type to the quantizer. Currently CNTK supports float or double as RawType.
@@ -35,6 +35,7 @@ class SymmetricQuantizer : public QuantizerBase<RawType, QuantizedType>
     RawType m_quantizeFactor;
     RawType m_inverseQuantizerFactor;
     RawType m_absMax;
+    size_t m_extraBits;
 public:
     // elements - collection to be quantized
     // extraBits decreases the quantization normalizer to prevent integer overflow during BLAS routines.
@@ -42,22 +43,14 @@ public:
     //     For quantization with shorts, recommended value of extraBits is 1-3.
     // This constructor accepts the collection of RawType to initialize internal quantizer
     // and then apply this quantizer to collections with similar range as the one it was initialized with.
-    SymmetricQuantizer(const ArrayRef<RawType>& input, size_t extraBits)
+    SymmetricQuantizer(size_t extraBits) :m_extraBits(extraBits)
     {
-        m_absMax = FindAbsMax(input);
-        Initialize(m_absMax, extraBits);
-    }
-
-    // absoluteMax - the range of the quantizer (normally represents maximum absolute value of the values in the collection to be quantized).
-    // extraBits - see comment in another ctor
-    SymmetricQuantizer(RawType absoluteMax, size_t extraBits)
-    {
-        Initialize(absoluteMax, extraBits);
     }
 
     // Perform quantization of the input collection, put result into pre-allocated output collection
     virtual void Quantize(const ArrayRef<RawType>& input, ArrayRef<QuantizedType>& output)
     {
+        Initialize(FindAbsMax(input), m_extraBits);
         assert(input.size() == output.size());
 
         for (size_t i = 0; i < input.size(); i++)
@@ -101,6 +94,28 @@ private:
         m_quantizeFactor = this->rangeMax / shiftedMax;
         m_inverseQuantizerFactor = 1 / m_quantizeFactor;
     }
+};
+
+template <class RawType, class QuantizedType>
+class QuantizedBlockMultiplier
+{
+private:
+    shared_ptr<QuantizerBase<RawType, QuantizedType>> m_quantizerA;
+    shared_ptr<ArrayRef<QuantizedType>> m_quantizedA;
+    shared_ptr<QuantizerBase<RawType, QuantizedType>> m_quantizerB;
+    shared_ptr<ArrayRef<QuantizedType>> m_quantizedB;
+    bool m_isAConstant;
+
+public: 
+    QuantizedBlockMultiplier(shared_ptr<ArrayRef<QuantizedType>> quantizedA, shared_ptr<QuantizerBase<RawType, QuantizedType>> quantizerA, shared_ptr<ArrayRef<QuantizedType>> quantizedB, shared_ptr<QuantizerBase<RawType, QuantizedType>> quantizerB, bool AConstant) :
+        m_quantizedA(quantizedA), m_quantizerA(quantizerA), m_quantizedB(quantizedB), m_quantizerB(quantizerB), m_AConstant(isAConstant)
+    {
+    }
+
+    void Multiply(RawType* A, RawType* B, int m, int n, int k, RawType* C)
+    {
+    }
+
 };
 
 }}}
