@@ -104,7 +104,11 @@ const wchar_t* GetScanFormatString(unsigned int)
 {
     return L" %u";
 }
-//template <>    const wchar_t* GetScanFormatString(unsigned long) {return L" %lu";}
+template <>
+const wchar_t* GetScanFormatString(unsigned long) 
+{
+    return L" %lu";
+}
 template <>
 const wchar_t* GetScanFormatString(float)
 {
@@ -161,7 +165,13 @@ const wchar_t* GetFormatString(unsigned int)
 {
     return L" %u";
 }
-//template <>    const wchar_t* GetFormatString(unsigned long) {return L" %lu";}
+
+template <>
+const wchar_t* GetFormatString(unsigned long)
+{
+    return L" %lu";
+}
+
 template <>
 const wchar_t* GetFormatString(float)
 {
