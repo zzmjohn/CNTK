@@ -8,7 +8,6 @@
 #include "ComputationNode.h"
 #include "Matrix.h"
 #include "TensorView.h"
-
 #include <unordered_set>
 #include <map>
 #include <string>
@@ -20,6 +19,7 @@
 #include <utility>
 #include <assert.h>
 #include "Quantizers.h"
+#include "InputAndParamNodes.h"
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
@@ -673,8 +673,9 @@ class SymmetricQuantizedTimesNode : public TimesNodeBase<ElemType, false>
     }
 
 private:
-    size_t m_bitSmoothingA;
-    size_t m_bitSmoothingB;
+    // Quantizer bit smoothing for matrices A and B
+    size_t m_bitSmoothingA; 
+    size_t m_bitSmoothingB; 
 
 public:
     SymmetricQuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t bitSmoothingA = 1, size_t bitSmoothingB = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
@@ -682,6 +683,10 @@ public:
     {
         if (deviceId != CPUDEVICE)
             LogicError("Quantized operation is supposed to be used on CPU device only.");
+
+        shared_ptr<SymmetricQuantizer<ElemType, short>> pQA(new SymmetricQuantizer<ElemType, short>(m_bitSmoothingA));
+        shared_ptr<SymmetricQuantizer<ElemType, short>> qQB(new SymmetricQuantizer<ElemType, short>(m_bitSmoothingB));
+        m_pQuantizedMultiplier = shared_ptr<QuantizedMultiplier<ElemType>>(new QuantizedMultiplier<ElemType>(pQA, qQB));
     }
 
     SymmetricQuantizedTimesNode(const ScriptableObjects::IConfigRecordPtr configp)
@@ -721,9 +726,10 @@ public:
 
     virtual void /*ComputationNode::*/ ForwardProp(const FrameRange& fr) override
     {
-        shared_ptr<SymmetricQuantizer<ElemType, short>> pQA(new SymmetricQuantizer<ElemType, short>(m_bitSmoothingA));
-        shared_ptr<SymmetricQuantizer<ElemType, short>> qQB(new SymmetricQuantizer<ElemType, short>(m_bitSmoothingB));
-        m_pQuantizedMultiplier = shared_ptr<QuantizedMultiplier<ElemType>>(new QuantizedMultiplier<ElemType>(pQA, true, qQB, false));
+        if (dynamic_pointer_cast<LearnableParameter<ElemType>>(Input(0)))
+            m_pQuantizedMultiplier->SetIsAConstant(true);
+        if (dynamic_pointer_cast<LearnableParameter<ElemType>>(Input(1)))
+            m_pQuantizedMultiplier->SetIsBConstant(true);
 
         Base::ForwardProp(fr);
     }

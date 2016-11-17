@@ -100,14 +100,21 @@ template <class RawType>
 class QuantizedMultiplier
 {
 private:
+    // Quantizers for matrices A and B
     shared_ptr<QuantizerBase<RawType, short>> m_pQuantizerA;
-    shared_ptr<ArrayRef<short>> m_pQuantizedA;
     shared_ptr<QuantizerBase<RawType, short>> m_pQuantizerB;
+
+    // Containers for quantized matrices A and B
+    shared_ptr<ArrayRef<short>> m_pQuantizedA;
     shared_ptr<ArrayRef<short>> m_pQuantizedB;
+    short *m_pMatA, *m_pMatB;
+
     shared_ptr<ArrayRef<RawType>> m_pC;
+
+    // if matrices A and B are constant (i.e. weights)
     bool m_isAConstant;
     bool m_isBConstant;
-    short *m_pMatA, *m_pMatB;
+
     size_t m_m, m_n, m_k;
 
 public: 
@@ -116,6 +123,10 @@ public:
     {
         if (isAConstant && isBConstant)
             LogicError("Quantized multiplication is applied to two constant matrices -- it is highly inefficient. Better approach is to replace the operation with the resulting matrix.");
+    };
+    QuantizedMultiplier(shared_ptr<QuantizerBase<RawType, short>> pQuantizerA, shared_ptr<QuantizerBase<RawType, short>> pQuantizerB) :
+        m_pQuantizerA(pQuantizerA), m_pQuantizerB(pQuantizerB), m_isAConstant(false), m_isBConstant(false), m_pQuantizedA(nullptr), m_pQuantizedB(nullptr), m_pC(nullptr)
+    {
     };
 
     ~QuantizedMultiplier()
@@ -180,6 +191,9 @@ public:
         m_pQuantizerB->Dequantize(*m_pC, *m_pC);
         m_pQuantizerA->Dequantize(*m_pC, *m_pC);
     }
+
+    void SetIsAConstant(bool v) { m_isAConstant = v; }
+    void SetIsBConstant(bool v) { m_isBConstant = v; }
 };
 
 }}}
