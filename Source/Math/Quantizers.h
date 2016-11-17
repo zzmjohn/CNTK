@@ -29,7 +29,7 @@ protected:
 // Symmetric quantizer. 
 // Quantization is achieved by 
 //    1. Finding the absolute max of values to be quantized.
-//    2. Adjusting the absolute max with extraBits parameter.
+//    2. Adjusting the absolute max with bitSmoothing parameter.
 //    3. Scaling all values in the collection to be within the symmetric range of the QuantizedType
 template <class RawType, class QuantizedType>
 class SymmetricQuantizer : public QuantizerBase<RawType, QuantizedType>
@@ -37,22 +37,20 @@ class SymmetricQuantizer : public QuantizerBase<RawType, QuantizedType>
     RawType m_quantizeFactor;
     RawType m_inverseQuantizerFactor;
     RawType m_absMax;
-    size_t m_extraBits;
+    size_t m_bitSmoothing;
 public:
     // elements - collection to be quantized
-    // extraBits decreases the quantization normalizer to prevent integer overflow during BLAS routines.
-    //     Higher extraBits will decrease precision of quantization, but will make BLAS routines less prone to overflow.
-    //     For quantization with shorts, recommended value of extraBits is 1-3.
-    // This constructor accepts the collection of RawType to initialize internal quantizer
-    // and then apply this quantizer to collections with similar range as the one it was initialized with.
-    SymmetricQuantizer(size_t extraBits) :m_extraBits(extraBits)
+    // bitSmoothing decreases the quantization normalizer to prevent integer overflow during BLAS routines.
+    //     Higher bitSmoothing will decrease precision of quantization, but will make BLAS routines less prone to overflow.
+    //     For quantization with shorts, recommended value of bitSmoothing is 1-3.
+    SymmetricQuantizer(size_t bitSmoothing) :m_bitSmoothing(bitSmoothing)
     {
     }
 
     // Perform quantization of the input collection, put result into pre-allocated output collection
     virtual void Quantize(const ArrayRef<RawType>& input, ArrayRef<QuantizedType>& output)
     {
-        Initialize(FindAbsMax(input), m_extraBits);
+        Initialize(FindAbsMax(input), m_bitSmoothing);
         assert(input.size() == output.size());
 
         for (size_t i = 0; i < input.size(); i++)
@@ -85,9 +83,9 @@ private:
         return std::max(maxElem, std::abs(minElem));
     }
 
-    void Initialize(RawType absoluteMax, size_t extraBits)
+    void Initialize(RawType absoluteMax, size_t bitSmoothing)
     {
-        RawType shiftedMax = absoluteMax * (1 << extraBits);
+        RawType shiftedMax = absoluteMax * (1 << bitSmoothing);
         if (shiftedMax == 0)
         {
             LogicError("The absolute max element in the sequence to be quantized is 0.");
@@ -102,20 +100,19 @@ template <class RawType>
 class QuantizedMultiplier
 {
 private:
-    shared_ptr<QuantizerBase<RawType, short>> m_quantizerA;
-    shared_ptr<ArrayRef<short>> m_quantizedA;
-    shared_ptr<QuantizerBase<RawType, short>> m_quantizerB;
-    shared_ptr<ArrayRef<short>> m_quantizedB;
-    shared_ptr<ArrayRef<RawType>> m_C;
+    shared_ptr<QuantizerBase<RawType, short>> m_pQuantizerA;
+    shared_ptr<ArrayRef<short>> m_pQuantizedA;
+    shared_ptr<QuantizerBase<RawType, short>> m_pQuantizerB;
+    shared_ptr<ArrayRef<short>> m_pQuantizedB;
+    shared_ptr<ArrayRef<RawType>> m_pC;
     bool m_isAConstant;
     bool m_isBConstant;
-    short *m_matA, *m_matB;
-    int32_t* m_matC;
+    short *m_pMatA, *m_pMatB;
     size_t m_m, m_n, m_k;
 
 public: 
-    QuantizedMultiplier(shared_ptr<QuantizerBase<RawType, short>> quantizerA, bool isAConstant, shared_ptr<QuantizerBase<RawType, short>> quantizerB, bool isBConstant) :
-        m_quantizerA(quantizerA), m_quantizerB(quantizerB), m_isAConstant(isAConstant), m_isBConstant(isBConstant), m_quantizedA(nullptr), m_quantizedB(nullptr), m_C(nullptr)
+    QuantizedMultiplier(shared_ptr<QuantizerBase<RawType, short>> pQuantizerA, bool isAConstant, shared_ptr<QuantizerBase<RawType, short>> pQuantizerB, bool isBConstant) :
+        m_pQuantizerA(pQuantizerA), m_pQuantizerB(pQuantizerB), m_isAConstant(isAConstant), m_isBConstant(isBConstant), m_pQuantizedA(nullptr), m_pQuantizedB(nullptr), m_pC(nullptr)
     {
         if (isAConstant && isBConstant)
             LogicError("Quantized multiplication is applied to two constant matrices -- it is highly inefficient. Better approach is to replace the operation with the resulting matrix.");
@@ -123,11 +120,11 @@ public:
 
     ~QuantizedMultiplier()
     {
-        if (m_quantizedA)
-            delete[] m_matA;
+        if (m_pQuantizedA)
+            delete[] m_pMatA;
 
-        if (m_quantizedB)
-            delete[] m_matB;
+        if (m_pQuantizedB)
+            delete[] m_pMatB;
     }
 
     // A[m,k]*B[k,n] = C[m,n]
@@ -137,32 +134,32 @@ public:
         int nk = n*k;
         int mk = m*k;
 
-        if (!m_quantizedA && !m_quantizedB && !m_C)
+        if (!m_pQuantizedA && !m_pQuantizedB && !m_pC)
         {
-            m_matA = new short[mk];
+            m_pMatA = new short[mk];
             m_m = m;
             m_n = n;
             m_k = k;
-            m_quantizedA = shared_ptr<ArrayRef<short>>(new ArrayRef<short>(m_matA, mk));
+            m_pQuantizedA = shared_ptr<ArrayRef<short>>(new ArrayRef<short>(m_pMatA, mk));
             
             if (m_isAConstant)
-                m_quantizerA->Quantize(ArrayRef<RawType>(A, mk), *m_quantizedA);
+                m_pQuantizerA->Quantize(ArrayRef<RawType>(A, mk), *m_pQuantizedA);
 
-            m_matB = new short[nk];
-            m_quantizedB = shared_ptr<ArrayRef<short>>(new ArrayRef<short>(m_matB, nk));
+            m_pMatB = new short[nk];
+            m_pQuantizedB = shared_ptr<ArrayRef<short>>(new ArrayRef<short>(m_pMatB, nk));
 
             if (m_isBConstant)
-                m_quantizerB->Quantize(ArrayRef<RawType>(B, nk), *m_quantizedB);
+                m_pQuantizerB->Quantize(ArrayRef<RawType>(B, nk), *m_pQuantizedB);
 
-            m_C = shared_ptr<ArrayRef<RawType>>(new ArrayRef<RawType>(C, mn));
+            m_pC = shared_ptr<ArrayRef<RawType>>(new ArrayRef<RawType>(C, mn));
         }
 
         // Quantize
         if (!m_isAConstant)
-            m_quantizerA->Quantize(ArrayRef<RawType>(A, mk), *m_quantizedA);
+            m_pQuantizerA->Quantize(ArrayRef<RawType>(A, mk), *m_pQuantizedA);
         
         if (!m_isBConstant)
-            m_quantizerB->Quantize(ArrayRef<RawType>(B, nk), *m_quantizedB);
+            m_pQuantizerB->Quantize(ArrayRef<RawType>(B, nk), *m_pQuantizedB);
 
         // Do multiply
         // Naive inefficient product, just for demonstation
@@ -174,14 +171,14 @@ public:
                 for (size_t l = 0; l < k; l++)
                 {
                     // CNTK is using column-major storage
-                    dotProduct += (*m_quantizedA)[i + l*m] * (*m_quantizedB)[l + n*j];
+                    dotProduct += (*m_pQuantizedA)[i + l*m] * (*m_pQuantizedB)[l + n*j];
                 }
-                (*m_C)[i + j*m] = (float)dotProduct;
+                (*m_pC)[i + j*m] = (float)dotProduct;
             }
 
         // De-quantize
-        m_quantizerB->Dequantize(*m_C, *m_C);
-        m_quantizerA->Dequantize(*m_C, *m_C);
+        m_pQuantizerB->Dequantize(*m_pC, *m_pC);
+        m_pQuantizerA->Dequantize(*m_pC, *m_pC);
     }
 };
 

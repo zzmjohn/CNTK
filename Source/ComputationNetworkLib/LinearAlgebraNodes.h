@@ -663,30 +663,35 @@ template class TransposeTimesNode<double>;
 // integer multiplication using SSE/AVX2, and transforms the results back.
 // Both matrices must be dense.
 template <class ElemType>
-class QuantizedTimesNode : public TimesNodeBase<ElemType, false>
+class SymmetricQuantizedTimesNode : public TimesNodeBase<ElemType, false>
 {
     typedef TimesNodeBase<ElemType, false> Base;
     UsingComputationNodeMembersBoilerplate;
     static const std::wstring TypeName()
     {
-        return L"QuantizedTimes";
+        return L"SymmetricQuantizedTimes";
     }
 
 private:
-    size_t m_extraBits;
+    size_t m_bitSmoothingA;
+    size_t m_bitSmoothingB;
 
 public:
-    QuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t extraBits = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
-        : Base(deviceId, name, outputRank, inferInputRankToMap), m_extraBits(extraBits)
+    SymmetricQuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t bitSmoothingA = 1, size_t bitSmoothingB = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
+        : Base(deviceId, name, outputRank, inferInputRankToMap), m_bitSmoothingA(bitSmoothingA), m_bitSmoothingB(bitSmoothingB)
     {
         if (deviceId != CPUDEVICE)
             LogicError("Quantized operation is supposed to be used on CPU device only.");
     }
 
-    QuantizedTimesNode(const ScriptableObjects::IConfigRecordPtr configp)
-        : QuantizedTimesNode(configp->Get(L"deviceId"), L"<placeholder>", configp->Get(L"extraBits"), configp->Get(L"outputRank"), configp->Get(L"inferInputRankToMap"))
+    SymmetricQuantizedTimesNode(const ScriptableObjects::IConfigRecordPtr configp)
+        : SymmetricQuantizedTimesNode(configp->Get(L"deviceId"), L"<placeholder>", configp->Get(L"bitSmoothingA"), configp->Get(L"bitSmoothingB"), configp->Get(L"outputRank"), configp->Get(L"inferInputRankToMap"))
     {
         AttachInputsFromConfig(configp, this->GetExpectedNumInputs());
+    }
+
+    virtual ~SymmetricQuantizedTimesNode()
+    {
     }
 
     virtual void CopyTo(ComputationNodeBasePtr nodeP, const std::wstring& newName, const CopyNodeFlags flags) const override
@@ -694,28 +699,31 @@ public:
         Base::CopyTo(nodeP, newName, flags);
         if (flags & CopyNodeFlags::copyNodeValue)
         {
-            auto node = dynamic_pointer_cast<QuantizedTimesNode<ElemType>>(nodeP);
-            node->m_extraBits = m_extraBits;
+            auto node = dynamic_pointer_cast<SymmetricQuantizedTimesNode<ElemType>>(nodeP);
+            node->m_bitSmoothingA = m_bitSmoothingA;
+            node->m_bitSmoothingB = m_bitSmoothingB;
         }
     }
 
     void Save(File& fstream) const
     {
         Base::Save(fstream);
-        fstream << m_extraBits;
+        fstream << m_bitSmoothingA;
+        fstream << m_bitSmoothingB;
     }
 
     virtual void Load(File& fstream, size_t modelVersion) override
     {
         Base::Load(fstream, modelVersion);
-        fstream >> m_extraBits;
+        fstream >> m_bitSmoothingA;
+        fstream >> m_bitSmoothingB;
     }
 
     virtual void /*ComputationNode::*/ ForwardProp(const FrameRange& fr) override
     {
-        shared_ptr<SymmetricQuantizer<ElemType, short>> q1(new SymmetricQuantizer<ElemType, short>(m_extraBits));
-        shared_ptr<SymmetricQuantizer<ElemType, short>> q2(new SymmetricQuantizer<ElemType, short>(m_extraBits));
-        m_pQuantizedMultiplier = shared_ptr<QuantizedMultiplier<ElemType>>(new QuantizedMultiplier<ElemType>(q1, true, q2, false));
+        shared_ptr<SymmetricQuantizer<ElemType, short>> pQA(new SymmetricQuantizer<ElemType, short>(m_bitSmoothingA));
+        shared_ptr<SymmetricQuantizer<ElemType, short>> qQB(new SymmetricQuantizer<ElemType, short>(m_bitSmoothingB));
+        m_pQuantizedMultiplier = shared_ptr<QuantizedMultiplier<ElemType>>(new QuantizedMultiplier<ElemType>(pQA, true, qQB, false));
 
         Base::ForwardProp(fr);
     }
@@ -724,22 +732,10 @@ public:
     {
         NOT_IMPLEMENTED;
     }
-
-    virtual void /*ComputationNodeBase::*/ Validate(bool isFinalValidationPass) override
-    {
-        Base::Validate(isFinalValidationPass);
-        // Check if input is learnable parameter
-        // m_reuseA = Input(0)->ValueIsConst();
-    }
-
-    virtual ~QuantizedTimesNode()
-    {
-    }
-
 };
 
-template class QuantizedTimesNode<float>;
-template class QuantizedTimesNode<double>;
+template class SymmetricQuantizedTimesNode<float>;
+template class SymmetricQuantizedTimesNode<double>;
 
 // -----------------------------------------------------------------------
 // SumElementsNode (input)
