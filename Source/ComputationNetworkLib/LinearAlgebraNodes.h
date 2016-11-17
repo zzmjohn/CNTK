@@ -254,7 +254,7 @@ class TimesNodeBase : public ComputationNode<ElemType>, public NumInputs<2>
 
 public:
     TimesNodeBase(DEVICEID_TYPE deviceId, const wstring& name, size_t outputRank = 1, int inferInputRankToMap = -1)
-        : Base(deviceId, name), m_outputRank(outputRank), m_inferInputRankToMap(inferInputRankToMap)
+        : Base(deviceId, name), m_outputRank(outputRank), m_inferInputRankToMap(inferInputRankToMap), m_pQuantizedMultiplier(nullptr)
     {
     }
 
@@ -304,6 +304,8 @@ protected:
         auto tensorShape = input->GetOneSampleTensorSliceFor(rank, fr);
         return TensorView<ElemType>(data, tensorShape);
     }
+
+    shared_ptr<QuantizedMultiplier<ElemType>> m_pQuantizedMultiplier;
 
 private:
     // Check if TimesNodeBase could be simplified to ElementTimes to avoid unroll when:
@@ -362,7 +364,7 @@ public:
         auto input0 = OneSampleTensorFor(0,  /*gradient=*/false, fr.AllowBroadcast());
         auto input1 = OneSampleTensorFor(1,  /*gradient=*/false, fr.AllowBroadcast());
         auto output = OneSampleTensorFor(-1, /*gradient=*/false, fr);
-        output.AssignMatrixProductOf(false/*transC*/, input0, m_transpose/*transA*/, input1, false/*transB*/);
+        output.AssignMatrixProductOf(false/*transC*/, input0, m_transpose/*transA*/, input1, false/*transB*/, 1.0f, m_pQuantizedMultiplier);
     }
 
     virtual void /*ComputationNode::*/ BackpropTo(const size_t inputIndex, const FrameRange& fr) override
@@ -672,7 +674,6 @@ class QuantizedTimesNode : public TimesNodeBase<ElemType, false>
 
 private:
     size_t m_extraBits;
-    shared_ptr<QuantizedBlockMultiplier<ElemType>> m_QuantizedBlockMultiplier;
 
 public:
     QuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t extraBits = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
@@ -712,28 +713,11 @@ public:
 
     virtual void /*ComputationNode::*/ ForwardProp(const FrameRange& fr) override
     {
-        if (!fr.IsOneColumnWrt(InputRef(0).GetMBLayout()))
-        {
-            //// recursively call ourselves for each individual time and sequence
-            auto timeRange = fr.GetTimeRange();
-            auto sequenceRange = fr.GetSequenceRange();
-            for (auto t = timeRange.first; t < timeRange.second; t++)
-                for (auto s = sequenceRange.first; s < sequenceRange.second; s++)
-                    ForwardProp(fr.WithTimeStep(t).Sequence(s));
-            return;
-        }
-
         shared_ptr<SymmetricQuantizer<ElemType, short>> q1(new SymmetricQuantizer<ElemType, short>(m_extraBits));
         shared_ptr<SymmetricQuantizer<ElemType, short>> q2(new SymmetricQuantizer<ElemType, short>(m_extraBits));
-        m_QuantizedBlockMultiplier = shared_ptr<QuantizedBlockMultiplier<ElemType>>(new QuantizedBlockMultiplier<ElemType>(q1, true, q2, false));
+        m_pQuantizedMultiplier = shared_ptr<QuantizedMultiplier<ElemType>>(new QuantizedMultiplier<ElemType>(q1, true, q2, false));
 
-        // TensorView::DoMatrixProductOf() will reduce each tensor object into a 2D tensor (or fail if it cannot)
-        // and recreate actual Matrix objects (in case of sparse, they must be identical to the original tensor storage object).
-        // Transposition is applied after flattening into 2D, but only allowed if the input sample is 2D anyway.
-        auto input0 = OneSampleTensorFor(0,  /*gradient=*/false, fr.AllowBroadcast());
-        auto input1 = OneSampleTensorFor(1,  /*gradient=*/false, fr.AllowBroadcast());
-        auto output = OneSampleTensorFor(-1, /*gradient=*/false, fr);
-        output.AssignMatrixProductOf(false/*transC*/, input0, false/*transA*/, input1, false/*transB*/, 1.0f, m_QuantizedBlockMultiplier);
+        Base::ForwardProp(fr);
     }
 
     virtual void /*ComputationNode::*/ BackpropTo(const size_t /*inputIndex*/, const FrameRange& /*fr*/) override

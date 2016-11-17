@@ -144,8 +144,8 @@ public:
     // If beta == 0, c is not read out, i.e. it can be uninitialized or contain NaNs.
     // -------------------------------------------------------------------
 
-    void DoMatrixProductOf(ElemType beta, bool transC, const TensorView& a, bool transA, const TensorView& b, bool transB, ElemType alpha, shared_ptr<QuantizedBlockMultiplier<ElemType>> pQuantizer = nullptr);
-    void AssignMatrixProductOf(bool transC, const TensorView& a, bool transA, const TensorView& b, bool transB, ElemType alpha = 1.0f, shared_ptr<QuantizedBlockMultiplier<ElemType>> pQuantizer = nullptr) { DoMatrixProductOf(0, transC, a, transA, b, transB, alpha, pQuantizer); }
+    void DoMatrixProductOf(ElemType beta, bool transC, const TensorView& a, bool transA, const TensorView& b, bool transB, ElemType alpha, shared_ptr<QuantizedMultiplier<ElemType>> pQuantizedMultiplier = nullptr);
+    void AssignMatrixProductOf(bool transC, const TensorView& a, bool transA, const TensorView& b, bool transB, ElemType alpha = 1.0f, shared_ptr<QuantizedMultiplier<ElemType>> pQuantizedMultiplier = nullptr) { DoMatrixProductOf(0, transC, a, transA, b, transB, alpha, pQuantizedMultiplier); }
     void AddMatrixProductOf   (               bool transC, const TensorView& a, bool transA, const TensorView& b, bool transB, ElemType alpha = 1.0f) { DoMatrixProductOf(1.0f, transC, a, transA, b, transB, alpha); }
 
     shared_ptr<Matrix<ElemType>> AsMatrix() const;

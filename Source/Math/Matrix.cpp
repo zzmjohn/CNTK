@@ -4488,7 +4488,7 @@ void Matrix<ElemType>::SVD(const Matrix<ElemType>& A, Matrix<ElemType>& SIGMA, M
 /// <param name="c">Resulting matrix, user is responsible for allocating this</param>
 template <class ElemType>
 void Matrix<ElemType>::MultiplyAndWeightedAdd(ElemType alpha, const Matrix<ElemType>& a, const bool transposeA, const Matrix<ElemType>& b, const bool transposeB,
-    ElemType beta, Matrix<ElemType>& c, shared_ptr<QuantizedBlockMultiplier<ElemType>> pQuantizer = nullptr)
+    ElemType beta, Matrix<ElemType>& c, shared_ptr<QuantizedMultiplier<ElemType>> pQuantizedMultiplier = nullptr)
 {
     DecideAndMoveToRightDevice(a, b, c);
 
@@ -4538,7 +4538,7 @@ void Matrix<ElemType>::MultiplyAndWeightedAdd(ElemType alpha, const Matrix<ElemT
             else // CPU, DENSE * DENSE -> DENSE (matrix c enforced to be DENSE)
             {
                 c.SwitchToMatrixType(MatrixType::DENSE, matrixFormatDense, false);
-                CPUMatrix<ElemType>::MultiplyAndWeightedAdd(alpha, *a.m_CPUMatrix, transposeA, *b.m_CPUMatrix, transposeB, beta, *c.m_CPUMatrix, pQuantizer);
+                CPUMatrix<ElemType>::MultiplyAndWeightedAdd(alpha, *a.m_CPUMatrix, transposeA, *b.m_CPUMatrix, transposeB, beta, *c.m_CPUMatrix, pQuantizedMultiplier);
                 c.SetDataLocation(CPU, DENSE);
             }
         }

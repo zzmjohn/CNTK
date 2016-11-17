@@ -99,7 +99,7 @@ private:
 };
 
 template <class RawType>
-class QuantizedBlockMultiplier
+class QuantizedMultiplier
 {
 private:
     shared_ptr<QuantizerBase<RawType, short>> m_quantizerA;
@@ -114,14 +114,14 @@ private:
     size_t m_m, m_n, m_k;
 
 public: 
-    QuantizedBlockMultiplier(shared_ptr<QuantizerBase<RawType, short>> quantizerA, bool isAConstant, shared_ptr<QuantizerBase<RawType, short>> quantizerB, bool isBConstant) :
+    QuantizedMultiplier(shared_ptr<QuantizerBase<RawType, short>> quantizerA, bool isAConstant, shared_ptr<QuantizerBase<RawType, short>> quantizerB, bool isBConstant) :
         m_quantizerA(quantizerA), m_quantizerB(quantizerB), m_isAConstant(isAConstant), m_isBConstant(isBConstant), m_quantizedA(nullptr), m_quantizedB(nullptr), m_C(nullptr)
     {
         if (isAConstant && isBConstant)
             LogicError("Quantized multiplication is applied to two constant matrices -- it is highly inefficient. Better approach is to replace the operation with the resulting matrix.");
     };
 
-    ~QuantizedBlockMultiplier()
+    ~QuantizedMultiplier()
     {
         if (m_quantizedA)
             delete[] m_matA;
