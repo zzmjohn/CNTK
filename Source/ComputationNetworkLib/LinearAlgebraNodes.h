@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <utility>
 #include <assert.h>
+#include "Quantizers.h"
 
 namespace Microsoft { namespace MSR { namespace CNTK {
 
@@ -288,7 +289,7 @@ public:
             m_inferInputRankToMap = -1;
     }
 
-private:
+protected:
     // if the left argument of the matrix product (A) has a time axis, it can only be applied sample by sample
     // where each sample is treated as a separate matrix object (as a consequence, it then also applies to B and the result as well)
     TensorView<ElemType> OneSampleTensorFor(int inputIndex/*-1 for output*/, bool gradient/*instead of value*/, const FrameRange& fr)
@@ -304,6 +305,7 @@ private:
         return TensorView<ElemType>(data, tensorShape);
     }
 
+private:
     // Check if TimesNodeBase could be simplified to ElementTimes to avoid unroll when:
     // 1. input0: DENSE, is rank-1 and transposed, or is rank-2 with Dim(0)==1
     // 2. input1: DENSE, is rank-1
@@ -654,6 +656,106 @@ public:
 
 template class TransposeTimesNode<float>;
 template class TransposeTimesNode<double>;
+
+// Quantized matrix product. This scales inputs to 16 bit integers, performs
+// integer multiplication using SSE/AVX2, and transforms the results back.
+// Both matrices must be dense.
+template <class ElemType>
+class QuantizedTimesNode : public TimesNodeBase<ElemType, false>
+{
+    typedef TimesNodeBase<ElemType, false> Base;
+    UsingComputationNodeMembersBoilerplate;
+    static const std::wstring TypeName()
+    {
+        return L"QuantizedTimes";
+    }
+
+private:
+    size_t m_extraBits;
+    shared_ptr<QuantizedBlockMultiplier<ElemType>> m_QuantizedBlockMultiplier;
+
+public:
+    QuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t extraBits = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
+        : Base(deviceId, name, outputRank, inferInputRankToMap), m_extraBits(extraBits)
+    {
+        if (deviceId != CPUDEVICE)
+            LogicError("Quantized operation is supposed to be used on CPU device only.");
+    }
+
+    QuantizedTimesNode(const ScriptableObjects::IConfigRecordPtr configp)
+        : QuantizedTimesNode(configp->Get(L"deviceId"), L"<placeholder>", configp->Get(L"extraBits"), configp->Get(L"outputRank"), configp->Get(L"inferInputRankToMap"))
+    {
+        AttachInputsFromConfig(configp, this->GetExpectedNumInputs());
+    }
+
+    virtual void CopyTo(ComputationNodeBasePtr nodeP, const std::wstring& newName, const CopyNodeFlags flags) const override
+    {
+        Base::CopyTo(nodeP, newName, flags);
+        if (flags & CopyNodeFlags::copyNodeValue)
+        {
+            auto node = dynamic_pointer_cast<QuantizedTimesNode<ElemType>>(nodeP);
+            node->m_extraBits = m_extraBits;
+        }
+    }
+
+    void Save(File& fstream) const
+    {
+        Base::Save(fstream);
+        fstream << m_extraBits;
+    }
+
+    virtual void Load(File& fstream, size_t modelVersion) override
+    {
+        Base::Load(fstream, modelVersion);
+        fstream >> m_extraBits;
+    }
+
+    virtual void /*ComputationNode::*/ ForwardProp(const FrameRange& fr) override
+    {
+        if (!fr.IsOneColumnWrt(InputRef(0).GetMBLayout()))
+        {
+            //// recursively call ourselves for each individual time and sequence
+            auto timeRange = fr.GetTimeRange();
+            auto sequenceRange = fr.GetSequenceRange();
+            for (auto t = timeRange.first; t < timeRange.second; t++)
+                for (auto s = sequenceRange.first; s < sequenceRange.second; s++)
+                    ForwardProp(fr.WithTimeStep(t).Sequence(s));
+            return;
+        }
+
+        shared_ptr<SymmetricQuantizer<ElemType, short>> q1(new SymmetricQuantizer<ElemType, short>(m_extraBits));
+        shared_ptr<SymmetricQuantizer<ElemType, short>> q2(new SymmetricQuantizer<ElemType, short>(m_extraBits));
+        m_QuantizedBlockMultiplier = shared_ptr<QuantizedBlockMultiplier<ElemType>>(new QuantizedBlockMultiplier<ElemType>(q1, true, q2, false));
+
+        // TensorView::DoMatrixProductOf() will reduce each tensor object into a 2D tensor (or fail if it cannot)
+        // and recreate actual Matrix objects (in case of sparse, they must be identical to the original tensor storage object).
+        // Transposition is applied after flattening into 2D, but only allowed if the input sample is 2D anyway.
+        auto input0 = OneSampleTensorFor(0,  /*gradient=*/false, fr.AllowBroadcast());
+        auto input1 = OneSampleTensorFor(1,  /*gradient=*/false, fr.AllowBroadcast());
+        auto output = OneSampleTensorFor(-1, /*gradient=*/false, fr);
+        output.AssignMatrixProductOf(false/*transC*/, input0, false/*transA*/, input1, false/*transB*/, 1.0f, m_QuantizedBlockMultiplier);
+    }
+
+    virtual void /*ComputationNode::*/ BackpropTo(const size_t /*inputIndex*/, const FrameRange& /*fr*/) override
+    {
+        NOT_IMPLEMENTED;
+    }
+
+    virtual void /*ComputationNodeBase::*/ Validate(bool isFinalValidationPass) override
+    {
+        Base::Validate(isFinalValidationPass);
+        // Check if input is learnable parameter
+        // m_reuseA = Input(0)->ValueIsConst();
+    }
+
+    virtual ~QuantizedTimesNode()
+    {
+    }
+
+};
+
+template class QuantizedTimesNode<float>;
+template class QuantizedTimesNode<double>;
 
 // -----------------------------------------------------------------------
 // SumElementsNode (input)
