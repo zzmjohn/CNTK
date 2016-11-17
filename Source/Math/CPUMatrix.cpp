@@ -4624,7 +4624,7 @@ void CPUMatrix<ElemType>::BatchNormalizationBackward(const CPUMatrix<ElemType>& 
 /// <param name="c">Resulting matrix, user is responsible for allocating this</param>
 template <class ElemType>
 void CPUMatrix<ElemType>::MultiplyAndWeightedAdd(ElemType alpha, const CPUMatrix<ElemType>& a, const bool transposeA, const CPUMatrix<ElemType>& b, const bool transposeB,
-    ElemType beta, CPUMatrix<ElemType>& c, shared_ptr<QuantizerBase<ElemType, short>> pQuantizer = nullptr)
+    ElemType beta, CPUMatrix<ElemType>& c, shared_ptr<QuantizedBlockMultiplier<ElemType>> pQuantizer = nullptr)
 {
     if (a.IsEmpty() || b.IsEmpty())
         return;
@@ -4693,10 +4693,7 @@ void CPUMatrix<ElemType>::MultiplyAndWeightedAdd(ElemType alpha, const CPUMatrix
         if (mklTransB == CBLAS_TRANSPOSE::CblasTrans)
             LogicError("Quantized multiplier currently doesn't support transpose.");
 
-        if (sizeof(ElemType) == sizeof(double))
-        {
-            cblas_dgemm((CBLAS_ORDER)(int)MatrixOrder::ColMajor, mklTransA, mklTransB, m, n, k, alpha, reinterpret_cast<double*>(a.Data()), lda, reinterpret_cast<double*>(b.Data()), ldb, beta, reinterpret_cast<double*>(c.Data()), ldc);
-        }
+        pQuantizer->Multiply(m, n, k, a.Data(), b.Data(), c.Data());
     }
 }
 

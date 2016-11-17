@@ -4488,7 +4488,7 @@ void Matrix<ElemType>::SVD(const Matrix<ElemType>& A, Matrix<ElemType>& SIGMA, M
 /// <param name="c">Resulting matrix, user is responsible for allocating this</param>
 template <class ElemType>
 void Matrix<ElemType>::MultiplyAndWeightedAdd(ElemType alpha, const Matrix<ElemType>& a, const bool transposeA, const Matrix<ElemType>& b, const bool transposeB,
-    ElemType beta, Matrix<ElemType>& c, shared_ptr<QuantizerBase<ElemType, short>> pQuantizer = nullptr)
+    ElemType beta, Matrix<ElemType>& c, shared_ptr<QuantizedBlockMultiplier<ElemType>> pQuantizer = nullptr)
 {
     DecideAndMoveToRightDevice(a, b, c);
 

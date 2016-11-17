@@ -697,12 +697,12 @@ private:
     short *m_matA, *m_newA, *m_matB;
     int32_t* m_matC;
     int m_m, m_l, m_k, m_n;
+    shared_ptr<QuantizedBlockMultiplier<ElemType>> m_QuantizedBlockMultiplier;
 
 public:
     QuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t extraBits = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
         : Base(deviceId, name, outputRank, inferInputRankToMap), m_extraBits(extraBits)
     {
-
         if (deviceId != CPUDEVICE)
             LogicError("Quantized operation is supposed to be used on CPU device only.");
         m_firstPass = true;
@@ -749,7 +749,9 @@ public:
             return;
         }
 
-        shared_ptr<SymmetricQuantizer<ElemType, short>> pSq(new SymmetricQuantizer<ElemType, short>(2));
+        shared_ptr<SymmetricQuantizer<ElemType, short>> q1(new SymmetricQuantizer<ElemType, short>(m_extraBits));
+        shared_ptr<SymmetricQuantizer<ElemType, short>> q2(new SymmetricQuantizer<ElemType, short>(m_extraBits));
+        m_QuantizedBlockMultiplier = shared_ptr<QuantizedBlockMultiplier<ElemType>>(new QuantizedBlockMultiplier<ElemType>(q1, true, q2, false));
 
         // TensorView::DoMatrixProductOf() will reduce each tensor object into a 2D tensor (or fail if it cannot)
         // and recreate actual Matrix objects (in case of sparse, they must be identical to the original tensor storage object).
@@ -757,30 +759,32 @@ public:
         auto input0 = OneSampleTensorFor(0,  /*gradient=*/false, fr.AllowBroadcast());
         auto input1 = OneSampleTensorFor(1,  /*gradient=*/false, fr.AllowBroadcast());
         auto output = OneSampleTensorFor(-1, /*gradient=*/false, fr);
-        output.AssignMatrixProductOf(false/*transC*/, input0, false/*transA*/, input1, false/*transB*/, 1.0f, pSq);
+        output.AssignMatrixProductOf(false/*transC*/, input0, false/*transA*/, input1, false/*transB*/, 1.0f, m_QuantizedBlockMultiplier);
 
-        if (m_firstPass)
-        {
-            auto shapeA = input0.GetShape();
-            auto shapeB = input1.GetShape();
-            auto shapeC = output.GetShape();
-           
-            //auto quantizer = SymmetricQuantizer<float, short>(input0.AsMatrix(), m_extraBits);
+        //if (m_firstPass)
+        //{
+        //    auto shapeA = input0.GetShape();
+        //    auto shapeB = input1.GetShape();
+        //    auto shapeC = output.GetShape();
+        //   
+        //    //auto quantizer = SymmetricQuantizer<float, short>(input0.AsMatrix(), m_extraBits);
 
-            m_m = (int)shapeA.GetDim(0);
-            m_k = (int)shapeA.GetDim(1);
-            m_l = (int)shapeB.GetDim(0);
-            m_n = (int)shapeB.GetDim(1);
-            assert(m_k == m_l);
+        //    m_m = (int)shapeA.GetDim(0);
+        //    m_k = (int)shapeA.GetDim(1);
+        //    m_l = (int)shapeB.GetDim(0);
+        //    m_n = (int)shapeB.GetDim(1);
+        //    assert(m_k == m_l);
 
-            m_matA = m_mult.CreateMatrixA(m_m, m_k);
-            m_newA = m_mult.PrepareB(m_matA, m_k, m_m);
-            m_matB = m_mult.CreateMatrixB(m_k, m_n);
-            m_matC = m_mult.CreateMatrixC(m_m, m_n);
-            m_firstPass = false;
-        }
+        //    m_matA = m_mult.CreateMatrixA(m_m, m_k);
+        //    m_newA = m_mult.PrepareB(m_matA, m_k, m_m);
+        //    m_matB = m_mult.CreateMatrixB(m_k, m_n);
+        //    m_matC = m_mult.CreateMatrixC(m_m, m_n);
+        //    m_firstPass = false;
+        //}
 
-        m_mult.MultiplyMatrices(m_matB, m_n, m_k, m_newA, m_m, m_matC, (short)1, (short)0);
+        //m_mult.MultiplyMatrices(m_matB, m_n, m_k, m_newA, m_m, m_matC, (short)1, (short)0);
+
+        /////////////////////////////////
 
         //if (!fr.IsOneColumnWrt(Input(0)->GetMBLayout()))
         //    Base::ForwardProp(fr); // It will come back

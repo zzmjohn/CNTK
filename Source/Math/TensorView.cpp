@@ -357,7 +357,7 @@ shared_ptr<Matrix<ElemType>> TensorView<ElemType>::AsMatrix() const
 }
 
 template <class ElemType>
-void TensorView<ElemType>::DoMatrixProductOf(ElemType beta, bool transC, const TensorView& a, bool transA, const TensorView& b, bool transB, ElemType alpha, shared_ptr<QuantizerBase<ElemType,short>> pQuantizer = nullptr)
+void TensorView<ElemType>::DoMatrixProductOf(ElemType beta, bool transC, const TensorView& a, bool transA, const TensorView& b, bool transB, ElemType alpha, shared_ptr<QuantizedBlockMultiplier<ElemType>> pQuantizer = nullptr)
 {
     // determine integration dimension offset
     auto shapeA = a.m_shape;
