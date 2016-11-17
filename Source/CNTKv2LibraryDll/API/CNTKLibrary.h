@@ -3383,6 +3383,7 @@ namespace CNTK
 
         size_t m_prevMinibatchNumSamples;
         size_t m_totalSamplesSeen;
+        bool m_distributed;
         ValuePtr m_prevMinibatchAggregateTrainingLossValue;
         ValuePtr m_prevMinibatchAggregateEvalCriterionValue;
     };
