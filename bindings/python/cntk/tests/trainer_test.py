@@ -4,6 +4,7 @@
 # for full license information.
 # ==============================================================================
 
+import os
 import math
 import numpy as np
 from .. import Function
@@ -65,6 +66,41 @@ def test_output_to_retain():
 
     assert np.allclose(var_map[z_output], np.asarray(in1_value)+20)
 
+def test_eval_sparse_dense():
+    from cntk import Axis
+    from cntk.io import MinibatchSource, CTFDeserializer, StreamDef, StreamDefs
+    from cntk.device import cpu, gpu, set_default_device
+    from cntk.ops import input_variable, times
+    from scipy.sparse import csr_matrix
+
+    input_vocab_dim = label_vocab_dim = 69
+
+    ctf_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tiny.ctf")
+    mbs = MinibatchSource(CTFDeserializer(ctf_file, StreamDefs(
+        features  = StreamDef(field='S0', shape=input_vocab_dim,  is_sparse=True),
+        labels    = StreamDef(field='S1', shape=label_vocab_dim,  is_sparse=True)
+    )), randomize=False, epoch_size = 1)
+
+    batch_axis = Axis.default_batch_axis()
+    input_seq_axis = Axis('inputAxis')
+    label_seq_axis = Axis('labelAxis')
+
+    input_dynamic_axes = [batch_axis, input_seq_axis]
+    raw_input = input_variable(
+        shape=input_vocab_dim, dynamic_axes=input_dynamic_axes,
+        name='raw_input', is_sparse=True)
+
+    mb_valid = mbs.next_minibatch(minibatch_size_in_samples=1, 
+            input_map={raw_input : mbs.streams.features})
+
+    z = times(raw_input, np.eye(input_vocab_dim))
+    e_reader = z.eval(mb_valid)
+
+    # This is the raw_input encoding in tiny.ctf
+    one_hot = [3, 4, 5, 4, 7, 12, 1]
+    data = csr_matrix(np.eye(input_vocab_dim, dtype=np.float32)[one_hot])
+    e_numpy = z.eval({raw_input: [data]}, device=cntk_device(device_id))
+    assert np.allclose(e_reader, e_numpy)
 
 @pytest.mark.parametrize("batch_index_data", [
      [2,3], 
@@ -73,57 +109,40 @@ def test_output_to_retain():
 def test_eval_sparse_no_seq(batch_index_data, device_id):
     dim = 10
     multiplier = 2
-    in1 = input_variable(shape=(dim,), is_sparse=True)
-    z = times(in1, np.eye(dim).astype(np.float32))
-    z *= multiplier
-    batch = (np.eye(dim)[batch_index_data]).astype(np.float32) 
-    expected = batch * multiplier
-    sparse_val = csr(batch)
-    result = z.eval({in1: sparse_val}, device=cntk_device(device_id))
-    assert np.allclose(result, [expected])
-
-@pytest.mark.parametrize("batch_index_data", [
-     [[2,3], [0,1,6]],
-    ])
-def test_eval_sparse_seq_0(batch_index_data, device_id):
-    if cntk_device(device_id)!=cpu(): # FIXME
-        pytest.skip("sparse is not yet supported on GPU")
-    dim = 10
-    multiplier = 2
-    in1 = input_variable(shape=(dim,), is_sparse=True)
-    z = times(in1, np.eye(dim).astype(np.float32))
-    z *= multiplier
-    batch = [(np.eye(dim)[seq_index_data]).astype(np.float32) for
-            seq_index_data in batch_index_data]
-    expected = batch * multiplier
-    sparse_val = [csr(seq) for seq in batch]
-    result = z.eval({in1: sparse_val}, device=cntk_device(device_id))
-    assert np.all(np.allclose(a,b) \
-            for a,b in zip(result, expected))
+    for var_is_sparse in [True, False]: 
+        in1 = input_variable(shape=(dim,), is_sparse=var_is_sparse)
+        z = times(in1, multiplier*np.eye(dim))
+        batch = np.eye(dim)[batch_index_data]
+        expected = batch * multiplier
+        sparse_val = csr(batch)
+        result = z.eval({in1: sparse_val}, device=cntk_device(device_id))
+        assert np.allclose(result, [expected])
 
 @pytest.mark.parametrize("batch", [
-     #[[csr([0,1,2,0])]],
-     [
-         [csr([0, 2, 0, 7]), csr([10, 20, 0, 0])],
-         [csr([0, 0, 0, 3])]
+    [[csr([0,1,2,0])]],
+    [
+        [csr([0, 2, 0, 7]), csr([10, 20, 0, 0])],
+        [csr([0, 0, 0, 3])]
+    ],
+    # same as before, but sequence being encoded as one matrix
+    [
+        csr([[0, 2, 0, 7], [10, 20, 0, 0]]),
+        csr([0, 0, 0, 3])
     ]
-     ])
+    ])
 def test_eval_sparse_seq_1(batch, device_id):
     if cntk_device(device_id)!=cpu(): # FIXME
         pytest.skip("sparse is not yet supported on GPU")
     dim = 4
     multiplier = 2
-    # FIXME
-    in1 = input_variable(shape=(dim,), is_sparse=True)
-    # in1 = input_variable(shape=(dim,))
-    z = times(in1, multiplier*np.eye(dim))#np.eye(dim).astype(np.float32))
+    for var_is_sparse in [True, False]: 
+        in1 = input_variable(shape=(dim,), is_sparse=var_is_sparse)
+        z = times(in1, multiplier*np.eye(dim))
+        expected = [[m.todense() * multiplier for m in seq] for seq in batch]
+        result = z.eval({in1: batch}, device=cntk_device(device_id))
 
-    expected = [[m.todense() * multiplier for m in seq] for seq in batch]
-
-    result = z.eval({in1: batch}, device=cntk_device(device_id))
-
-    assert np.all(np.allclose(a,b) \
-            for a,b in zip(result, expected))
+        assert np.all(np.allclose(a,b) \
+                for a,b in zip(result, expected))
 
 
 @pytest.mark.parametrize("one_hot_batch", [
@@ -137,29 +156,21 @@ def test_eval_one_hot_seq(one_hot_batch, device_id):
         pytest.skip("sparse is not yet supported on GPU")
     dim = 10
     multiplier = 2
-    # FIXME
-    # in1 = input_variable(shape=(dim,), is_sparse=True)
-    in1 = input_variable(shape=(dim,))
-    # Convert CNTK node value to dense so that we can compare it later
-    z = times(in1, np.eye(dim).astype(np.float32))
-    z *= multiplier
-    # Convert expectation to dense
-    expected = [np.eye(dim)[seq]*multiplier for seq in one_hot_batch]
-    batch = one_hot(one_hot_batch, num_classes=dim, device=cntk_device(device_id))
-    assert np.all(np.allclose(a,b) \
-            for a,b in zip(z.eval({in1: batch}, device=cntk_device(device_id)), expected))
+    for var_is_sparse in [True, False]: # FIXME
+        in1 = input_variable(shape=(dim,), is_sparse=var_is_sparse)
+        # Convert CNTK node value to dense so that we can compare it later
+        z = times(in1, np.eye(dim)*multiplier)
+        # Convert expectation to dense
+        expected = [np.eye(dim)[seq]*multiplier for seq in one_hot_batch]
+        batch = one_hot(one_hot_batch, num_classes=dim, device=cntk_device(device_id))
+        assert np.all(np.allclose(a,b) \
+                for a,b in zip(z.eval({in1: batch}, device=cntk_device(device_id)), expected))
 
 @pytest.mark.parametrize("one_hot_batch, dim", [
     ([[11]], 10),
     ([[0, 1]], 1), 
     ])
-# FIXME
-def _test_eval_one_hot_bad(one_hot_batch, dim, device_id):
-    in1 = input_variable(shape=dim)
-    # Convert CNTK node value to dense so that we can compare it later
-    z = times(in1, np.eye(dim).astype(np.float32))
-    # Convert expectation to dense
-    batch = one_hot(one_hot_batch, num_classes=dim, device=cntk_device(device_id))
+def test_eval_one_hot_bad(one_hot_batch, dim, device_id):
     with pytest.raises(ValueError):
-        z.eval({in1: batch})
+        batch = one_hot(one_hot_batch, num_classes=dim, device=cntk_device(device_id))
 
