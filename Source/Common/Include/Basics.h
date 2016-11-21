@@ -16,6 +16,7 @@
 #include <stdarg.h>
 #ifdef _WIN32
 #include <Windows.h>
+#undef max
 #endif
 #if __unix__
 #include <dlfcn.h> // for Plugin

@@ -254,7 +254,7 @@ class TimesNodeBase : public ComputationNode<ElemType>, public NumInputs<2>
 
 public:
     TimesNodeBase(DEVICEID_TYPE deviceId, const wstring& name, size_t outputRank = 1, int inferInputRankToMap = -1)
-        : Base(deviceId, name), m_outputRank(outputRank), m_inferInputRankToMap(inferInputRankToMap), m_pQuantizedMultiplier(nullptr)
+        : Base(deviceId, name), m_outputRank(outputRank), m_inferInputRankToMap(inferInputRankToMap)
     {
     }
 
@@ -304,8 +304,6 @@ protected:
         auto tensorShape = input->GetOneSampleTensorSliceFor(rank, fr);
         return TensorView<ElemType>(data, tensorShape);
     }
-
-    shared_ptr<QuantizedMultiplier<ElemType>> m_pQuantizedMultiplier;
 
 private:
     // Check if TimesNodeBase could be simplified to ElementTimes to avoid unroll when:
@@ -587,6 +585,9 @@ public:
     size_t OutputRank() const { return m_outputRank; }
     int InferInputRankToMap() const { return m_inferInputRankToMap; }
 
+protected: 
+    shared_ptr<QuantizedMultiplier<ElemType>> m_pQuantizedMultiplier;
+
 private:
     size_t m_outputRank;
     int m_inferInputRankToMap;  // -1 (not specified) or says how to expand shape of W, to keep this many mapping dims
@@ -659,9 +660,16 @@ public:
 template class TransposeTimesNode<float>;
 template class TransposeTimesNode<double>;
 
-// Quantized matrix product. This scales inputs to 16 bit integers, performs
+// Quantized matrix product. This scales inputs to 16bit signed integers by Symmetric quantizers, performs
 // integer multiplication using SSE/AVX2, and transforms the results back.
-// Both matrices must be dense.
+// Only dense untransposed matrix multiplication will be quantized; if at least one matrix is sparse -- it will fall back to un-quantized default evaluation
+// Currently it works for CPU only.
+// One way to include this node to the network is with the Edit command:
+// ...
+// node => if node.name == 'LSTMoutput1.output' then SymmetricQuantizedTimes(node.inputs[0], node.inputs[1], bitShiftA=1, bitShiftB=2) else node,
+// ...
+// bitShift(A|B) - bit shift parameters of quantizers for matrices A and B, see the quantizers for more details.
+// Other parameters - refer to the base multiplication class
 template <class ElemType>
 class SymmetricQuantizedTimesNode : public TimesNodeBase<ElemType, false>
 {
@@ -673,24 +681,25 @@ class SymmetricQuantizedTimesNode : public TimesNodeBase<ElemType, false>
     }
 
 private:
-    // Quantizer bit smoothing for matrices A and B
-    size_t m_bitSmoothingA; 
-    size_t m_bitSmoothingB; 
+    // Quantizer bit shift for matrices A and B
+    size_t m_bitShiftA; 
+    size_t m_bitShiftB; 
 
 public:
-    SymmetricQuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t bitSmoothingA = 1, size_t bitSmoothingB = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
-        : Base(deviceId, name, outputRank, inferInputRankToMap), m_bitSmoothingA(bitSmoothingA), m_bitSmoothingB(bitSmoothingB)
+    SymmetricQuantizedTimesNode(DEVICEID_TYPE deviceId, const wstring& name, size_t bitShiftA = 1, size_t bitShiftB = 1, size_t outputRank = 1, int inferInputRankToMap = -1)
+        : Base(deviceId, name, outputRank, inferInputRankToMap), m_bitShiftA(bitShiftA), m_bitShiftB(bitShiftB)
     {
+        // TODO support multiplication on GPUs as well.
         if (deviceId != CPUDEVICE)
             LogicError("Quantized operation is supposed to be used on CPU device only.");
 
-        shared_ptr<SymmetricQuantizer<ElemType, short>> pQA(new SymmetricQuantizer<ElemType, short>(m_bitSmoothingA));
-        shared_ptr<SymmetricQuantizer<ElemType, short>> qQB(new SymmetricQuantizer<ElemType, short>(m_bitSmoothingB));
+        shared_ptr<SymmetricQuantizer<ElemType, short>> pQA(new SymmetricQuantizer<ElemType, short>(m_bitShiftA));
+        shared_ptr<SymmetricQuantizer<ElemType, short>> qQB(new SymmetricQuantizer<ElemType, short>(m_bitShiftB));
         m_pQuantizedMultiplier = shared_ptr<QuantizedMultiplier<ElemType>>(new QuantizedMultiplier<ElemType>(pQA, qQB));
     }
 
     SymmetricQuantizedTimesNode(const ScriptableObjects::IConfigRecordPtr configp)
-        : SymmetricQuantizedTimesNode(configp->Get(L"deviceId"), L"<placeholder>", configp->Get(L"bitSmoothingA"), configp->Get(L"bitSmoothingB"), configp->Get(L"outputRank"), configp->Get(L"inferInputRankToMap"))
+        : SymmetricQuantizedTimesNode(configp->Get(L"deviceId"), L"<placeholder>", configp->Get(L"bitShiftA"), configp->Get(L"bitShiftB"), configp->Get(L"outputRank"), configp->Get(L"inferInputRankToMap"))
     {
         AttachInputsFromConfig(configp, this->GetExpectedNumInputs());
     }
@@ -705,23 +714,23 @@ public:
         if (flags & CopyNodeFlags::copyNodeValue)
         {
             auto node = dynamic_pointer_cast<SymmetricQuantizedTimesNode<ElemType>>(nodeP);
-            node->m_bitSmoothingA = m_bitSmoothingA;
-            node->m_bitSmoothingB = m_bitSmoothingB;
+            node->m_bitShiftA = m_bitShiftA;
+            node->m_bitShiftB = m_bitShiftB;
         }
     }
 
     void Save(File& fstream) const
     {
         Base::Save(fstream);
-        fstream << m_bitSmoothingA;
-        fstream << m_bitSmoothingB;
+        fstream << m_bitShiftA;
+        fstream << m_bitShiftB;
     }
 
     virtual void Load(File& fstream, size_t modelVersion) override
     {
         Base::Load(fstream, modelVersion);
-        fstream >> m_bitSmoothingA;
-        fstream >> m_bitSmoothingB;
+        fstream >> m_bitShiftA;
+        fstream >> m_bitShiftB;
     }
 
     virtual void /*ComputationNode::*/ ForwardProp(const FrameRange& fr) override

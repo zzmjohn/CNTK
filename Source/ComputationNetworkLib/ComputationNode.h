@@ -531,7 +531,7 @@ public:
             return L" x " + axisName;
     }
 
-public: // ...the following should be protected, but nodes inquire about their children, requiring public access
+protected: public: // ...the following should be protected, but nodes inquire about their children, requiring public access
 
     size_t GetNumParallelSequences() const
     {
