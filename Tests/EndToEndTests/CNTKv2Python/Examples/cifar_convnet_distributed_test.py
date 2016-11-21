@@ -22,9 +22,6 @@ from ConvNet_CIFAR10_DataAug_Distributed import convnet_cifar10_dataaug, create_
 TOLERANCE_ABSOLUTE = 2E-1
 
 def test_cifar_convnet_error(device_id):
-    if platform.system() == 'Windows':
-        pytest.skip('test skipped on Windows')
-
     set_default_device(cntk_device(device_id))
 
     try:
