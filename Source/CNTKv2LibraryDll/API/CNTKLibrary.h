@@ -419,6 +419,7 @@ namespace CNTK
             : NDArrayView(dataType, viewShape, const_cast<void*>(dataBuffer), bufferSizeInBytes, device, /*readOnly =*/ true)
         {}
 
+#ifndef SWIGCSHARP
         ///
         /// Construct a NDArrayView with newly allocated sparse storage in SparseCSC format on the specified 'device' and initialize its contents
         // with the specified Sparse CSC format data.
@@ -516,6 +517,7 @@ namespace CNTK
             m_isReadOnly = readOnly;
         }
 
+#endif
         ///
         /// Destruct 'this' NDArrayView object
         ///
@@ -1590,7 +1592,9 @@ namespace CNTK
     {
         friend bool operator==(const Variable& first, const Variable& second);
         friend class Function;
+#ifndef SWIGCSHARP
         friend class CompositeFunction;
+
         friend class Trainer;
         friend class PrimitiveFunction;
 
@@ -1602,6 +1606,7 @@ namespace CNTK
                                               std::unordered_map<Microsoft::MSR::CNTK::ComputationNodeBasePtr, Variable>& nodeToVariableMap,
                                               std::unordered_map<Variable, Variable>& placeholderReplacements,
                                               std::unordered_set<FunctionPtr>& allPrimitiveFunctions);
+#endif
 
 #ifndef SWIG
     private:
@@ -1826,6 +1831,8 @@ private:
         return !(first == second);
     }
 
+#ifndef SWIGCSHARP
+
     ///
     /// Create a Placeholder variable to be used as a temporary/placeholder input to a Function.
     /// All placeholder inputs of a Function must be replaced with non-placeholder Variables before Forward evaluation of the Function.
@@ -1853,7 +1860,7 @@ private:
     {
         return PlaceholderVariable(NDShape::Unknown, name, Axis::UnknownDynamicAxes());
     }
-
+#endif
     ///
     /// Create an 'Input' Variable denoting sparse data and specify if gradients are to be computed for this input
     ///
@@ -1941,6 +1948,8 @@ private:
     CNTK_API ParameterInitializer HeNormalInitializer(int outputRank = SentinelValueForInferParamInitRank, int filterRank = SentinelValueForInferParamInitRank, double scale = DefaultParamInitScale, unsigned long seed = SentinelValueForAutoSelectRandomSeed);
     CNTK_API ParameterInitializer BilinearInitializer(size_t kernelWidth, size_t kernelHeight);
     CNTK_API ParameterInitializer RandomInitializerWithRank(const ParameterInitializer& initializer, int outputRank, int filterRank);
+
+#ifndef SWIGCSHARP
 
     ///
     /// Denotes Parameter inputs of a Function.
@@ -2121,7 +2130,10 @@ private:
     // This check is weak in that the derives types may sneak in some additional fields if the base type had some padding at the end, without changing the object size
     // but it should be good enough for catching any accidental addiiton of fields.
     static_assert(sizeof(Constant) == sizeof(Variable), "The Constant type should not have any data fields beyond what its base type 'Variable' has.");
+#endif
 }
+
+#ifndef SWIGCSHARP
 
 namespace std {
     
@@ -2159,6 +2171,7 @@ namespace std {
     };
 }
 
+#endif
 namespace CNTK
 {
     ///
@@ -2216,8 +2229,11 @@ namespace CNTK
     ///
     class Function : public std::enable_shared_from_this<Function>, public IDictionarySerializable
     {
+#ifndef SWIGCSHARP
+
         friend class CompositeFunction;
         friend class Trainer;
+#endif
 
     public:
         ///
@@ -2239,6 +2255,8 @@ namespace CNTK
                                          const DeviceDescriptor& computeDevice = DeviceDescriptor::UseDefaultDevice(),
                                          const std::unordered_set<Variable>& outputsToRetainBackwardStateFor = {}) = 0;
 
+#ifndef SWIGCSHARP
+
         ///
         /// Backpropagates supplied 'rootGradientValues' for one or more of the output variables of the Function, to produce gradient Values
         /// corresponding to the specified set of input variables in 'backPropagatedGradientValuesForInputs'.
@@ -2248,9 +2266,10 @@ namespace CNTK
         /// The 'state' parameter is an instance of an BackPropState instance obtained from a previous call to the Forward method on 'this; Function for the 
         /// computation that this gradient backpropagation corresponds to.
         ///
-        virtual void Backward(const BackPropStatePtr& state,
+        virtual void Backward(const std::wstring& state,
                               const std::unordered_map<Variable, ValuePtr>& rootGradientValues,
                               std::unordered_map<Variable, ValuePtr>& backPropagatedGradientValuesForInputs) = 0;
+#endif 
 
         ///
         /// Returns the name of the operation that this Function denotes
@@ -2272,6 +2291,8 @@ namespace CNTK
         ///
         CNTK_API FunctionPtr Clone(ParameterCloningMethod parameterCloneMethod = ParameterCloningMethod::Clone, const std::unordered_map<Variable, Variable>& replacements = {}) const;
 
+#ifndef SWIGCSHARP
+
         ///
         /// Generates a dictionary that captures the state of the Function graph underlying this Function.
         ///
@@ -2284,6 +2305,7 @@ namespace CNTK
         ///
         CNTK_API static FunctionPtr Deserialize(const Dictionary& dictionary, const ::CNTK::DeviceDescriptor& device = DeviceDescriptor::UseDefaultDevice());
 
+#endif 
     public:
         ///
         /// Returns the name of 'this' function.
@@ -2338,6 +2360,8 @@ namespace CNTK
             });
         }
 
+#ifndef SWIGCSHARP
+
         ///
         /// Returns the set of all Parameter variables of 'this' Function.
         ///
@@ -2384,6 +2408,7 @@ namespace CNTK
         ///
         CNTK_API FunctionPtr ReplacePlaceholder(const Variable& placeholderReplacement);
 
+#endif
         ///
         /// Save this function graph into a model file
         ///
@@ -2468,6 +2493,7 @@ namespace CNTK
         Dictionary m_attributes;
     };
 
+#ifndef SWIGCSHARP // Not needed for SWIG C# Eval Binding
     ///
     /// Create an instance of the CNTK built-in elementwise negate operation with the specified input operand.
     ///
@@ -3401,7 +3427,11 @@ namespace CNTK
                 (left.m_elementType == right.m_elementType) &&
                 (left.m_sampleLayout == right.m_sampleLayout));
     }
+
+#endif // SWIGCSHARP
 }
+
+#ifndef SWIGCSHARP // Not need for SWIG C# Eval Binding
 
 namespace std {
     template <> struct hash<::CNTK::StreamInformation>
@@ -3738,3 +3768,5 @@ namespace std
         }
     };
 }
+
+#endif // SWIGCSHARP
