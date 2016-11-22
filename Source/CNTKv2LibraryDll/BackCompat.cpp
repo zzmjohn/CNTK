@@ -66,7 +66,10 @@ namespace CNTK
                             m_placeholderReplacements[inputVars[i]] = Variable();
                     }
 
-                    var = ResolveFunction<ElementType>(placeholderVar, inputVars, node);
+                    var = ResolveFunction<ElementType>(node, inputVars);
+
+                    if (m_placeholderReplacements.find(placeholderVar) != m_placeholderReplacements.end())
+                        m_placeholderReplacements[placeholderVar] = var;
                 }
 
                 m_nodeToVariableMap[node] = var;
@@ -113,10 +116,7 @@ namespace CNTK
             }
 
             template<class ElementType>
-            Variable ResolveFunction(
-                const Variable& placeholderVar,
-                std::vector<Variable>& inputVars,
-                const ComputationNodeBasePtr& node)
+            Variable ResolveFunction(const ComputationNodeBasePtr& node, std::vector<Variable>& inputVars)
             {
                 PrimitiveOpType opType;
                 Dictionary primitiveFunctionConfigParameters;
@@ -399,11 +399,7 @@ namespace CNTK
 
                 FunctionPtr primitiveFunction = MakeSharedObject<PrimitiveFunction>(opType, inputVars, std::move(primitiveFunctionConfigParameters), functionName, functionUid);
                 m_allPrimitiveFunctions.insert(primitiveFunction);
-                auto var = primitiveFunction->Output();
-                if (m_placeholderReplacements.find(placeholderVar) != m_placeholderReplacements.end())
-                    m_placeholderReplacements[placeholderVar] = var;
-
-                return var;
+                return primitiveFunction->Output();
             }
         };
 
