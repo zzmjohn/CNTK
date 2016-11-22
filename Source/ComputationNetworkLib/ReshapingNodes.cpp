@@ -785,7 +785,7 @@ void CropNode<ElemType>::ComputeCropOffsets()
             break;
         }
         // No connected path, keep searching.
-        ProcessInputs(currNode, traversalStack, nodeToCropInput0TransformMap);
+        ProcessInputs(currNode, traversalStack, nodeToCropInput1TransformMap);
     }
     if (xOffset == numeric_limits<double>::max() || yOffset == numeric_limits<double>::max())
         LogicError("Connected path between crop inputs not found. Unable to compute crop offsets.");
@@ -800,6 +800,7 @@ void CropNode<ElemType>::ComputeTransforms()
 {
     if (m_transforms[0].m_axisTransforms.empty())
     {
+        m_transforms[0].m_axisTransforms.resize(2);
         m_transforms[0].m_axisTransforms[0].scale = 1;
         m_transforms[0].m_axisTransforms[0].translate = -m_xOffset;
         m_transforms[0].m_axisTransforms[1].scale = 1;
