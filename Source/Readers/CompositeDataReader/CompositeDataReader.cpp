@@ -34,14 +34,11 @@ CompositeDataReader::CompositeDataReader(const ConfigParameters& config) :
     wstring action = config(L"action", L"");
     bool isActionWrite = AreEqualIgnoreCase(action, L"write");
 
-    bool useNumericSequenceKeys = false;
-    if (config.Exists(L"useNumericSequenceKeys"))
-        useNumericSequenceKeys = config(L"useNumericSequenceKeys");
-    else
-    {
-        if (HasCNTKFormatDeserializer(config))
-            useNumericSequenceKeys = true;
-    }
+    // We currently by default using numeric keys for ctf and image deserializers.
+    bool useNumericSequenceKeys = ContainsDeserializer(config, L"CNTKTextFormatDeserializer") ||
+        ContainsDeserializer(config, L"ImageDeserializer");
+
+    useNumericSequenceKeys = config(L"useNumericSequenceKeys", useNumericSequenceKeys);
     m_corpus = std::make_shared<CorpusDescriptor>(useNumericSequenceKeys);
 
     // Identifying packing mode.
@@ -164,21 +161,6 @@ CompositeDataReader::CompositeDataReader(const ConfigParameters& config) :
     default:
         LogicError("Unsupported type of packer '%d'.", (int)m_packingMode);
     }
-}
-
-bool CompositeDataReader::HasCNTKFormatDeserializer(const ConfigParameters& readerConfig)
-{
-    argvector<ConfigValue> deserializerConfigs =
-            readerConfig(L"deserializers", ConfigParameters::Array(argvector<ConfigValue>(vector<ConfigValue> {})));
-
-    for (size_t i = 0; i < deserializerConfigs.size(); ++i)
-    {
-        ConfigParameters p = deserializerConfigs[i];
-        std::wstring deserializerType = p("type");
-        if (deserializerType == L"CNTKTextFormatDeserializer")
-            return true;
-    }
-    return false;
 }
 
 std::vector<StreamDescriptionPtr> CompositeDataReader::GetStreamDescriptions()
