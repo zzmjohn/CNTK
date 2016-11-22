@@ -7,20 +7,24 @@
 import numpy as np
 import os
 import sys
+import signal
+import subprocess
+import re
+import pytest
 from cntk.utils import cntk_device
 from cntk.cntk_py import DeviceKind_GPU
 from cntk.device import set_default_device
-import pytest
-import platform
-import subprocess
 
 abs_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(abs_path)
 from run_cifar_convnet_distributed import run_cifar_convnet_distributed
 
 TOLERANCE_ABSOLUTE = 2E-1
-
+TIMEOUT_SECONDS = 900
+'''
 def test_cifar_convnet_error(device_id):
+    if cntk_device(device_id).type() != DeviceKind_GPU:
+        pytest.skip('test only runs on GPU')
     set_default_device(cntk_device(device_id))
 
     test_error = run_cifar_convnet_distributed()
@@ -28,6 +32,24 @@ def test_cifar_convnet_error(device_id):
 
     assert np.allclose(test_error, expected_test_error,
                        atol=TOLERANCE_ABSOLUTE)
+'''
 
 def test_cifar_convnet_distributed_mpiexec(device_id):
-    subprocess.call("mpiexec -n 2 python run_cifar_convnet_distributed.py", stderr=subprocess.STDOUT, shell=True)
+    if cntk_device(device_id).type() != DeviceKind_GPU:
+        pytest.skip('test only runs on GPU')
+    set_default_device(cntk_device(device_id))
+
+    cmd = "mpiexec -n 2 python " + os.path.join(abs_path, "run_cifar_convnet_distributed.py")
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    try:
+        out = p.communicate(timeout=TIMEOUT_SECONDS)[0]  # in case we have a hung
+    except subprocess.TimeoutExpired:
+        os.kill(p.pid, signal.CTRL_C_EVENT)
+        raise RuntimeError('Timeout in mpiexec, possibly hung')
+    str_out = out.decode(sys.getdefaultencoding())
+    results = re.findall("Final Results: Minibatch\[1-626\]: errs = (.*)%", str_out)
+    assert len(results) == 2
+    assert results[0] == results[1]
+    expected_test_error = 0.617
+    assert np.allclose(float(results[0])/100, expected_test_error,
+                       atol=TOLERANCE_ABSOLUTE)

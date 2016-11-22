@@ -48,3 +48,4 @@ def run_cifar_convnet_distributed():
 
 if __name__=='__main__':
     run_cifar_convnet_distributed()
+    distributed.Communicator.finalize()
