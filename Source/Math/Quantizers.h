@@ -19,6 +19,7 @@ public:
     }
     virtual void Quantize(const ArrayRef<RawType>& input, ArrayRef<QuantizedType>& output) = 0;
     virtual void Dequantize(const ArrayRef<RawType>& input, ArrayRef<RawType>& output) = 0;
+    virtual void Dequantize(const RawType* input, RawType* output, size_t size) = 0;
 
 
 protected:
@@ -35,7 +36,6 @@ class SymmetricQuantizer : public QuantizerBase<RawType, QuantizedType>
 {
     RawType m_quantizeFactor;
     RawType m_inverseQuantizerFactor;
-    RawType m_absMax;
 
     // Decreases the quantization normalizer to prevent integer overflow during BLAS routines.
     // Higher bitShift will decrease precision of quantization, but will make BLAS routines less prone to overflow.
@@ -52,16 +52,27 @@ public:
     virtual void Quantize(const ArrayRef<RawType>& input, ArrayRef<QuantizedType>& output)
     {
         if (input.size() == 0) return;
-
-        Initialize(FindAbsMax(input));
         assert(input.size() == output.size());
+
+        RawType absoluteMax = FindAbsMax(input);
+
+        RawType shiftedMax = absoluteMax * (1 << m_bitShift);
+        if (shiftedMax == 0)
+        {
+            // Whole input collection is 0's
+            // Turn output collection to 0's as well
+            m_quantizeFactor = 0;
+            m_inverseQuantizerFactor = 0;
+        }
+        else
+        {
+            m_quantizeFactor = this->rangeMax / shiftedMax;
+            m_inverseQuantizerFactor = 1 / m_quantizeFactor;
+        }
 
         for (size_t i = 0; i < input.size(); i++)
         {
-#ifdef _DEBUG
-            assert(abs(input[i]) <= m_absMax);
-#endif
-            output[i] = (QuantizedType) round(input[i] * m_quantizeFactor);
+            output[i] = (QuantizedType)round(input[i] * m_quantizeFactor);
         }
     }
 
@@ -70,7 +81,13 @@ public:
     {
         assert(input.size() == output.size());
 
-        for (size_t i = 0; i < input.size(); i++)
+        Dequantize(input.data(), output.data(), input.size());
+    }
+
+    // Accept quantized collection as input, put de-quantization result into pre-allocated output collection.
+    virtual void Dequantize(const RawType* input, RawType* output, size_t size)
+    {
+        for (size_t i = 0; i < size; i++)
         {
             output[i] = input[i] * m_inverseQuantizerFactor;
         }
@@ -87,14 +104,7 @@ private:
 
     void Initialize(RawType absoluteMax)
     {
-        RawType shiftedMax = absoluteMax * (1 << m_bitShift);
-        if (shiftedMax == 0)
-        {
-            LogicError("The absolute max element in the sequence to be quantized is 0.");
-        }
-        m_absMax = absoluteMax;
-        m_quantizeFactor = this->rangeMax / shiftedMax;
-        m_inverseQuantizerFactor = 1 / m_quantizeFactor;
+        
     }
 };
 

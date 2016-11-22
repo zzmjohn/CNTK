@@ -4624,7 +4624,7 @@ void CPUMatrix<ElemType>::BatchNormalizationBackward(const CPUMatrix<ElemType>& 
 /// <param name="c">Resulting matrix, user is responsible for allocating this</param>
 template <class ElemType>
 void CPUMatrix<ElemType>::MultiplyAndWeightedAdd(ElemType alpha, const CPUMatrix<ElemType>& a, const bool transposeA, const CPUMatrix<ElemType>& b, const bool transposeB,
-    ElemType beta, CPUMatrix<ElemType>& c, shared_ptr<QuantizedMultiplier<ElemType>> pQuantizedMultiplier = nullptr)
+                                                 ElemType beta, CPUMatrix<ElemType>& c, shared_ptr<QuantizedMultiplier<ElemType>> pQuantizedMultiplier = nullptr)
 {
     if (a.IsEmpty() || b.IsEmpty())
         return;

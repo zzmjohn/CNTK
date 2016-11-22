@@ -613,7 +613,9 @@ public:
     // TODO: Move assignment operator
     ArrayRef& operator=(ArrayRef&& rhs) = delete;
 
-    size_t size() const { return count; }
+    size_t size()  const { return count; }
+    void setSize(size_t size) { count = size; }
+
     T* data() const { return elements; }
 
     T operator[](size_t i) const

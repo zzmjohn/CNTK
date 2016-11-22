@@ -745,6 +745,7 @@ public:
 
     virtual void /*ComputationNode::*/ BackpropTo(const size_t /*inputIndex*/, const FrameRange& /*fr*/) override
     {
+        // This operation is intended only for inference
         NOT_IMPLEMENTED;
     }
 };
