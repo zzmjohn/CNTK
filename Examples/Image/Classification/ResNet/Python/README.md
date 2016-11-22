@@ -25,3 +25,7 @@ Simple aggregation, resnet20, with a 2-GPU machine:
 Quantized 1-bit aggregation with 50000 samples before distributed, resnet 20, with a 2-GPU machine:
 
 `mpiexec -n 2 python TrainResNet_CIFAR10_Distributed.py -n resnet20 -q 1 -a 50000`
+
+To run with maximum parallelization with minibatch size scaled according to #workers for 3 epochs:
+
+`mpiexec -n 2 python TrainResNet_CIFAR10_Distributed.py -s True -e 3`

@@ -80,7 +80,7 @@ def train_and_evaluate(reader_train, reader_test, network_name, max_epochs, dist
     epoch_size = 50000                    # for now we manually specify epoch size
     
     # NOTE: scale up minibatch_size may require a different set of hyper parameters
-    minibatch_size = 128 * (len(distributed_trainer.communicator().num_workers()) if scale_up else 1)
+    minibatch_size = 128 * (len(distributed_trainer.communicator().workers()) if scale_up else 1)
     
     momentum_time_constant = -minibatch_size/np.log(0.9)
     l2_reg_weight = 0.0001
