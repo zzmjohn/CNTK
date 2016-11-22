@@ -7,10 +7,10 @@
 import numpy as np
 import os
 import sys
+import platform
 from cntk.io import ReaderConfig, ImageDeserializer
 from cntk import distributed
-import pytest
-import platform
+from cntk.device import set_default_device, gpu
 
 abs_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(abs_path, "..", "..", "..", "..", "Examples", "Image", "Classification", "ConvNet", "Python"))
@@ -47,5 +47,6 @@ def run_cifar_convnet_distributed():
     return convnet_cifar10_dataaug(reader_train, reader_test, distributed_trainer, max_epochs=1)
 
 if __name__=='__main__':
+    set_default_device(gpu(0)) # force using GPU-0 in test for speed
     run_cifar_convnet_distributed()
     distributed.Communicator.finalize()

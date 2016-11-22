@@ -20,7 +20,7 @@ sys.path.append(abs_path)
 from run_cifar_convnet_distributed import run_cifar_convnet_distributed
 
 TOLERANCE_ABSOLUTE = 2E-1
-TIMEOUT_SECONDS = 900
+TIMEOUT_SECONDS = 300
 '''
 def test_cifar_convnet_error(device_id):
     if cntk_device(device_id).type() != DeviceKind_GPU:
@@ -37,7 +37,6 @@ def test_cifar_convnet_error(device_id):
 def test_cifar_convnet_distributed_mpiexec(device_id):
     if cntk_device(device_id).type() != DeviceKind_GPU:
         pytest.skip('test only runs on GPU')
-    set_default_device(cntk_device(device_id))
 
     cmd = "mpiexec -n 2 python " + os.path.join(abs_path, "run_cifar_convnet_distributed.py")
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
